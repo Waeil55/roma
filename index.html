@@ -3,58 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IREAD-3 Total Mastery</title>
+    <title>IREAD-3 Mastery Portal</title>
     <style>
-        :root { --p: #2c3e50; --s: #3498db; --bg: #f4f7f6; --correct: #27ae60; --wrong: #e74c3c; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --border: #e2e8f0;
+            --passage-bg: #fffef2;
+            --passage-border: #fef3c7;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        h1 { font-size: 2.5rem; color: var(--primary); margin: 0; letter-spacing: -0.5px; }
         
-        /* Larger Font Sizes */
-        h1 { font-size: 2.5em; text-align: center; border-bottom: 4px solid var(--s); padding-bottom: 15px; }
-        h2 { font-size: 2em; color: var(--p); }
-        p { font-size: 1.4em; line-height: 1.5; }
-        
-        .passage { background: #fffbe6; padding: 25px; border-left: 8px solid #f1c40f; margin: 20px 0; border-radius: 6px; font-size: 1.3em; line-height: 1.6; white-space: pre-wrap; }
-        .q-card { background: #fafafa; border: 2px solid #ddd; padding: 25px; margin: 20px 0; border-radius: 12px; }
-        .q-text { font-size: 1.4em; font-weight: bold; margin-bottom: 15px; }
-        
-        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        button.opt { padding: 18px; border: 3px solid #ddd; border-radius: 10px; cursor: pointer; background: white; text-align: left; transition: 0.2s; font-size: 1.2em; font-weight: bold; }
-        button.opt:hover { border-color: var(--s); background: #f0f7ff; }
-        
-        /* Feedback Colors */
-        button.opt.correct { background: var(--correct) !important; color: white !important; border-color: var(--correct) !important; }
-        button.opt.wrong { background: var(--wrong) !important; color: white !important; border-color: var(--wrong) !important; }
-        
-        .nav { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
-        .btn { padding: 15px 35px; border: none; border-radius: 8px; cursor: pointer; background: var(--p); color: white; font-weight: bold; font-size: 1.3em; }
-        #feedback { text-align: center; font-weight: bold; margin: 15px 0; min-height: 1.5em; font-size: 1.6em; }
-        u { text-decoration: underline; font-weight: 800; }
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: #f1f5f9;
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-name { font-size: 1.8rem; font-weight: 800; color: #1e293b; margin-bottom: 8px; }
+        .instr-box { font-size: 1.2rem; color: var(--text-sub); margin-bottom: 30px; border-left: 5px solid var(--primary); padding-left: 15px; background: #fafafa; padding-top: 10px; padding-bottom: 10px; }
+
+        .passage-box {
+            background: var(--passage-bg);
+            border: 2px solid var(--passage-border);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            font-size: 1.4rem;
+            line-height: 1.7;
+            color: #451a03;
+        }
+
+        .q-card {
+            background: #ffffff;
+            border: 2px solid var(--border);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .q-text { font-size: 1.5rem; font-weight: 600; margin-bottom: 25px; line-height: 1.4; }
+        .q-text u { color: var(--primary); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        button.opt {
+            background: #ffffff;
+            border: 2px solid var(--border);
+            color: var(--text-main);
+            padding: 22px;
+            font-size: 1.3rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        button.opt:hover:not(.locked) { border-color: var(--primary); background: #f0f7ff; transform: translateY(-2px); }
+
+        button.opt.correct { background: var(--success) !important; color: white !important; border-color: var(--success); }
+        button.opt.wrong { background: var(--danger) !important; color: white !important; border-color: var(--danger); }
+        button.opt.locked { cursor: default; }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            border-top: 2px solid var(--border);
+            padding-top: 30px;
+        }
+
+        .btn-action {
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-prev { background: #e2e8f0; color: #475569; }
+        .btn-next { background: var(--primary); color: white; box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39); }
+        .btn-prev:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        #alert-notif {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 18px 45px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 800;
+            display: none;
+            font-size: 1.4rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .summary-card { text-align: center; padding: 40px; }
+        .summary-score { font-size: 4rem; font-weight: 900; color: var(--primary); margin: 20px 0; }
     </style>
 </head>
 <body>
 
+<div id="alert-notif"></div>
+
 <div class="container">
-    <div class="header">
-        <h1 id="page-title">IREAD-3 Mastery App</h1>
-        <p id="progress" style="text-align:center; font-weight:bold;">Section 1 of 11</p>
-    </div>
-    <div id="feedback"></div>
-    <div id="app-body"></div>
-    <div class="nav">
-        <button class="btn" onclick="move(-1)" id="prevBtn">Previous Page</button>
-        <button class="btn" onclick="move(1)" id="nextBtn">Next Page</button>
+    <header>
+        <h1>IREAD-3 Mastery Portal</h1>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+    </header>
+
+    <div id="quiz-engine"></div>
+
+    <div class="nav-controls" id="nav-footer">
+        <button class="btn-action btn-prev" id="btn-back" onclick="changeSection(-1)">Previous</button>
+        <button class="btn-action btn-next" id="btn-forward" onclick="changeSection(1)">Next Section</button>
     </div>
 </div>
 
 <script>
-const examData = [
+const quizBank = [
     {
-        title: "Page 1: Antonyms",
-        instr: "Choose the word that means the opposite of the underlined word[cite: 3].",
-        qs: [
-            { q: "1. a <u>problem</u>", opts: ["sentence", "math", "solution", "worry"], c: 2 },
-            { q: "2. was <u>loose</u>", opts: ["tight", "large", "win", "big"], c: 0 },
+        name: "Page 1: Antonyms",
+        instr: "Choose the word that means the opposite of the underlined word.",
+        questions: [
+            { q: "1. a <u>problem</u>", opts: ["solution", "worry", "math", "sentence"], c: 0 },
+            { q: "2. was <u>loose</u>", opts: ["tight", "large", "big", "win"], c: 0 },
             { q: "3. a <u>question</u>", opts: ["word", "poem", "answer", "talk"], c: 2 },
             { q: "4. was <u>fact</u>", opts: ["true", "real", "fiction", "scary"], c: 2 },
             { q: "5. was <u>straight</u>", opts: ["bent", "tall", "narrow", "long"], c: 0 },
@@ -64,13 +194,13 @@ const examData = [
         ]
     },
     {
-        title: "Page 2: Homographs",
-        instr: "Read the sentences vertically. Choose the word that completes BOTH[cite: 61].",
-        qs: [
+        name: "Page 2: Homographs",
+        instr: "Read the sentences vertically. Choose the word that completes BOTH sentences correctly.",
+        questions: [
             { q: "1. She counted all the ___ in her purse.<br>2. He will ___ clothes before practice.", opts: ["coins", "change", "buy", "money"], c: 1 },
             { q: "1. I will ___ a movie before bed.<br>2. Use your ___ to tell the time.", opts: ["watch", "clock", "see", "rent"], c: 0 },
             { q: "1. If it gets too hot, turn on the ___.<br>2. I am a big ___ of the basketball team.", opts: ["fan", "air", "player", "water"], c: 0 },
-            { q: "1. Don't forget to ___ your bag.<br>2. Buy a ___ of gum at the store.", opts: ["bring", "stick", "use", "pack"], c: 3 },
+            { q: "1. Don't forget to ___ your bag.<br>2. Buy a ___ of gum at the store.", opts: ["stick", "pack", "bring", "use"], c: 1 },
             { q: "1. She ___ school every day at 3:00.<br>2. In the fall, you should rake the ___.", opts: ["grass", "leaves", "visits", "flowers"], c: 1 },
             { q: "1. We took a ___ to the fair.<br>2. You can ___ your dog to do tricks.", opts: ["car", "teach", "train", "bus"], c: 2 },
             { q: "1. In science class, we learned about ___.<br>2. Floss the ___ between your teeth.", opts: ["plants", "letter", "water", "space"], c: 3 },
@@ -78,9 +208,9 @@ const examData = [
         ]
     },
     {
-        title: "Page 3: Prefixes",
-        instr: "Find the word where ONLY the prefix is underlined, or match the definition[cite: 142, 164].",
-        qs: [
+        name: "Page 3: Prefixes",
+        instr: "Find the word with ONLY the prefix underlined, or match the definition.",
+        questions: [
             { q: "1. Prefix underlined correctly:", opts: ["<u>un</u>fair", "<u>dis</u>appear", "safely", "<u>mis</u>place"], c: 0 },
             { q: "2. Definition: tie again", opts: ["retie", "untie", "distie", "mistie"], c: 0 },
             { q: "3. Definition: spell wrong", opts: ["unspell", "misspell", "prespell", "disspell"], c: 1 },
@@ -89,9 +219,9 @@ const examData = [
         ]
     },
     {
-        title: "Page 4: Suffixes",
-        instr: "Find the word where ONLY the suffix is underlined, or match the definition[cite: 200, 228].",
-        qs: [
+        name: "Page 4: Suffixes",
+        instr: "Find the word with ONLY the suffix underlined, or match the definition.",
+        questions: [
             { q: "1. Suffix underlined correctly:", opts: ["friend<u>ly</u>", "worth<u>less</u>", "undo", "replay"], c: 1 },
             { q: "2. Definition: without a home", opts: ["homeness", "homeful", "homeless", "homely"], c: 2 },
             { q: "3. Definition: full of color", opts: ["colorly", "colorful", "colorness", "colorless"], c: 1 },
@@ -100,61 +230,62 @@ const examData = [
         ]
     },
     {
-        title: "Page 5-6: Phonics & Story",
-        instr: "Choose based on teacher directions or story context[cite: 343, 395].",
-        qs: [
-            { q: "1. chart (same middle sound):", opts: ["past", "brain", "tray", "farm"], c: 3 },
-            { q: "2. feet (same middle sound):", opts: ["met", "them", "treat", "there"], c: 2 },
-            { q: "3. fast (synonym):", opts: ["slow", "race", "quick", "run"], c: 2 },
-            { q: "4. outside (antonym):", opts: ["under", "playing", "next", "inside"], c: 3 },
+        name: "Page 5-6: Phonics & Meaning",
+        instr: "Listen for sounds or complete the meaning of the story.",
+        questions: [
+            { q: "1. chart (same middle sound as):", opts: ["past", "brain", "tray", "farm"], c: 3 },
+            { q: "2. feet (same middle sound as):", opts: ["met", "them", "treat", "there"], c: 2 },
+            { q: "3. was fast (synonym):", opts: ["slow", "race", "quick", "run"], c: 2 },
+            { q: "4. was outside (antonym):", opts: ["under", "playing", "next", "inside"], c: 3 },
             { q: "5. Study for the math (12) tomorrow:", opts: ["book", "test", "paper", "homework"], c: 1 },
             { q: "6. Don't get questions (13):", opts: ["right", "answers", "wrong", "grade"], c: 2 }
         ]
     },
     {
-        title: "Page 7-8: Penguins",
-        passage: "Penguins cannot fly. A penguin body is too heavy. Wings are small, flat, and stiff flippers used to swim swiftly[cite: 422, 426].",
-        qs: [
-            { q: "1. NOT how they move?", opts: ["waddle", "slide", "nest of pebbles", "webbed feet"], c: 2 },
-            { q: "2. 'Swiftly' means:", opts: ["carefully", "quickly", "slowly", "safely"], c: 1 },
-            { q: "3. 'Krill' means:", opts: ["eggs", "fish", "shrimplike animals", "babies"], c: 2 },
-            { q: "4. Why can't they fly?", opts: ["No wings", "Weigh too much", "Rather swim", "Too tall"], c: 1 }
+        name: "Page 7-8: Penguins",
+        text: "Penguins cannot fly. A penguin body is too heavy. Its wings are small, flat, and stiff flippers to help them swim swiftly. They eat shrimplike animals called krill.",
+        questions: [
+            { q: "1. Which does NOT tell how they move?", opts: ["waddle land", "slide on bellies", "make nest of pebbles", "use webbed feet"], c: 2 },
+            { q: "2. Meaning of 'swiftly':", opts: ["carefully", "quickly", "slowly", "safely"], c: 1 },
+            { q: "3. Krill means:", opts: ["eggs", "fish", "shrimplike animals", "babies"], c: 2 },
+            { q: "4. Why can't a penguin fly?", opts: ["No wings", "Weigh too much", "Rather swim", "Too tall"], c: 1 }
         ]
     },
     {
-        title: "Page 9-10: Wright Brothers",
-        passage: "Orville and Wilbur Wright... began to experiment, or try new ideas... On Dec 17, 1903, the first flight lasted 12 seconds[cite: 497, 502].",
-        qs: [
+        name: "Page 9-10: Wright Brothers",
+        text: "Orville and Wilbur Wright... began to experiment, or try new ideas, with flight. On December 17, 1903, the first powered flight lasted 12 seconds.",
+        questions: [
             { q: "1. Main Idea:", opts: ["Testing bad", "Flyer first", "Early pilots", "Bike shop"], c: 2 },
             { q: "2. 'Experiment' means:", opts: ["try new ideas", "test kites", "stay in air", "fly airplane"], c: 0 },
-            { q: "3. First flight duration?", opts: ["12 seconds", "1 hour", "1899", "1000 min"], c: 0 },
-            { q: "4. Opposite of 'started'?", opts: ["began", "finished", "first", "continued"], c: 1 }
+            { q: "3. First flight duration:", opts: ["12 seconds", "1 hour", "1899", "1000 min"], c: 0 },
+            { q: "4. Opposite of 'started':", opts: ["began", "finished", "first", "continued"], c: 1 },
+            { q: "5. Which is an opinion?", opts: ["Tested kites", "Flight was 1903", "Brothers were smart", "Flyer was first"], c: 2 }
         ]
     },
     {
-        title: "Page 11-12: My Shadow",
-        passage: "He is very, very like me from the heels up to the head; the funniest thing about him is the way he likes to grow[cite: 571, 573].",
-        qs: [
+        name: "Page 11-12: My Shadow",
+        text: "I HAVE a little shadow that goes in and out with me. He is very, very like me from the heels up to the head. The funniest thing about him is the way he likes to grow.",
+        questions: [
             { q: "1. Poem focus?", opts: ["School", "Animals", "Child's shadow", "Lost"], c: 2 },
             { q: "2. Difference:", opts: ["grow/shrink", "jump", "find dew", "play outside"], c: 0 },
             { q: "3. Fact about shadow:", opts: ["Grows slow", "Same size", "Is a coward", "Not like child"], c: 2 },
-            { q: "4. Speaker is most likely a:", opts: ["dog", "mother", "teacher", "child"], c: 3 }
+            { q: "4. Speaker is likely a:", opts: ["dog", "mother", "teacher", "child"], c: 3 }
         ]
     },
     {
-        title: "Page 13-14: Uncle Wilber",
-        passage: "Uncle Wilber is strange... Oscar, my pet goldfish... Friday Wilber came to take Oscar home... box is heavy and hisses[cite: 638, 645, 650].",
-        qs: [
+        name: "Page 13-14: Uncle Wilber",
+        text: "Uncle Wilber is strange. Last week Oscar the goldfish arrived. On Friday Wilber came to take Oscar home. He left a heavy box that hisses.",
+        questions: [
             { q: "1. What happened on Friday?", opts: ["Got fish", "Got letter", "Picked up Oscar", "Vacation"], c: 2 },
             { q: "2. Same as 'strange'?", opts: ["regular", "scary", "weird", "funny"], c: 2 },
-            { q: "3. Best word for Wilber:", opts: ["weird", "rude", "greedy", "selfish"], c: 0 },
+            { q: "3. Word for Wilber:", opts: ["weird", "rude", "greedy", "selfish"], c: 0 },
             { q: "4. Opposite of 'slowly'?", opts: ["carefully", "quickly", "happily", "sadly"], c: 1 }
         ]
     },
     {
-        title: "Page 16: Synonyms",
-        instr: "Choose the word that means the same or about the same[cite: 710].",
-        qs: [
+        name: "Page 16: Synonyms",
+        instr: "Choose the word that means the same or about the same.",
+        questions: [
             { q: "1. was <u>old</u>", opts: ["new", "ancient", "young", "dirty"], c: 1 },
             { q: "2. was <u>quiet</u>", opts: ["loud", "silent", "noisy", "yelling"], c: 1 },
             { q: "3. was <u>thin</u>", opts: ["narrow", "wide", "short", "tall"], c: 0 },
@@ -165,70 +296,119 @@ const examData = [
         ]
     },
     {
-        title: "Page 17: Context Clues",
-        instr: "Complete the story[cite: 766].",
-        qs: [
+        name: "Page 17: Context Clues",
+        instr: "Complete the story meaning.",
+        questions: [
             { q: "1. Family going on a ___ trip.", opts: ["large", "clean", "special", "hard"], c: 2 },
             { q: "2. We will ___ to the beach in our car.", opts: ["swim", "travel", "together", "bring"], c: 1 },
             { q: "3. Some people like to ___ soda.", opts: ["drink", "carry", "start", "bring"], c: 0 },
             { q: "4. You should ___ brush your teeth.", opts: ["never", "begin", "better", "always"], c: 3 },
             { q: "5. Learn ___ animals.", opts: ["some", "again", "long", "about"], c: 3 },
-            { q: "6. I do not have ___ time to finish my book.", opts: ["once", "enough", "yesterday", "real"], c: 1 }
+            { q: "6. Not ___ time to finish my book.", opts: ["once", "enough", "yesterday", "real"], c: 1 }
         ]
     }
 ];
 
-let curPage = 0;
-let userAnswers = {};
+let cursor = 0;
+let journal = {};
 
-function render() {
-    const body = document.getElementById('app-body');
-    body.innerHTML = '';
-    const s = examData[curPage];
+function mount() {
+    const view = document.getElementById('quiz-engine');
+    view.innerHTML = '';
+    const part = quizBank[cursor];
     
-    document.getElementById('page-title').innerText = s.title;
-    document.getElementById('progress').innerText = `Section ${curPage + 1} of ${examData.length}`;
+    if (!part) {
+        showResults();
+        return;
+    }
+
+    let markup = `
+        <div class="section-name">${part.name}</div>
+        <div class="instr-box">${part.instr || 'Read the following and select the best response.'}</div>
+    `;
     
-    let html = `<p><strong>${s.instr || ''}</strong></p>`;
-    if (s.passage) html += `<div class="passage">${s.passage}</div>`;
+    if (part.text) markup += `<div class="passage-box">${part.text}</div>`;
     
-    s.qs.forEach((q, qIdx) => {
-        const key = `${curPage}-${qIdx}`;
-        html += `<div class="q-card"><p class="q-text">${q.q}</p><div class="options">`;
-        q.opts.forEach((o, oIdx) => {
-            let cls = "";
-            if (userAnswers[key] !== undefined) {
-                if (oIdx === q.c) cls = "correct";
-                else if (oIdx === userAnswers[key]) cls = "wrong";
-            }
-            html += `<button class="opt ${cls}" onclick="check(${curPage},${qIdx},${oIdx})">${o}</button>`;
-        });
-        html += `</div></div>`;
+    part.questions.forEach((item, qIdx) => {
+        const hash = `${cursor}-${qIdx}`;
+        markup += `
+            <div class="q-card">
+                <div class="q-text">${item.q}</div>
+                <div class="options-grid">
+                    ${item.opts.map((opt, oIdx) => {
+                        let state = '';
+                        if (journal[hash] !== undefined) {
+                            if (oIdx === item.c) state = 'correct locked';
+                            else if (oIdx === journal[hash]) state = 'wrong locked';
+                            else state = 'locked';
+                        }
+                        return `<button class="opt ${state}" onclick="audit(${cursor}, ${qIdx}, ${oIdx})">${opt}</button>`;
+                    }).join('')}
+                </div>
+            </div>
+        `;
     });
-    body.innerHTML = html;
-    document.getElementById('prevBtn').disabled = curPage === 0;
-    document.getElementById('nextBtn').innerText = curPage === examData.length - 1 ? "Finish Study" : "Next Page";
+    
+    view.innerHTML = markup;
+    document.getElementById('progress-bar').style.width = `${((cursor + 1) / quizBank.length) * 100}%`;
+    document.getElementById('btn-back').disabled = cursor === 0;
+    document.getElementById('nav-footer').style.display = 'flex';
 }
 
-window.check = (p, q, o) => {
-    const key = `${p}-${q}`;
-    if (userAnswers[key] !== undefined) return;
-    userAnswers[key] = o;
-    const isCorrect = (o === examData[p].qs[q].c);
-    const f = document.getElementById('feedback');
-    f.innerText = isCorrect ? "✅ Correct!" : "❌ Incorrect. The right answer is Green.";
-    f.style.color = isCorrect ? "var(--correct)" : "var(--wrong)";
-    render();
+window.audit = (p, q, o) => {
+    const hash = `${p}-${q}`;
+    if (journal[hash] !== undefined) return;
+    
+    journal[hash] = o;
+    const pass = o === quizBank[p].questions[q].c;
+    const toast = document.getElementById('alert-notif');
+    
+    toast.style.display = 'block';
+    toast.style.backgroundColor = pass ? 'var(--success)' : 'var(--danger)';
+    toast.innerText = pass ? 'Excellent!' : 'Reviewing Correct Answer...';
+    
+    setTimeout(() => { toast.style.display = 'none'; }, 1000);
+    mount();
 };
 
-window.move = (d) => {
-    if (curPage + d >= examData.length) { alert("Study Complete! Refresh to restart."); return; }
-    curPage += d;
-    document.getElementById('feedback').innerText = '';
-    render();
+window.changeSection = (delta) => {
+    if (cursor + delta >= quizBank.length) {
+        showResults();
+        return;
+    }
+    cursor += delta;
+    mount();
 };
 
-render();
+function showResults() {
+    const view = document.getElementById('quiz-engine');
+    document.getElementById('nav-footer').style.display = 'none';
+    
+    let total = 0;
+    let correct = 0;
+    
+    quizBank.forEach((s, sIdx) => {
+        s.questions.forEach((q, qIdx) => {
+            total++;
+            if (journal[`${sIdx}-${qIdx}`] === q.c) correct++;
+        });
+    });
+
+    const percent = Math.round((correct / total) * 100);
+    
+    view.innerHTML = `
+        <div class="summary-card">
+            <h2>Exam Practice Complete</h2>
+            <p>You have finished all 11 sections of the IREAD-3 study guide.</p>
+            <div class="summary-score">${percent}%</div>
+            <p>You answered ${correct} out of ${total} correctly.</p>
+            <button class="btn-action btn-next" onclick="location.reload()">Restart Practice</button>
+        </div>
+    `;
+    document.getElementById('progress-bar').style.width = '100%';
+}
+
+mount();
 </script>
 </body>
 </html>
