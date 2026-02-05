@@ -98,9 +98,9 @@
             </div>
         </div>
         <div class="flex justify-between items-center text-[9px] uppercase tracking-wider font-bold opacity-60">
-            <span id="page-indicator">Page 1 of 17</span>
+            <span id="page-indicator">Page 1 of 11</span>
             <div class="w-1/2 bg-gray-200 dark:bg-gray-700 rounded-full h-1 ml-2">
-                <div id="progress-bar" class="bg-blue-600 h-1 rounded-full transition-all duration-500" style="width: 5%"></div>
+                <div id="progress-bar" class="bg-blue-600 h-1 rounded-full transition-all duration-500" style="width: 9%"></div>
             </div>
         </div>
     </header>
@@ -112,7 +112,7 @@
         </div>
     </main>
 
-    <!-- Professional Smaller Navigation Footer -->
+    <!-- Professional Navigation Footer -->
     <footer class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 p-2 flex gap-3 z-40 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
         <button onclick="prevPage()" id="prev-btn" class="flex-1 py-2.5 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-xl font-bold text-sm disabled:opacity-40 transition-opacity">Back</button>
         <button onclick="nextPage()" id="next-btn" class="flex-1 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform">Next</button>
@@ -152,120 +152,128 @@
             },
             {
                 title: "Page 3: Prefixes",
-                instr: "Find the word with ONLY the prefix underlined, or match the definition.",
+                instr: "Find the word with the prefix underlined, or match the definition.",
                 qs: [
-                    { q: "1. Prefix underlined only:", opts: ["<u>un</u>fair", "disappear", "safely", "misplace"], c: 0 },
-                    { q: "2. Prefix underlined only:", opts: ["dislike", "helpless", "<u>re</u>wind", "unhappy"], c: 2 },
-                    { q: "3. Prefix underlined only:", opts: ["softly", "<u>pre</u>heat", "premade", "unload"], c: 1 },
-                    { q: "4. Prefix underlined only:", opts: ["<u>re</u>make", "dislike", "playful", "kindness"], c: 0 },
-                    { q: "5. Definition: tie again", opts: ["retie", "untie", "distie", "mistie"], c: 0 },
-                    { q: "6. Definition: spell wrong", opts: ["unspell", "misspell", "prespell", "disspell"], c: 1 },
-                    { q: "7. Definition: to not agree", opts: ["unagree", "reagree", "misagree", "disagree"], c: 3 },
-                    { q: "8. Definition: not even", opts: ["reeven", "diseven", "miseven", "uneven"], c: 3 }
+                    { q: "1. <u>un</u>fair, disappear, safely, misplace", opts: ["unfair", "disappear", "safely", "misplace"], c: 0 },
+                    { q: "2. dislike, helpless, <u>re</u>wind, unhappy", opts: ["dislike", "helpless", "rewind", "unhappy"], c: 2 },
+                    { q: "3. softly, <u>pre</u>heat, premade, unload", opts: ["softly", "preheat", "premade", "unload"], c: 1 },
+                    { q: "4. remake, dislike, playful, kindness", opts: ["remake", "dislike", "playful", "kindness"], c: 0 },
+                    { q: "5. tie again:", opts: ["retie", "untie", "distie", "mistie"], c: 0 },
+                    { q: "6. spell wrong:", opts: ["unspell", "misspell", "prespell", "disspell"], c: 1 },
+                    { q: "7. to not agree:", opts: ["unagree", "reagree", "misagree", "disagree"], c: 3 },
+                    { q: "8. not even:", opts: ["reeven", "diseven", "miseven", "uneven"], c: 3 }
                 ]
             },
             {
                 title: "Page 4: Suffixes",
-                instr: "Find the word with ONLY the suffix underlined, or match the definition.",
+                instr: "Find the word with the suffix underlined, or match the definition.",
                 qs: [
-                    { q: "1. Suffix underlined only:", opts: ["friendly", "worth<u>less</u>", "undo", "replay"], c: 1 },
-                    { q: "2. Suffix underlined only:", opts: ["helpless", "weak<u>ness</u>", "displease", "wildly"], c: 1 },
-                    { q: "3. Suffix underlined only:", opts: ["mistake", "harmless", "help<u>ful</u>", "redo"], c: 2 },
-                    { q: "4. Suffix underlined only:", opts: ["teach<u>er</u>", "painter", "badly", "careful"], c: 0 },
-                    { q: "5. Definition: without a home", opts: ["homeness", "homeful", "homeless", "homely"], c: 2 },
-                    { q: "6. Definition: full of color", opts: ["colorly", "colorful", "colorness", "colorless"], c: 1 },
-                    { q: "7. Definition: in a quick way", opts: ["quickless", "quickly", "quickful", "quicker"], c: 1 },
-                    { q: "8. Definition: one who leads", opts: ["leader", "leadless", "leadly", "leadful"], c: 0 }
+                    { q: "1. friend<u>ly</u>, worthless, undo, replay", opts: ["friendly", "worthless", "undo", "replay"], c: 1 },
+                    { q: "2. helpless, <u>weakness</u>, displease, wildly", opts: ["helpless", "weakness", "displease", "wildly"], c: 1 },
+                    { q: "3. mistake, harmless, <u>helpful</u>, redo", opts: ["mistake", "harmless", "helpful", "redo"], c: 2 },
+                    { q: "4. teacher, painter, badly, careful", opts: ["teacher", "painter", "badly", "careful"], c: 0 },
+                    { q: "5. without a home:", opts: ["homeness", "homeful", "homeless", "homely"], c: 2 },
+                    { q: "6. full of color:", opts: ["colorly", "colorful", "colorness", "colorless"], c: 1 },
+                    { q: "7. in a quick way:", opts: ["quickless", "quickly", "quickful", "quicker"], c: 1 },
+                    { q: "8. one who leads:", opts: ["leader", "leadless", "leadly", "leadful"], c: 0 }
                 ]
             },
             {
-                title: "Page 5: Phonics & Meaning",
-                instr: "Choose based on teacher directions or meaning.",
+                title: "Page 5-6: Phonics & Meaning",
+                instr: "Listen for sounds or match the correct meaning.",
                 qs: [
-                    { q: "1. Same beginning sound as 'advert':", opts: ["drop", "door", "dig", "school"], c: 1 },
-                    { q: "2. Same beginning sound as 'shake':", opts: ["slip", "shop", "ready", "door"], c: 1 },
-                    { q: "3. Same ending sound as 'bread':", opts: ["ready", "door", "lead", "check"], c: 2 },
-                    { q: "4. Same ending sound as 'luck':", opts: ["check", "lunch", "camp", "school"], c: 0 },
+                    { q: "1. Same beginning sound as <b>advert</b>:", opts: ["drop", "door", "dig", "school"], c: 1 },
+                    { q: "2. Same beginning sound as <b>shake</b>:", opts: ["slip", "shop", "ready", "door"], c: 1 },
+                    { q: "3. Same ending sound as <b>bread</b>:", opts: ["ready", "door", "lead", "check"], c: 2 },
+                    { q: "4. Same ending sound as <b>luck</b>:", opts: ["check", "lunch", "camp", "school"], c: 0 },
                     { q: "5. chart (same middle sound):", opts: ["past", "brain", "tray", "farm"], c: 3 },
                     { q: "6. feet (same middle sound):", opts: ["met", "them", "treat", "there"], c: 2 },
                     { q: "7. synonym of 'fast':", opts: ["slow", "race", "quick", "run"], c: 2 },
-                    { q: "8. antonym of 'outside':", opts: ["under", "playing", "next", "inside"], c: 3 }
-                ]
-            },
-            {
-                title: "Page 6: Test Practice",
-                instr: "Complete the meanings and find suffixes.",
-                qs: [
-                    { q: "9. Please ___ the papers on my desk. / Never been to that ___ before.", opts: ["put", "place", "school", "lay"], c: 1 },
-                    { q: "10. Turn ___ at the stop sign. / Answers ___ on the test.", opts: ["left", "correct", "right", "around"], c: 2 },
-                    { q: "11. Only suffix underlined:", opts: ["illness", "hope<u>ful</u>", "misplace", "beautiful"], c: 1 },
-                    { q: "12. Study for the math ___ tomorrow.", opts: ["book", "test", "paper", "homework"], c: 1 },
-                    { q: "13. You do not want to get any of the questions ___.", opts: ["right", "answers", "wrong", "grade"], c: 2 }
+                    { q: "8. antonym of 'outside':", opts: ["under", "playing", "next", "inside"], c: 3 },
+                    { q: "9. Please ___ the papers on my desk.", opts: ["put", "place", "school", "lay"], c: 1 },
+                    { q: "10. When you get to the stop sign, turn ___.", opts: ["left", "correct", "right", "around"], c: 2 },
+                    { q: "11. Find the suffix underlined:", opts: ["illness", "hopeful", "misplace", "beautiful"], c: 1 },
+                    { q: "12. Study for the math (12) tomorrow:", opts: ["book", "test", "paper", "homework"], c: 1 },
+                    { q: "13. You do not want to get any of the questions (13):", opts: ["right", "answers", "wrong", "grade"], c: 2 }
                 ]
             },
             {
                 title: "Page 7-8: Penguins",
-                passage: "Most penguins live in a land of snow and ice. They have feathers, wings, and a beak... But they cannot fly because their body is too heavy. They use their flat, stiff wings as flippers to swim swiftly.",
+                passage: "Most penguins live in a land of snow and ice. They cannot fly because their body is too heavy. They use their flat, stiff wings as flippers to swim swiftly.",
                 qs: [
-                    { q: "1. Which sentence does NOT tell how penguins move?", opts: ["waddle land", "slide bellies", "make nest of pebbles", "webbed feet"], c: 2 },
-                    { q: "2. Meaning of 'swiftly':", opts: ["carefully", "quickly", "slowly", "safely"], c: 1 },
-                    { q: "3. 'Krill' means:", opts: ["eggs", "fish", "shrimplike animals", "babies"], c: 2 },
-                    { q: "4. True fact about penguins:", opts: ["bad swimmers", "like other birds", "wings help swim", "only mothers"], c: 2 },
-                    { q: "5. Only suffix underlined:", opts: ["swift<u>ly</u>", "walking", "cannot", "covered"], c: 0 },
-                    { q: "6. Why can't a penguin fly?", opts: ["no wings", "weigh too much", "rather swim", "too tall"], c: 1 },
-                    { q: "7. NOT true about chicks:", opts: ["hatch eggs", "both parents feed", "covered feathers", "find own food soon"], c: 3 }
+                    { q: "1. Which sentence DOES NOT tell how penguins move?", opts: ["waddle land", "slide on bellies", "make nest of pebbles", "webbed feet"], c: 2 },
+                    { q: "2. Which of these words means the same as <b>swiftly</b>?", opts: ["carefully", "quickly", "slowly", "safely"], c: 1 },
+                    { q: "3. The word <b>krill</b> means:", opts: ["eggs", "fish", "shrimplike animals", "babies"], c: 2 },
+                    { q: "4. Which is a true fact about penguins?", opts: ["Bad swimmers", "Like other birds", "Wings help swim", "Only mothers"], c: 2 },
+                    { q: "5. Find only the suffix underlined:", opts: ["swiftly", "walking", "cannot", "covered"], c: 0 },
+                    { q: "6. Why can't a penguin fly?", opts: ["No wings", "Weight", "Rather swim", "Too tall"], c: 1 },
+                    { q: "7. Which is NOT true about chicks?", opts: ["Hatch eggs", "Both parents", "Covered feathers", "Find food now"], c: 3 }
                 ]
             },
             {
                 title: "Page 9-10: Wright Brothers",
-                passage: "Orville and Wilbur Wright were famous brothers. In 1899, they began to experiment with flight. They tested kites and gliders before the first powered flight in 1903, which lasted 12 seconds.",
+                passage: "Orville and Wilbur Wright were famous brothers. In 1899, they began to experiment with flight. They tested kites and gliders. On December 17, 1903, they took the first powered flight.",
                 qs: [
-                    { q: "8. Main idea?", opts: ["Testing bad", "Flyer first", "Early pilots", "Bike shop"], c: 2 },
-                    { q: "9. 'Experiment' means:", opts: ["try new ideas", "test kites", "stay in air", "fly plane"], c: 0 },
-                    { q: "10. How did they learn?", opts: ["books", "others", "testing kites/gliders", "engines"], c: 2 },
-                    { q: "11. First flight duration?", opts: ["12 seconds", "1 hour", "1899", "1,000 min"], c: 0 },
-                    { q: "12. Opposite of 'started':", opts: ["began", "finished", "first", "continued"], c: 1 },
-                    { q: "13. Which is an opinion?", opts: ["tested kites", "flight in 1903", "very smart", "Flyer first"], c: 2 },
-                    { q: "14. Only prefix underlined:", opts: ["experiment", "interested", "<u>re</u>turn", "owned"], c: 2 }
+                    { q: "8. What is the main idea?", opts: ["Testing bad", "Flyer first", "Early pilots", "Bike shop"], c: 2 },
+                    { q: "9. What does <b>experiment</b> mean?", opts: ["try new ideas", "test kites", "stay in air", "fly airplane"], c: 0 },
+                    { q: "10. How did they learn?", opts: ["Books", "Others", "Kites/Gliders", "Engines"], c: 2 },
+                    { q: "11. How long did the first flight last?", opts: ["12 seconds", "1 hour", "1899", "1,000 min"], c: 0 },
+                    { q: "12. Opposite of <b>started</b>:", opts: ["began", "finished", "first", "continued"], c: 1 },
+                    { q: "13. Which is an opinion?", opts: ["Tested kites", "Flight in 1903", "Very smart", "Flyer first"], c: 2 },
+                    { q: "14. Prefix underlined only:", opts: ["experiment", "interested", "return", "owned"], c: 2 }
                 ]
             },
             {
                 title: "Page 11-12: My Shadow",
-                passage: "I have a little shadow that goes in and out with me. He is very, very like me from the heels up to the head. The funniest thing about him is the way he likes to grow.",
+                passage: "I have a little shadow that goes in and out with me. He is very like me from the heels up to the head. The funniest thing is how he likes to grow.",
                 qs: [
-                    { q: "1. Poem focus?", opts: ["school", "animals", "shadow relationship", "lost"], c: 2 },
-                    { q: "2. Speaker's feeling:", opts: ["afraid", "bored", "amused", "quiet"], c: 2 },
-                    { q: "3. Difference:", opts: ["grow/shrink", "jump", "find dew", "play"], c: 0 },
-                    { q: "4. Last stanza event:", opts: ["sleep", "friend", "shadow stays home", "larger"], c: 2 },
-                    { q: "5. Author's purpose:", opts: ["explain", "warn", "entertain", "inform"], c: 2 },
-                    { q: "6. True fact:", opts: ["grows slow", "same size", "is a coward", "not like speaker"], c: 2 },
+                    { q: "1. What is the poem about?", opts: ["School", "Animals", "Shadow relationship", "Lost"], c: 2 },
+                    { q: "2. How does the speaker feel?", opts: ["afraid", "bored", "amused", "quiet"], c: 2 },
+                    { q: "3. Difference between shadow/speaker:", opts: ["grow/shrink", "jump", "find dew", "play"], c: 0 },
+                    { q: "4. What happens in the last stanza?", opts: ["sleep", "friend", "stays home", "larger"], c: 2 },
+                    { q: "5. Why did he write this?", opts: ["Explain", "Warn", "Entertain", "Inform"], c: 2 },
+                    { q: "6. Which fact is true?", opts: ["Grows slow", "Same size", "Is a coward", "Not like me"], c: 2 },
                     { q: "7. Speaker is likely a:", opts: ["dog", "mother", "teacher", "child"], c: 3 }
                 ]
             },
             {
                 title: "Page 13-14: Uncle Wilber",
-                passage: "Uncle Wilber is strange. He sent a goldfish named Oscar. On Friday Wilber came to take Oscar home. He left a heavy box that hisses and says 'Be Careful'.",
+                passage: "Uncle Wilber is strange. He sent a goldfish named Oscar. On Friday Wilber came to take Oscar home. He left a heavy box that hisses.",
                 qs: [
-                    { q: "8. What happened on Friday?", opts: ["got fish", "got letter", "picked up Oscar", "vacation"], c: 2 },
-                    { q: "9. Sid's feeling:", opts: ["excited", "nervous", "angry", "sad"], c: 1 },
+                    { q: "8. What happened on Friday?", opts: ["Got fish", "Got letter", "Picked up Oscar", "Vacation"], c: 2 },
+                    { q: "9. How did Sid feel?", opts: ["excited", "nervous", "angry", "sad"], c: 1 },
                     { q: "10. Adjective for Wilber:", opts: ["weird", "rude", "greedy", "selfish"], c: 0 },
-                    { q: "11. Why send Oscar?", opts: ["gift", "not want", "extra", "going away"], c: 3 },
-                    { q: "12. Opposite of 'slowly':", opts: ["carefully", "quickly", "happily", "sadly"], c: 1 },
-                    { q: "13. Same as 'strange':", opts: ["regular", "scary", "weird", "funny"], c: 2 }
+                    { q: "11. Why send Oscar?", opts: ["Gift", "Not want", "Extra", "Going away"], c: 3 },
+                    { q: "12. Opposite of <b>slowly</b>:", opts: ["carefully", "quickly", "happily", "sadly"], c: 1 },
+                    { q: "13. Same as <b>strange</b>:", opts: ["regular", "scary", "weird", "funny"], c: 2 }
                 ]
             },
             {
-                title: "Page 16-17: Final Mastery",
-                instr: "Synonyms and context clues.",
+                title: "Page 16: Synonyms",
+                instr: "Choose the word that means about the same.",
                 qs: [
-                    { q: "1. was <u>old</u> (synonym):", opts: ["new", "ancient", "young", "dirty"], c: 1 },
-                    { q: "2. was <u>quiet</u> (synonym):", opts: ["loud", "silent", "noisy", "yelling"], c: 1 },
-                    { q: "3. was <u>unusual</u> (synonym):", opts: ["regular", "normal", "strange", "same"], c: 2 },
-                    { q: "4. was <u>neat</u> (synonym):", opts: ["good", "messy", "dirty", "tidy"], c: 3 },
-                    { q: "5. Going on a ___ trip.", opts: ["large", "clean", "special", "hard"], c: 2 },
-                    { q: "6. We will ___ to the beach.", opts: ["swim", "travel", "together", "bring"], c: 1 },
-                    { q: "7. Learn ___ animals.", opts: ["some", "again", "long", "about"], c: 3 },
-                    { q: "8. Not ___ time to finish.", opts: ["once", "enough", "yesterday", "real"], c: 1 }
+                    { q: "1. was <u>old</u>", opts: ["new", "ancient", "young", "dirty"], c: 1 },
+                    { q: "2. was <u>quiet</u>", opts: ["loud", "silent", "noisy", "yelling"], c: 1 },
+                    { q: "3. was <u>thin</u>", opts: ["narrow", "wide", "short", "tall"], c: 0 },
+                    { q: "4. was <u>unusual</u>", opts: ["regular", "normal", "strange", "same"], c: 2 },
+                    { q: "5. was <u>shiny</u>", opts: ["bright", "dull", "new", "pretty"], c: 0 },
+                    { q: "6. was <u>normal</u>", opts: ["regular", "different", "odd", "weird"], c: 0 },
+                    { q: "7. was <u>neat</u>", opts: ["good", "messy", "dirty", "tidy"], c: 3 },
+                    { q: "8. was <u>honest</u>", opts: ["lying", "truthful", "wrong", "dishonest"], c: 1 }
+                ]
+            },
+            {
+                title: "Page 17: Context Clues",
+                instr: "Complete the story blanks.",
+                qs: [
+                    { q: "1. My family is going on a ___ trip.", opts: ["large", "clean", "special", "hard"], c: 2 },
+                    { q: "2. We will ___ to the beach in our car.", opts: ["swim", "travel", "together", "bring"], c: 1 },
+                    { q: "3. Some people like to ___ soda.", opts: ["drink", "carry", "start", "bring"], c: 0 },
+                    { q: "4. You should ___ brush your teeth.", opts: ["never", "begin", "better", "always"], c: 3 },
+                    { q: "5. dinner, school, practice, books", opts: ["dinner", "school", "practice", "books"], c: 0 },
+                    { q: "6. some, again, long, about", opts: ["some", "again", "long", "about"], c: 3 },
+                    { q: "7. I do not have ___ time to finish my book.", opts: ["once", "enough", "yesterday", "real"], c: 1 },
+                    { q: "8. I will read the rest of it ___.", opts: ["later", "soon", "yesterday", "until"], c: 0 }
                 ]
             }
         ];
@@ -286,7 +294,7 @@
             renderPage();
         }
 
-        function renderPage() {
+        function renderPage(shouldScrollTop = false) {
             const container = document.getElementById('quiz-container');
             const data = examData[currentPage];
             
@@ -343,14 +351,16 @@
             });
 
             container.innerHTML = html;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (shouldScrollTop) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
         window.handleAnswer = (p, q, o) => {
             userAnswers[`${p}-${q}`] = o;
             const isCorrect = o === examData[p].qs[q].c;
             showToast(isCorrect);
-            renderPage();
+            renderPage(false); // Do NOT scroll to top when answering
         };
 
         function showToast(isCorrect) {
@@ -364,7 +374,7 @@
         window.nextPage = () => {
             if (currentPage < examData.length - 1) {
                 currentPage++;
-                renderPage();
+                renderPage(true); // Scroll to top for new page
             } else {
                 finish();
             }
@@ -373,7 +383,7 @@
         window.prevPage = () => {
             if (currentPage > 0) {
                 currentPage--;
-                renderPage();
+                renderPage(true); // Scroll to top for new page
             }
         };
 
@@ -395,9 +405,10 @@
                 </div>
             `;
             document.querySelector('footer').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        renderPage();
+        renderPage(true);
     </script>
 </body>
 </html>
