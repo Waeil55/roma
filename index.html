@@ -8,39 +8,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Comic+Neue:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #FDF2F8;
+            --bg-color: #F8F4FF; /* Soft Lavender */
             --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --title-color: #EC4899;
-            --instr-color: #3B82F6;
-            --border-color: #F472B6;
-            --header-bg: #DBEAFE;
-            --footer-bg: #FDF2F8;
-            --btn-bg: #ffffff;
-            --dot-color: #F472B6;
+            --text-color: #2D3436;
+            --title-color: #9C27B0; 
+            --instr-color: #673AB7;
+            --border-color: #B39DDB;
+            --primary-action: #6C5CE7;
             --user-font-size: 22px;
+            --header-bg: #673AB7; /* Darker Purple for Visibility */
+            --footer-bg: #F3E5F5;
+            --passage-bg: #E1F5FE;
         }
 
         .dark {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f1f5f9;
-            --title-color: #F472B6; 
-            --instr-color: #60A5FA;
-            --border-color: #334155;
-            --header-bg: #1e293b;
-            --footer-bg: #1e293b;
-            --btn-bg: #334155;
-            --dot-color: #334155;
+            --bg-color: #1A1A2E;
+            --card-bg: #2D3436;
+            --text-color: #E1BEE7;
+            --title-color: #BB86FC; 
+            --instr-color: #CFD8DC;
+            --border-color: #5E35B1;
+            --primary-action: #03DAC6;
+            --header-bg: #311B92;
+            --footer-bg: #1A1A2E;
+            --passage-bg: #37474F;
         }
 
         body {
             font-family: 'Bubblegum Sans', cursive;
             background-color: var(--bg-color);
             color: var(--text-color);
-            background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
             background-size: 30px 30px;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s ease, color 0.3s ease;
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:24px"><text y="24">🍭</text></svg>'), auto;
         }
 
@@ -59,9 +59,8 @@
 
         .glass-header {
             background: var(--header-bg);
-            border-bottom: 6px dashed var(--border-color);
+            border-bottom: 6px dashed rgba(255,255,255,0.3);
             border-radius: 0 0 30px 30px;
-            transition: background 0.3s;
         }
 
         .card {
@@ -69,7 +68,7 @@
             border: 4px solid var(--border-color);
             border-radius: 40px;
             box-shadow: 10px 10px 0px var(--border-color);
-            transition: all 0.2s;
+            transition: transform 0.2s, background-color 0.3s;
         }
 
         .card:hover {
@@ -87,11 +86,10 @@
             font-size: calc(var(--user-font-size) * 0.9) !important;
             border: 3px solid var(--border-color);
             border-radius: 25px;
-            background: var(--btn-bg);
+            background: var(--card-bg);
             color: var(--text-color);
             box-shadow: 0 6px 0 var(--border-color);
             margin-bottom: 8px;
-            transition: background 0.3s;
         }
 
         .option-btn:active {
@@ -100,10 +98,11 @@
         }
 
         .passage-box {
-            background: var(--card-bg) !important;
-            border: 4px dotted var(--instr-color) !important;
+            background: var(--passage-bg) !important;
+            border: 4px dotted var(--primary-action) !important;
             border-radius: 30px !important;
             position: relative;
+            color: var(--text-color);
         }
 
         .passage-box::before {
@@ -111,7 +110,7 @@
             position: absolute;
             top: -15px;
             left: 20px;
-            background: var(--instr-color);
+            background: var(--primary-action);
             color: white;
             padding: 2px 15px;
             border-radius: 10px;
@@ -119,21 +118,21 @@
         }
 
         .correct {
-            background: #22c55e !important;
+            background: #4CAF50 !important;
+            border-color: #2E7D32 !important;
             color: white !important;
-            border-color: #166534 !important;
             animation: pop 0.3s infinite;
         }
 
         .wrong {
-            background: #ef4444 !important;
+            background: #F44336 !important;
+            border-color: #B71C1C !important;
             color: white !important;
-            border-color: #991b1b !important;
         }
 
         .hub-card {
             border-radius: 40px;
-            border: 5px solid rgba(255,255,255,0.2);
+            border: 5px solid rgba(255,255,255,0.4);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -142,77 +141,77 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
         }
 
-        .lesson-gradient { background: linear-gradient(135deg, #F472B6, #DB2777); }
-        .coin-gradient { background: linear-gradient(135deg, #60A5FA, #2563EB); }
-        .time-gradient { background: linear-gradient(135deg, #F06292, #D81B60); }
-        .math-gradient { background: linear-gradient(135deg, #64B5F6, #1976D2); }
-        .shapes-gradient { background: linear-gradient(135deg, #FF80AB, #C51162); }
-        .grammar-gradient { background: linear-gradient(135deg, #4FC3F7, #0288D1); }
+        /* Rainbow Buttons */
+        .lesson-gradient { background: linear-gradient(135deg, #9C27B0, #E91E63); }
+        .coin-gradient { background: linear-gradient(135deg, #009688, #00796B); }
+        .time-gradient { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .math-gradient { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .shapes-gradient { background: linear-gradient(135deg, #E040FB, #7B1FA2); }
+        .grammar-gradient { background: linear-gradient(135deg, #03A9F4, #0288D1); }
 
         .coin-img {
             filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.1));
             animation: wiggle 2s infinite ease-in-out;
         }
 
+        /* Scrollbar Fun */
         ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: var(--title-color); border-radius: 10px; border: 3px solid var(--bg-color); }
-        
+
+        /* Dark Mode Specific fixes for Question items */
+        .dark .card { background-color: var(--card-bg); }
+        .dark .option-btn { background-color: #3d4649; }
+        .dark .option-btn:disabled { opacity: 0.5; }
+
         #quiz-footer {
             background: var(--footer-bg);
             border-top: 4px solid var(--border-color);
-            transition: background 0.3s;
-        }
-        
-        #results-container {
-            background-color: var(--card-bg);
-            border: 8px solid var(--border-color);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <header class="glass-header sticky top-0 z-50 px-4 py-4 flex flex-col gap-2 shadow-xl">
+    <!-- Header: Compact & Darker for visibility -->
+    <header class="glass-header sticky top-0 z-50 px-4 py-3 flex flex-col gap-1 shadow-xl">
         <div class="app-shell flex justify-between items-center w-full max-w-5xl mx-auto">
             <div class="flex items-center gap-3">
-                <span class="text-4xl animate-bounce">🎈</span>
+                <span class="text-3xl animate-bounce">🎈</span>
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-black tracking-tighter" style="font-family: 'Comic Neue'; color: var(--title-color);">MEROLA'S FUN LAB!</h1>
-                    <p class="text-[10px] font-bold text-blue-500 uppercase">Learning is a Party! 🥳</p>
+                    <h1 class="text-xl sm:text-2xl font-black text-white dark:text-purple-100 tracking-tighter" style="font-family: 'Comic Neue';">MEROLA'S FUN LAB!</h1>
+                    <p class="text-[10px] font-bold text-yellow-300 uppercase">Learning is a Party! 🥳</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <div class="flex items-center bg-white dark:bg-slate-700 rounded-full p-1 border-2 border-pink-400">
-                    <button onclick="adjustFont(-2)" class="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center font-black hover:bg-pink-200">🔍-</button>
-                    <button onclick="adjustFont(2)" class="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center font-black hover:bg-pink-200 ml-1">🔍+</button>
+                <div class="flex items-center bg-white/20 backdrop-blur rounded-full p-1 border-2 border-white/30">
+                    <button onclick="adjustFont(-2)" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-black hover:bg-white/30 text-white">🔍-</button>
+                    <button onclick="adjustFont(2)" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-black hover:bg-white/30 ml-1 text-white">🔍+</button>
                 </div>
-                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 border-2 border-blue-400 flex items-center justify-center text-xl shadow-md">
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center text-xl shadow-md text-white">
                     <span id="theme-icon">✨</span>
                 </button>
-                <button onclick="goHome()" class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 border-2 border-pink-400 flex items-center justify-center text-xl shadow-md">
+                <button onclick="goHome()" class="w-10 h-10 rounded-full bg-white/20 border-2 border-green-300 flex items-center justify-center text-xl shadow-md">
                     <span>🏠</span>
                 </button>
             </div>
         </div>
-        <div id="progress-container" class="hidden w-full max-w-5xl mx-auto mt-2">
-            <div class="flex justify-between items-center mb-1">
-                <span id="page-indicator" class="text-xs font-black" style="color: var(--title-color);">MISSION PROGRESS: 0%</span>
-                <span class="text-xl">🚀</span>
-            </div>
-            <div class="h-4 bg-white dark:bg-slate-800 rounded-full border-2 border-pink-200 dark:border-slate-700 overflow-hidden p-0.5">
-                <div id="progress-bar" class="bg-gradient-to-r from-blue-400 to-pink-500 h-full rounded-full transition-all duration-700" style="width: 0%"></div>
+        <div id="progress-container" class="hidden w-full max-w-5xl mx-auto mt-1">
+            <div class="h-2 bg-white/30 rounded-full overflow-hidden">
+                <div id="progress-bar" class="bg-gradient-to-r from-yellow-300 to-white h-full transition-all duration-700" style="width: 0%"></div>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow w-full max-w-5xl mx-auto px-4 py-8 mb-24">
+    <!-- Main Content: Maximized -->
+    <main class="flex-grow w-full max-w-5xl mx-auto px-4 py-12 mb-20">
         <div id="main-view"></div>
     </main>
 
-    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 py-4 px-6 z-40 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+    <!-- Footer: Responsive & Smaller Height -->
+    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 py-2 px-6 z-40 shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
         <div class="max-w-xl mx-auto flex gap-4">
-            <button onclick="handleBack()" id="prev-btn" class="flex-1 py-4 bg-white dark:bg-slate-700 border-4 border-blue-400 text-blue-600 dark:text-blue-300 rounded-3xl font-black text-lg hover:bg-blue-50 dark:hover:bg-slate-600 transition-all active:scale-95 shadow-md">🔙 OOPS, GO BACK</button>
-            <button onclick="nextPage()" id="next-btn" class="flex-1 py-4 bg-pink-500 border-4 border-pink-700 text-white rounded-3xl font-black text-lg hover:bg-pink-600 transition-all active:scale-95 shadow-md">KEEP GOING! 🚀</button>
+            <button onclick="handleBack()" id="prev-btn" class="flex-1 py-2 bg-white dark:bg-gray-800 border-4 border-purple-400 text-purple-600 dark:text-purple-300 rounded-3xl font-black text-lg hover:bg-purple-50 transition-all active:scale-95 shadow-md">🔙 OOPS, GO BACK</button>
+            <button onclick="nextPage()" id="next-btn" class="flex-1 py-2 bg-purple-600 border-4 border-purple-800 text-white rounded-3xl font-black text-lg hover:bg-purple-700 transition-all active:scale-95 shadow-md">KEEP GOING! 🚀</button>
         </div>
     </footer>
 
@@ -237,27 +236,27 @@
             const mDeg = m * 6;
             return `
             <svg class="clock-svg w-32 h-32 mx-auto" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="45" fill="white" stroke="#EC4899" stroke-width="4"/>
-                <circle cx="50" cy="50" r="2" fill="#EC4899"/>
+                <circle cx="50" cy="50" r="45" fill="#FFF" stroke="#673AB7" stroke-width="4"/>
+                <circle cx="50" cy="50" r="2" fill="#673AB7"/>
                 ${[12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((n, i) => {
                     const ang = (i * 30) * Math.PI / 180;
-                    return `<text x="${50 + 35 * Math.sin(ang)}" y="${54 - 35 * Math.cos(ang)}" font-size="9" text-anchor="middle" fill="#EC4899" font-family="Comic Neue" font-weight="900">${n}</text>`;
+                    return `<text x="${50 + 35 * Math.sin(ang)}" y="${54 - 35 * Math.cos(ang)}" font-size="9" text-anchor="middle" fill="#673AB7" font-family="Comic Neue" font-weight="900">${n}</text>`;
                 }).join('')}
-                <line x1="50" y1="50" x2="50" y2="28" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" transform="rotate(${hDeg} 50 50)"/>
-                <line x1="50" y1="50" x2="50" y2="18" stroke="#EC4899" stroke-width="3" stroke-linecap="round" transform="rotate(${mDeg} 50 50)"/>
+                <line x1="50" y1="50" x2="50" y2="28" stroke="#2D3436" stroke-width="4" stroke-linecap="round" transform="rotate(${hDeg} 50 50)"/>
+                <line x1="50" y1="50" x2="50" y2="18" stroke="#9C27B0" stroke-width="3" stroke-linecap="round" transform="rotate(${mDeg} 50 50)"/>
             </svg>`;
         }
 
         function getShapeSVG(type) {
             const shapes = {
-                circle: '<circle cx="50" cy="50" r="40" fill="#F472B6" stroke="#DB2777" stroke-width="3"/>',
-                square: '<rect x="15" y="15" width="70" height="70" fill="#60A5FA" stroke="#2563EB" stroke-width="3"/>',
-                triangle: '<polygon points="50,15 90,85 10,85" fill="#F06292" stroke="#D81B60" stroke-width="3"/>',
-                rectangle: '<rect x="10" y="25" width="80" height="50" fill="#64B5F6" stroke="#1976D2" stroke-width="3"/>',
-                star: '<polygon points="50,5 63,35 95,35 70,55 80,85 50,65 20,85 30,55 5,35 37,35" fill="#FF80AB" stroke="#C51162" stroke-width="3"/>',
+                circle: '<circle cx="50" cy="50" r="40" fill="#FF7675" stroke="#D63031" stroke-width="3"/>',
+                square: '<rect x="15" y="15" width="70" height="70" fill="#74B9FF" stroke="#0984E3" stroke-width="3"/>',
+                triangle: '<polygon points="50,15 90,85 10,85" fill="#55EFC4" stroke="#00B894" stroke-width="3"/>',
+                rectangle: '<rect x="10" y="25" width="80" height="50" fill="#FDCB6E" stroke="#E17055" stroke-width="3"/>',
+                star: '<polygon points="50,5 63,35 95,35 70,55 80,85 50,65 20,85 30,55 5,35 37,35" fill="#A29BFE" stroke="#6C5CE7" stroke-width="3"/>',
                 sphere: '<circle cx="50" cy="50" r="40" fill="url(#sphereGrad)"/><defs><radialGradient id="sphereGrad" cx="30%" cy="30%" r="50%"><stop offset="0%" stop-color="#81ECEC"/><stop offset="100%" stop-color="#00CEC9"/></radialGradient></defs>',
-                cube: '<path d="M20 30 l30 -10 l30 10 v40 l-30 10 l-30 -10 z" fill="#F9A8D4" stroke="#DB2777" stroke-width="3"/><path d="M20 30 l30 10 l30 -10 M50 40 v40" fill="none" stroke="#DB2777" stroke-width="3"/>',
-                cone: '<ellipse cx="50" cy="80" rx="30" ry="10" fill="#DBEAFE" stroke="#3B82F6" stroke-width="3"/><path d="M20 80 L50 20 L80 80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="3"/>',
+                cube: '<path d="M20 30 l30 -10 l30 10 v40 l-30 10 l-30 -10 z" fill="#FAB1A0" stroke="#E17055" stroke-width="3"/><path d="M20 30 l30 10 l30 -10 M50 40 v40" fill="none" stroke="#E17055" stroke-width="3"/>',
+                cone: '<ellipse cx="50" cy="80" rx="30" ry="10" fill="#FFEAA7" stroke="#FDCB6E" stroke-width="3"/><path d="M20 80 L50 20 L80 80" fill="#FFEAA7" stroke="#FDCB6E" stroke-width="3"/>',
                 cylinder: '<ellipse cx="50" cy="25" rx="30" ry="10" fill="#81ECEC" stroke="#00CEC9" stroke-width="3"/><path d="M20 25 v50 a30 10 0 0 0 60 0 v-50" fill="#81ECEC" stroke="#00CEC9" stroke-width="3"/><ellipse cx="50" cy="75" rx="30" ry="10" fill="none" stroke="#00CEC9" stroke-width="3" stroke-dasharray="2 2"/>',
                 pyramid: '<polygon points="50,15 85,85 15,85" fill="#D63031" stroke="#2D3436" stroke-width="3"/><line x1="50" y1="15" x2="50" y2="85" stroke="#2D3436" stroke-width="2"/>'
             };
@@ -567,8 +566,8 @@
                 progress.classList.add('hidden');
                 main.innerHTML = `
                     <div class="text-center py-6">
-                        <div class="inline-block bg-white dark:bg-slate-700 p-4 rounded-3xl border-4 border-pink-400 rotate-2 mb-8 shadow-lg">
-                             <h2 class="text-3xl lg:text-5xl font-black" style="color: var(--title-color);">PICK YOUR ADVENTURE! 🏰</h2>
+                        <div class="inline-block bg-white dark:bg-gray-800 p-6 rounded-3xl border-4 border-purple-400 rotate-2 mb-10 shadow-lg">
+                             <h2 class="text-3xl lg:text-5xl font-black text-purple-600 dark:text-purple-300">PICK YOUR ADVENTURE! 🏰</h2>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             <div onclick="startSection('lesson')" class="hub-card lesson-gradient p-8 text-white shadow-xl cursor-pointer">
@@ -609,15 +608,14 @@
                 progress.classList.remove('hidden');
                 const data = activeData[currentPage];
                 const progVal = ((currentPage + 1) / activeData.length) * 100;
-                document.getElementById('page-indicator').innerText = `QUEST PROGRESS: ${Math.round(progVal)}%`;
                 document.getElementById('progress-bar').style.width = `${progVal}%`;
 
                 let passageHtml = data.passage ? `
-                    <div class="sticky-passage">
-                        <div class="passage-box p-8 mb-6 shadow-xl">
-                            <p class="font-bold font-dynamic leading-loose" style="color: var(--text-color);">${data.passage}</p>
+                    <div class="sticky-passage mb-10">
+                        <div class="passage-box p-8 shadow-xl">
+                            <p class="font-bold font-dynamic leading-loose">${data.passage}</p>
                         </div>
-                        <div class="text-center mb-4"><span class="text-4xl">🕵️‍♂️</span></div>
+                        <div class="text-center mt-4"><span class="text-4xl">🕵️‍♂️</span></div>
                     </div>` : '';
 
                 let questionsHtml = '';
@@ -625,14 +623,14 @@
                     const key = `${currentPage}-${qIdx}`;
                     const answered = userAnswers[key] !== undefined;
                     questionsHtml += `
-                        <div class="card p-8 mb-8 overflow-hidden relative">
+                        <div class="card p-10 mb-10 overflow-hidden relative">
                             <div class="absolute -top-2 -right-2 text-4xl opacity-10">🤔</div>
-                            <div class="font-black mb-6 q-text text-2xl" style="color: var(--instr-color) !important;">${q.q}</div>
-                            <div class="grid grid-cols-1 ${q.opts.length > 2 ? 'sm:grid-cols-2' : ''} gap-4">
+                            <div class="font-black mb-8 q-text text-2xl">${q.q}</div>
+                            <div class="grid grid-cols-1 ${q.opts.length > 2 ? 'sm:grid-cols-2' : ''} gap-6">
                                 ${q.opts.map((opt, oIdx) => {
                                     let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
                                     let icon = answered ? (oIdx === q.c ? "✅" : (oIdx === userAnswers[key] ? "❌" : "")) : "";
-                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-4 text-left font-black transition-all flex justify-between items-center ${cls}">
+                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-5 text-left font-black transition-all flex justify-between items-center ${cls}">
                                         <span>${opt}</span>
                                         <span>${icon}</span>
                                     </button>`;
@@ -642,15 +640,15 @@
                 });
 
                 main.innerHTML = `
-                    <div class="mb-10 text-center">
-                        <h2 class="font-black text-4xl mb-2" style="color: var(--title-color);">${data.title}</h2>
-                        <div class="inline-block px-4 py-1 rounded-full border-2 font-bold" style="background: var(--header-bg); border-color: var(--instr-color); color: var(--instr-color);">
+                    <div class="mb-14 text-center">
+                        <h2 class="font-black text-5xl mb-4 text-purple-600 dark:text-purple-300">${data.title}</h2>
+                        <div class="inline-block bg-purple-200 dark:bg-purple-900 px-6 py-2 rounded-full border-2 border-purple-400 font-bold text-purple-700 dark:text-purple-200">
                              💡 ${data.instr || 'Read carefully, little genius!'}
                         </div>
                     </div>
-                    <div class="${data.passage ? 'lg:grid lg:grid-cols-2 lg:gap-12' : 'max-w-3xl mx-auto'}">
+                    <div class="${data.passage ? 'lg:grid lg:grid-cols-2 lg:gap-16' : 'max-w-4xl mx-auto'}">
                         ${passageHtml}
-                        <div class="space-y-4">
+                        <div class="space-y-6">
                             ${questionsHtml}
                         </div>
                     </div>
@@ -668,7 +666,7 @@
                 ["OOPSIE! 🍌", "NOT QUITE! 🧐", "TRY AGAIN, HERO! 🦸‍♂️", "OH NO! 🙈"];
             
             toast.innerText = coolMessages[Math.floor(Math.random()*coolMessages.length)];
-            toast.style.backgroundColor = isCorrect ? "#22c55e" : "#ef4444";
+            toast.style.backgroundColor = isCorrect ? "#4CAF50" : "#F44336";
             toast.style.opacity = "1";
             toast.style.transform = "translateX(-50%) translateY(-20px) scale(1.2)";
             
@@ -684,36 +682,30 @@
             document.getElementById('quiz-footer').classList.add('hidden');
             document.getElementById('progress-container').classList.add('hidden');
             let total = 0, correct = 0;
-            activeData.forEach((p, pi) => p.qs.forEach((q, qi) => { total++; if (userAnswers[`pi-qi`] === q.c) correct++; }));
-            // Manual score calculation based on stored answers
-            correct = 0;
-            Object.keys(userAnswers).forEach(key => {
-                const [pIdx, qIdx] = key.split('-').map(Number);
-                if (userAnswers[key] === activeData[pIdx].qs[qIdx].c) correct++;
-            });
+            activeData.forEach((p, pi) => p.qs.forEach((q, qi) => { total++; if (userAnswers[`${pi}-${qi}`] === q.c) correct++; }));
             const scorePercent = Math.round((correct/total)*100);
             
             let resultStuff = scorePercent >= 90 ? 
-                { emoji: "👑", msg: "YOU ARE THE KING/QUEEN!", sub: "Unbelievable skills!", color: "text-pink-500" } : 
+                { emoji: "👑", msg: "YOU ARE THE KING/QUEEN!", sub: "Unbelievable skills!", color: "text-purple-500" } : 
                 (scorePercent >= 70 ? 
                     { emoji: "🌟", msg: "SUPERSTAR STATUS!", sub: "You're doing amazing!", color: "text-blue-500" } : 
-                    { emoji: "🚀", msg: "KEEP TRAINING, PILOT!", sub: "You're getting better every day!", color: "text-blue-400" }
+                    { emoji: "🚀", msg: "KEEP TRAINING, PILOT!", sub: "You're getting better every day!", color: "text-green-500" }
                 );
 
             document.getElementById('main-view').innerHTML = `
-                <div id="results-container" class="max-w-3xl mx-auto text-center py-12 px-8 rounded-[4rem] shadow-2xl mt-8">
+                <div class="max-w-3xl mx-auto text-center py-12 px-8 bg-white dark:bg-gray-800 rounded-[4rem] shadow-2xl mt-8 border-8 border-purple-200">
                     <div class="text-9xl mb-8 animate-bounce">${resultStuff.emoji}</div>
                     <h2 class="text-5xl font-black mb-4 ${resultStuff.color}">${resultStuff.msg}</h2>
                     <p class="text-slate-500 dark:text-slate-400 font-black text-2xl mb-10">${resultStuff.sub}</p>
                     
                     <div class="relative inline-block mb-12">
-                        <div class="text-8xl font-black" style="color: var(--title-color);">${scorePercent}%</div>
+                        <div class="text-8xl font-black text-purple-600 dark:text-purple-300">${scorePercent}%</div>
                         <div class="absolute -top-4 -right-8 text-4xl rotate-12">🏆</div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <button onclick="goHome()" class="py-6 bg-pink-500 border-b-8 border-pink-700 hover:bg-pink-400 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">PLAY AGAIN! 🎮</button>
-                        <button onclick="location.reload()" class="py-6 bg-blue-500 border-b-8 border-blue-700 hover:bg-blue-400 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">NEW QUEST! 🗺️</button>
+                        <button onclick="goHome()" class="py-6 bg-purple-600 border-b-8 border-purple-800 hover:bg-purple-500 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">PLAY AGAIN! 🎮</button>
+                        <button onclick="location.reload()" class="py-6 bg-pink-600 border-b-8 border-pink-800 hover:bg-pink-500 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">NEW QUEST! 🗺️</button>
                     </div>
                     
                     <div class="mt-8 text-6xl">🎈 🎊 🦄 🥳 🍭</div>
