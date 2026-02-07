@@ -49,6 +49,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
+        /* Fixed Scaling for Questions and Answers */
         .q-text {
             font-size: var(--user-font-size) !important;
             color: var(--text-color) !important;
@@ -256,129 +257,111 @@
                 ]
             },
             {
-                title: "Page 3: Prefixes",
-                instr: "For numbers 1-4, find the word that has the prefix underlined. For 5-8, match the definition.",
+                title: "Page 3: Prefixes Mastery",
+                instr: "Choose the correct word based on the prefix meaning.",
                 qs: [
-                    { q: "1. Find underlined prefix:", opts: ["<u>un</u>fair", "disappear", "safely", "misplace"], c: 0 },
-                    { q: "2. Find underlined prefix:", opts: ["dislike", "helpless", "<u>re</u>wind", "unhappy"], c: 2 },
-                    { q: "3. Find underlined prefix:", opts: ["softly", "<u>pre</u>heat", "premade", "unload"], c: 1 },
-                    { q: "4. Find underlined prefix:", opts: ["<u>re</u>make", "dislike", "playful", "kindness"], c: 0 },
-                    { q: "5. tie again", opts: ["retie", "untie", "distie", "mistie"], c: 0 },
-                    { q: "6. spell wrong", opts: ["unspell", "misspell", "prespell", "disspell"], c: 1 },
-                    { q: "7. to not agree", opts: ["unagree", "reagree", "misagree", "disagree"], c: 3 },
-                    { q: "8. not even", opts: ["reeven", "diseven", "miseven", "uneven"], c: 3 }
+                    { q: "1. Which word means <b>not</b> fair?", opts: ["Fairness", "Unfair", "Missfair", "Disfair"], c: 1 },
+                    { q: "2. Which word means to wind <b>again</b>?", opts: ["Rewind", "Rewinding", "Unwind", "Miswind"], c: 0 },
+                    { q: "3. Which word means to heat <b>before</b>?", opts: ["Heating", "Preheat", "Unheat", "Misheat"], c: 1 },
+                    { q: "4. Which word means to make <b>again</b>?", opts: ["Remake", "Remaking", "Unmake", "Dismake"], c: 0 },
+                    { q: "5. Which word means to <b>stop appearing</b>?", opts: ["Appearing", "Disappear", "Misappear", "Reappear"], c: 1 },
+                    { q: "6. Which word means to spell <b>wrong</b>?", opts: ["Spellings", "Misspell", "Unspell", "Prespell"], c: 1 },
+                    { q: "7. Which word means to <b>not</b> agree?", opts: ["Agreements", "Disagree", "Unagree", "Misagree"], c: 1 },
+                    { q: "8. Which word means <b>not</b> even?", opts: ["Evenly", "Uneven", "Reeven", "Diseven"], c: 1 }
                 ]
             },
             {
-                title: "Page 4: Suffixes",
-                instr: "For numbers 1-4, find the word that has the suffix underlined. For 5-8, match the definition.",
+                title: "Page 4: Suffixes Mastery",
+                instr: "Choose the correct word based on the suffix meaning.",
                 qs: [
-                    { q: "1. Find underlined suffix:", opts: ["friendly", "worth<u>less</u>", "undo", "replay"], c: 1 },
-                    { q: "2. Find underlined suffix:", opts: ["helpless", "weak<u>ness</u>", "displease", "wildly"], c: 1 },
-                    { q: "3. Find underlined suffix:", opts: ["mistake", "harmless", "help<u>ful</u>", "redo"], c: 2 },
-                    { q: "4. Find underlined suffix:", opts: ["teach<u>er</u>", "painter", "badly", "careful"], c: 0 },
-                    { q: "5. without a home", opts: ["homeness", "homeful", "homeless", "homely"], c: 2 },
-                    { q: "6. full of color", opts: ["colorly", "colorful", "colorness", "colorless"], c: 1 },
-                    { q: "7. in a quick way", opts: ["quickless", "quickly", "quickful", "quicker"], c: 1 },
-                    { q: "8. one who leads", opts: ["leader", "leadless", "leadly", "leadful"], c: 0 }
+                    { q: "1. Which word means <b>without</b> worth?", opts: ["Worthful", "Worthless", "Worthness", "Worthly"], c: 1 },
+                    { q: "2. Which word means the <b>state</b> of being weak?", opts: ["Weakly", "Weakness", "Weakful", "Weakless"], c: 1 },
+                    { q: "3. Which word means <b>full of</b> help?", opts: ["Helpless", "Helpful", "Helpness", "Helply"], c: 1 },
+                    { q: "4. Which word means <b>one who</b> teaches?", opts: ["Teaching", "Teacher", "Teachless", "Teachful"], c: 1 },
+                    { q: "5. Which word means <b>without</b> a home?", opts: ["Homely", "Homeless", "Homeness", "Homeful"], c: 1 },
+                    { q: "6. Which word means <b>full of</b> color?", opts: ["Colorly", "Colorful", "Colorless", "Colorness"], c: 1 },
+                    { q: "7. Which word means <b>in a quick way</b>?", opts: ["Quickless", "Quickly", "Quickful", "Quicker"], c: 1 },
+                    { q: "8. Which word means <b>one who</b> leads?", opts: ["Leading", "Leader", "Leadless", "Leadful"], c: 1 }
                 ]
             },
             {
-                title: "Page 5-6: Phonics & Mixed Practice",
-                instr: "Follow the auditory directions or read the words provided.",
+                title: "Page 5: Phonics Auditory",
+                instr: "Identify words with specific beginning or ending sounds.",
                 qs: [
-                    { q: "1. Same beginning sound as <u>duck</u>:", opts: ["drop", "door", "dig"], c: 2 },
-                    { q: "2. Same beginning sound as <u>shoe</u>:", opts: ["slip", "shop", "school"], c: 1 },
-                    { q: "3. Same ending sound as <u>bed</u>:", opts: ["ready", "door", "lead"], c: 2 },
-                    { q: "4. Same ending sound as <u>back</u>:", opts: ["check", "lunch", "camp"], c: 0 },
-                    { q: "5. Same middle sound as <b>chart</b>:", opts: ["past", "brain", "tray", "farm"], c: 3 },
-                    { q: "6. Same middle sound as <b>feet</b>:", opts: ["met", "them", "treat", "there"], c: 2 },
+                    { q: "1. Same <b>beginning sound</b> as <u>duck</u>:", opts: ["drop", "door", "jump"], c: 1, layout: "row" },
+                    { q: "2. Same <b>beginning sound</b> as <u>shoe</u>:", opts: ["slip", "shop", "school"], c: 1, layout: "row" },
+                    { q: "3. Same <b>ending sound</b> as <u>bed</u>:", opts: ["ready", "door", "lead"], c: 2, layout: "row" },
+                    { q: "4. Same <b>ending sound</b> as <u>back</u>:", opts: ["check", "lunch", "camp"], c: 0, layout: "row" }
+                ]
+            },
+            {
+                title: "Page 6: Phonics & Mixed Practice",
+                instr: "Choose the best word based on sounds or context.",
+                qs: [
+                    { q: "5. Same middle sound as <b>chart</b>:", opts: ["past", "brain", "tray", "farm"], c: 3, layout: "row" },
+                    { q: "6. Same middle sound as <b>feet</b>:", opts: ["met", "them", "treat", "there"], c: 2, layout: "row" },
                     { q: "7. Synonym of <u>fast</u>:", opts: ["slow", "race", "quick", "run"], c: 2 },
                     { q: "8. Antonym of <u>outside</u>:", opts: ["under", "playing", "next", "inside"], c: 3 },
                     { q: "9. Please ___ papers / never been to that ___.", opts: ["put", "place", "school", "lay"], c: 1 },
-                    { q: "10. turn ___ / answers ___ on test.", opts: ["left", "correct", "right", "around"], c: 2 },
-                    { q: "11. Find underlined suffix:", opts: ["illness", "hope<u>ful</u>", "misplace", "beautiful"], c: 1 },
-                    { q: "12. math ___ tomorrow:", opts: ["book", "test", "paper", "homework"], c: 1 },
-                    { q: "13. questions ___ on test:", opts: ["right", "answers", "wrong", "grade"], c: 2 }
+                    { q: "10. turn ___ / answers ___ on test.", opts: ["left", "correct", "right", "around"], c: 2 }
                 ]
             },
             {
-                title: "Pages 7-8: Penguins",
-                passage: "Most penguins live in a land of snow and ice. They have feathers, wings, and a beak... But they are different in two important ways. Penguins cannot fly. A penguin body is too heavy... In the water they use their webbed feet to help them swim... They eat shrimplike animals called krill. Penguins lay eggs like all birds... Both the mother and father penguin feed the baby.",
+                title: "Pages 7-8: Section 2 - Penguins",
+                passage: "Most penguins live in a land of snow and ice. They have feathers, wings, and a beak... But they cannot fly because their body is too heavy. They use their flat, stiff wings as flippers to help them swim swiftly. They eat shrimplike animals called krill.",
                 qs: [
-                    { q: "1. Which sentence DOES NOT tell how they move?", opts: ["funny waddle", "flop down slide", "make nest pebbles", "webbed feet swim"], c: 2 },
+                    { q: "1. Which sentence DOES NOT tell how they move?", opts: ["waddle land", "slide on bellies", "make nest of pebbles", "webbed feet"], c: 2 },
                     { q: "2. Meaning of <b>swiftly</b>:", opts: ["carefully", "quickly", "slowly", "safely"], c: 1 },
                     { q: "3. <b>Krill</b> means:", opts: ["eggs", "fish", "shrimplike animals", "babies"], c: 2 },
-                    { q: "4. Fact about penguins:", opts: ["bad swimmers", "like other birds", "wings help swim", "only mothers"], c: 2 },
-                    { q: "5. Find underlined suffix:", opts: ["swiftly", "walk<u>ing</u>", "cannot", "covered"], c: 1 },
-                    { q: "6. Why can't they fly?", opts: ["no wings", "too heavy", "rather swim", "too tall"], c: 1 },
-                    { q: "7. Which is NOT true about chicks?", opts: ["hatch eggs", "both parents feed", "covered feathers", "find food now"], c: 3 }
+                    { q: "4. Fact about penguins:", opts: ["bad swimmers", "exactly like other birds", "wings help swim", "only mothers"], c: 2 }
                 ]
             },
             {
                 title: "Pages 9-10: Wright Brothers",
-                passage: "Orville and Wilbur Wright owned a bicycle shop in Dayton, Ohio. In 1899, they began to experiment with flight using kites and gliders... teaches them how an airplane should rise and return. In 1903, they took the first motor-powered flight for 12 seconds. They continued until they could stay for over an hour.",
+                passage: "Orville and Wilbur Wright owned a bicycle shop. In 1899, they began to experiment with flight using kites and gliders. In 1903, they took the first motor-powered flight for 12 seconds.",
                 qs: [
-                    { q: "8. Main idea:", opts: ["testing bad", "flyer first", "early pilots", "bike shop"], c: 2 },
+                    { q: "8. Main idea:", opts: ["Testing bad", "Flyer first", "Early pilots", "Bike shop"], c: 2 },
                     { q: "9. <b>Experiment</b>:", opts: ["try new ideas", "test kites", "stay in air", "fly airplane"], c: 0 },
-                    { q: "10. How did they learn?", opts: ["read books", "learn others", "test kites/gliders", "small engine"], c: 2 },
-                    { q: "11. How long did it last?", opts: ["12 seconds", "Dec 17", "1899", "1000 mins"], c: 0 },
                     { q: "12. Opposite of started:", opts: ["began", "finished", "first", "continued"], c: 1 },
-                    { q: "13. Opinion:", opts: ["tested kites", "flight 1903", "very smart", "flyer first"], c: 2 },
-                    { q: "14. Find underlined prefix:", opts: ["experiment", "interested", "<u>re</u>turn", "owned"], c: 2 }
+                    { q: "13. Opinion:", opts: ["Tested kites", "Flight in 1903", "Very smart", "Flyer first"], c: 2 }
                 ]
             },
             {
-                title: "Pages 11-12: My Shadow",
-                passage: "I HAVE a little shadow that goes in and out with me... He is very, very like me from the heels up to the head... The funniest thing about him is the way he likes to grow... he stays so close beside me, he's a coward you can see... one morning, very early... my lazy little shadow... had stayed at home behind me.",
+                title: "Pages 11-12: Section 3 - My Shadow",
+                passage: "I have a little shadow that goes in and out with me. He is very like me from the heels up to the head... The funniest thing about him is the way he likes to grow.",
                 qs: [
-                    { q: "1. Poem focus:", opts: ["goes school", "bird shadows", "relationship shadow", "get lost"], c: 2 },
+                    { q: "1. Poem focus:", opts: ["school", "animals", "shadow relationship", "lost"], c: 2 },
                     { q: "2. Feeling:", opts: ["afraid", "bored", "amused", "quiet"], c: 2 },
-                    { q: "3. Difference:", opts: ["grow/shrink", "jump up down", "find dew", "play inside"], c: 0 },
-                    { q: "4. Last stanza (lines 13-16):", opts: ["speaker sleeps", "meets friend", "shadow stays home", "shadow larger"], c: 2 },
-                    { q: "5. Why write it?", opts: ["explain animals", "warn losing", "entertain readers", "inform types"], c: 2 },
-                    { q: "6. Which is true?", opts: ["grows slowly", "same size", "is a coward", "not like speaker"], c: 2 },
-                    { q: "7. Speaker is likely a:", opts: ["dog", "mother", "teacher", "child"], c: 3 }
+                    { q: "3. Difference:", opts: ["grow/shrink", "jump", "find dew", "play"], c: 0 }
                 ]
             },
             {
                 title: "Pages 13-14: Uncle Wilber",
-                passage: "Our Uncle Wilber is a little strange. He sent a goldfish named Oscar. Friday he came to take Oscar home. He left a thank-you present. The box is full of holes and says 'Be Careful'. It hisses too. Sid was nervous, but Sarah lifted the lid... Eeeeek!",
+                passage: "Uncle Wilber is strange. He sent Oscar the goldfish. Friday Wilber came to take Oscar home. He left a heavy box that hisses and says 'Be Careful'.",
                 qs: [
                     { q: "8. What happened Friday?", opts: ["got fish", "got letter", "picked up Oscar", "vacation"], c: 2 },
-                    { q: "9. How did Sid feel?", opts: ["excited", "nervous", "angry", "sad"], c: 1 },
-                    { q: "10. Describe Wilber:", opts: ["weird", "rude", "greedy", "selfish"], c: 0 },
-                    { q: "11. Why send Oscar?", opts: ["give gift", "not want Oscar", "extra fish", "going away"], c: 3 },
-                    { q: "12. Opposite of slowly:", opts: ["carefully", "quickly", "happily", "sadly"], c: 1 },
-                    { q: "13. Same as strange:", opts: ["regular", "scary", "weird", "funny"], c: 2 }
+                    { q: "10. Describe Wilber:", opts: ["weird", "rude", "greedy", "selfish"], c: 0 }
                 ]
             },
             {
-                title: "Page 16: Synonyms",
+                title: "Page 16: Synonyms Mastery",
                 instr: "Choose the word that means about the same.",
                 qs: [
                     { q: "1. was <u>old</u>", opts: ["new", "ancient", "young", "dirty"], c: 1 },
                     { q: "2. was <u>quiet</u>", opts: ["loud", "silent", "noisy", "yelling"], c: 1 },
                     { q: "3. was <u>thin</u>", opts: ["narrow", "wide", "short", "tall"], c: 0 },
                     { q: "4. was <u>unusual</u>", opts: ["regular", "normal", "strange", "same"], c: 2 },
-                    { q: "5. was <u>shiny</u>", opts: ["bright", "dull", "new", "pretty"], c: 0 },
-                    { q: "6. was <u>normal</u>", opts: ["regular", "different", "odd", "weird"], c: 0 },
-                    { q: "7. was <u>neat</u>", opts: ["good", "messy", "dirty", "tidy"], c: 3 },
-                    { q: "8. was <u>honest</u>", opts: ["lying", "truthful", "wrong", "dishonest"], c: 1 }
+                    { q: "5. was <u>shiny</u>", opts: ["bright", "dull", "new", "pretty"], c: 0 }
                 ]
             },
             {
-                title: "Page 17: Context Clues",
-                instr: "Read the story and fill in the blanks.",
-                passage: "My family is going on a (1) trip. We will (2) to the beach in our car. Some people like to (3) soda and eat candy. You should (4) brush your teeth. We are going to learn (6) animals. I do not have (7) time to finish my book. I will read (8) tomorrow.",
+                title: "Page 17: Context Clues Mastery",
+                instr: "Read the context and fill in the numbered blanks.",
+                passage: "My family is going on a (1) trip. We will (2) to the beach in our car. Some people like to (3) soda and eat candy. You should (4) brush your teeth. We are going to learn (6) animals. I do not have (7) time to finish my book.",
                 qs: [
                     { q: "1. Blank (1):", opts: ["large", "clean", "special", "hard"], c: 2 },
                     { q: "2. Blank (2):", opts: ["swim", "travel", "together", "bring"], c: 1 },
-                    { q: "3. Blank (3):", opts: ["drink", "carry", "start", "bring"], c: 0 },
-                    { q: "4. Blank (4):", opts: ["never", "begin", "better", "always"], c: 3 },
-                    { q: "6. Blank (6):", opts: ["some", "again", "long", "about"], c: 3 },
-                    { q: "7. Blank (7):", opts: ["once", "enough", "yesterday", "real"], c: 1 },
-                    { q: "8. Blank (8):", opts: ["later", "soon", "yesterday", "until"], c: 0 }
+                    { q: "3. Blank (3):", opts: ["drink", "carry", "start", "bring"], c: 0 }
                 ]
             }
         ];
@@ -496,7 +479,6 @@
         function adjustFont(val) {
             fontSize = Math.max(16, Math.min(48, fontSize + val));
             document.documentElement.style.setProperty('--user-font-size', `${fontSize}px`);
-            render();
         }
 
         function startSection(type) {
@@ -513,7 +495,7 @@
                 activeData = [];
                 for (let i = 0; i < baseData.length; i += perPage) {
                     activeData.push({ 
-                        title: `${type.charAt(0).toUpperCase() + type.slice(1)} Lab - Page ${activeData.length + 1}`, 
+                        title: `${type.toUpperCase()} Lab - Page ${activeData.length + 1}`, 
                         instr: "Select the correct answer below.", 
                         qs: baseData.slice(i, i + perPage) 
                     });
