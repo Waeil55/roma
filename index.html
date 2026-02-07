@@ -193,22 +193,13 @@
             c100: "https://raw.githubusercontent.com/Waeil55/roma/main/1dollar.PNG"
         };
 
-        /**
-         * UPDATED COIN SECTION
-         * Realistic Sizing based on real US coin diameters:
-         * Dime: 17.91mm (Smallest)
-         * Penny: 19.05mm
-         * Nickel: 21.21mm
-         * Quarter: 24.26mm
-         * Dollar: 26.50mm
-         */
         const getCoin = (key) => {
             const sizes = {
-                c10: '4.2em',   // Dime (Base)
-                c1: '4.45em',   // Penny (~1.06x Dime)
-                c5: '5.0em',    // Nickel (~1.18x Dime)
-                c25: '5.7em',   // Quarter (~1.35x Dime)
-                c100: '6.25em'  // Dollar (~1.48x Dime)
+                c10: '4.2em',   // Dime (Smallest)
+                c1: '4.45em',   // Penny
+                c5: '5.0em',    // Nickel
+                c25: '5.7em',   // Quarter
+                c100: '6.25em'  // Dollar (Largest)
             };
             return `<img src="${COIN_URLS[key]}" class="coin-img" style="height: ${sizes[key]}" alt="${key}">`;
         };
@@ -493,6 +484,7 @@
         function goHome() {
             currentView = 'home';
             render();
+            window.scrollTo(0, 0);
         }
 
         function adjustFont(val) {
@@ -524,15 +516,24 @@
             userAnswers = {};
             currentView = 'quiz';
             render();
+            window.scrollTo(0, 0);
         }
 
         function handleBack() {
-            if (currentPage > 0) { currentPage--; render(); }
+            if (currentPage > 0) { 
+                currentPage--; 
+                render(); 
+                window.scrollTo(0, 0);
+            }
             else goHome();
         }
 
         function nextPage() {
-            if (currentPage < activeData.length - 1) { currentPage++; render(); }
+            if (currentPage < activeData.length - 1) { 
+                currentPage++; 
+                render(); 
+                window.scrollTo(0, 0);
+            }
             else finish();
         }
 
@@ -601,7 +602,6 @@
                         </div>`;
                 });
                 main.innerHTML = html;
-                window.scrollTo(0, 0);
             }
         }
 
@@ -629,6 +629,7 @@
                     <div class="text-7xl font-black text-blue-700 mb-8">${Math.round((correct/total)*100)}%</div>
                     <button onclick="goHome()" class="w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl">Back to Hub</button>
                 </div>`;
+            window.scrollTo(0, 0);
         }
         render();
     </script>
