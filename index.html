@@ -114,13 +114,13 @@
         }
 
         .coin-img {
-            height: 1.8em;
             display: inline-block;
             vertical-align: middle;
-            margin: 0 3px;
+            margin: 4px 6px;
             border-radius: 50%;
             background: #fff;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            width: auto;
         }
 
         .hub-card {
@@ -193,7 +193,25 @@
             c100: "https://raw.githubusercontent.com/Waeil55/roma/main/1dollar.PNG"
         };
 
-        const getCoin = (key) => `<img src="${COIN_URLS[key]}" class="coin-img" alt="${key}">`;
+        /**
+         * UPDATED COIN SECTION
+         * Realistic Sizing based on real US coin diameters:
+         * Dime: 17.91mm (Smallest)
+         * Penny: 19.05mm
+         * Nickel: 21.21mm
+         * Quarter: 24.26mm
+         * Dollar: 26.50mm
+         */
+        const getCoin = (key) => {
+            const sizes = {
+                c10: '4.2em',   // Dime (Base)
+                c1: '4.45em',   // Penny (~1.06x Dime)
+                c5: '5.0em',    // Nickel (~1.18x Dime)
+                c25: '5.7em',   // Quarter (~1.35x Dime)
+                c100: '6.25em'  // Dollar (~1.48x Dime)
+            };
+            return `<img src="${COIN_URLS[key]}" class="coin-img" style="height: ${sizes[key]}" alt="${key}">`;
+        };
 
         function getClockSVG(h, m) {
             const hDeg = (h % 12 + m / 60) * 30;
@@ -369,6 +387,7 @@
         const initialCoinData = [
             { q: `${getCoin('c1')} + ${getCoin('c1')} + ${getCoin('c1')}`, opts: ["2 cents", "3 cents", "5 cents", "10 cents"], c: 1 },
             { q: `${getCoin('c5')} + ${getCoin('c5')}`, opts: ["5 cents", "10 cents", "25 cents", "2 cents"], c: 1 },
+            { q: `${getCoin('c10')} + ${getCoin('c10')}`, opts: ["10 cents", "20 cents", "25 cents", "15 cents"], c: 1 },
             { q: `${getCoin('c25')} + ${getCoin('c10')}`, opts: ["30 cents", "35 cents", "40 cents", "25 cents"], c: 1 },
             { q: `${getCoin('c100')} - ${getCoin('c25')}`, opts: ["75 cents", "50 cents", "25 cents", "100 cents"], c: 0 },
             { q: `${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}`, opts: ["50 cents", "75 cents", "$1.00", "$2.00"], c: 2 },
