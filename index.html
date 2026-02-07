@@ -459,13 +459,23 @@
         function generateShapesData() {
             const list = [];
             const names = ["circle", "square", "triangle", "rectangle", "star", "sphere", "cube", "cone", "cylinder", "pyramid"];
+            const allShapeOptions = ["Circle", "Square", "Triangle", "Rectangle", "Star", "Sphere", "Cube", "Cone", "Cylinder", "Pyramid"];
+            
             for (let i = 0; i < 120; i++) {
                 const type = names[Math.floor(Math.random() * names.length)];
                 const correct = type.charAt(0).toUpperCase() + type.slice(1);
+                
+                // Select 3 random wrong options
+                let wrongOptions = allShapeOptions.filter(opt => opt !== correct);
+                wrongOptions = shuffle([...wrongOptions]).slice(0, 3);
+                
+                // Combine and sort for consistent UI
+                const finalOptions = shuffle([correct, ...wrongOptions]).sort();
+                
                 list.push({
                     q: `What shape is this?<br>${getShapeSVG(type)}`,
-                    opts: ["Circle", "Square", "Triangle", "Rectangle", "Star", "Sphere", "Cube", "Cone", "Cylinder", "Pyramid"].sort(),
-                    c: ["Circle", "Square", "Triangle", "Rectangle", "Star", "Sphere", "Cube", "Cone", "Cylinder", "Pyramid"].sort().indexOf(correct)
+                    opts: finalOptions,
+                    c: finalOptions.indexOf(correct)
                 });
             }
             return list;
