@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Merola Study App</title>
+    <title>Merola Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
@@ -12,7 +12,7 @@
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-color: #000000;
-            --title-color: #1e3a8a;
+            --title-color: #003366; 
             --instr-color: #334155;
             --border-color: #cbd5e1;
             --primary-action: #1d4ed8;
@@ -23,7 +23,7 @@
             --bg-color: #020617;
             --card-bg: #1e293b;
             --text-color: #ffffff;
-            --title-color: #93c5fd;
+            --title-color: #60a5fa; 
             --instr-color: #cbd5e1;
             --border-color: #475569;
             --primary-action: #3b82f6;
@@ -49,7 +49,6 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        /* Fixed Scaling for Questions and Answers */
         .q-text {
             font-size: var(--user-font-size) !important;
             color: var(--text-color) !important;
@@ -108,6 +107,22 @@
             .app-shell { max-width: 768px; }
         }
 
+        @media (min-width: 1024px) {
+            .app-shell { max-width: 1200px; }
+            .desktop-quiz-layout {
+                display: grid;
+                grid-template-columns: 1fr 1.5fr;
+                gap: 2rem;
+                align-items: start;
+            }
+            .sticky-passage {
+                position: sticky;
+                top: 100px;
+                max-height: calc(100vh - 150px);
+                overflow-y: auto;
+            }
+        }
+
         .header-title {
             color: var(--title-color) !important;
             font-weight: 900;
@@ -128,6 +143,7 @@
             cursor: pointer;
         }
         .hub-card:active { transform: scale(0.97); }
+        .hub-card:hover { transform: translateY(-4px); }
 
         .lesson-gradient { background: linear-gradient(135deg, #1e40af, #3b82f6); }
         .coin-gradient { background: linear-gradient(135deg, #065f46, #10b981); }
@@ -146,26 +162,30 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <header class="glass-header sticky top-0 z-50 px-4 py-2 flex flex-col gap-1 shadow-sm">
-        <div class="flex justify-between items-center">
+    <header class="glass-header sticky top-0 z-50 px-4 py-3 flex flex-col gap-1 shadow-sm">
+        <div class="app-shell flex justify-between items-center w-full">
             <div class="flex items-center gap-2">
                 <span class="text-xl">🏠</span>
-                <h1 class="text-lg header-title">Merola Study App</h1>
+                <h1 class="text-base sm:text-lg md:text-xl header-title font-black">Merola Study App</h1>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 sm:gap-4">
                 <div class="flex items-center bg-gray-200 dark:bg-slate-700 rounded-lg overflow-hidden border border-gray-400 dark:border-slate-500">
                     <button onclick="adjustFont(-2)" class="px-3 py-1 font-black text-slate-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">-</button>
+                    <!-- تعديل لون FONT ليصبح أوضح -->
+                    <span class="px-1 sm:px-2 text-[10px] sm:text-xs font-black text-slate-700 dark:text-slate-300">FONT</span>
                     <button onclick="adjustFont(2)" class="px-3 py-1 font-black text-slate-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">+</button>
                 </div>
-                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
-                    <span id="theme-icon">✨</span>
-                </button>
-                <button onclick="goHome()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
-                    <span>🏠</span>
-                </button>
+                <div class="flex items-center gap-1 sm:gap-2">
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
+                        <span id="theme-icon">✨</span>
+                    </button>
+                    <button onclick="goHome()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
+                        <span>🏠</span>
+                    </button>
+                </div>
             </div>
         </div>
-        <div id="progress-container" class="hidden flex justify-between items-center text-[10px] uppercase tracking-widest font-bold opacity-80">
+        <div id="progress-container" class="hidden app-shell w-full mt-2 flex justify-between items-center text-[10px] uppercase tracking-widest font-bold opacity-80">
             <span id="page-indicator" class="instr-text">Page 1</span>
             <div class="flex-grow h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full mx-3 overflow-hidden">
                 <div id="progress-bar" class="bg-blue-600 h-full transition-all duration-500" style="width: 0%"></div>
@@ -177,12 +197,16 @@
         <div id="main-view"></div>
     </main>
 
-    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 p-3 flex gap-3 z-40 shadow-lg">
-        <button onclick="handleBack()" id="prev-btn" class="flex-1 py-4 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-2xl font-bold">Back</button>
-        <button onclick="nextPage()" id="next-btn" class="flex-1 py-4 bg-blue-700 text-white rounded-2xl font-bold shadow-lg">Next</button>
+    <!-- تقليل الارتفاع عن طريق py-2 بدلاً من p-4 -->
+    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-2 px-4 z-40 shadow-lg">
+        <div class="app-shell flex gap-3">
+            <!-- تقليل ارتفاع الأزرار عن طريق py-2.5 بدلاً من py-4 -->
+            <button onclick="handleBack()" id="prev-btn" class="flex-1 py-2.5 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-2xl font-bold hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors">Back</button>
+            <button onclick="nextPage()" id="next-btn" class="flex-1 py-2.5 bg-blue-700 text-white rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition-colors">Next</button>
+        </div>
     </footer>
 
-    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-white font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-[60]"></div>
+    <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full text-white font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-[60]"></div>
 
     <script>
         const COIN_URLS = {
@@ -297,18 +321,18 @@
                 title: "Page 5: Phonics Auditory",
                 instr: "Identify words with specific beginning or ending sounds.",
                 qs: [
-                    { q: "1. Same <b>beginning sound</b> as <u>duck</u>:", opts: ["drop", "door", "jump"], c: 1, layout: "row" },
-                    { q: "2. Same <b>beginning sound</b> as <u>shoe</u>:", opts: ["slip", "shop", "school"], c: 1, layout: "row" },
-                    { q: "3. Same <b>ending sound</b> as <u>bed</u>:", opts: ["ready", "door", "lead"], c: 2, layout: "row" },
-                    { q: "4. Same <b>ending sound</b> as <u>back</u>:", opts: ["check", "lunch", "camp"], c: 0, layout: "row" }
+                    { q: "1. Same <b>beginning sound</b> as <u>duck</u>:", opts: ["drop", "door", "jump"], c: 1 },
+                    { q: "2. Same <b>beginning sound</b> as <u>shoe</u>:", opts: ["slip", "shop", "school"], c: 1 },
+                    { q: "3. Same <b>ending sound</b> as <u>bed</u>:", opts: ["ready", "door", "lead"], c: 2 },
+                    { q: "4. Same <b>ending sound</b> as <u>back</u>:", opts: ["check", "lunch", "camp"], c: 0 }
                 ]
             },
             {
                 title: "Page 6: Phonics & Mixed Practice",
                 instr: "Choose the best word based on sounds or context.",
                 qs: [
-                    { q: "5. Same middle sound as <b>chart</b>:", opts: ["past", "brain", "tray", "farm"], c: 3, layout: "row" },
-                    { q: "6. Same middle sound as <b>feet</b>:", opts: ["met", "them", "treat", "there"], c: 2, layout: "row" },
+                    { q: "5. Same middle sound as <b>chart</b>:", opts: ["past", "brain", "tray", "farm"], c: 3 },
+                    { q: "6. Same middle sound as <b>feet</b>:", opts: ["met", "them", "treat", "there"], c: 2 },
                     { q: "7. Synonym of <u>fast</u>:", opts: ["slow", "race", "quick", "run"], c: 2 },
                     { q: "8. Antonym of <u>outside</u>:", opts: ["under", "playing", "next", "inside"], c: 3 },
                     { q: "9. Please ___ papers / never been to that ___.", opts: ["put", "place", "school", "lay"], c: 1 },
@@ -546,32 +570,32 @@
                 footer.classList.add('hidden');
                 progress.classList.add('hidden');
                 main.innerHTML = `
-                    <div class="text-center py-8">
-                        <h2 class="text-4xl font-black mb-2 text-blue-600 dark:text-blue-400">Merola Study Hub</h2>
-                        <p class="text-lg font-bold text-slate-500 mb-10">Pick a section to start practicing.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="text-center py-8 lg:py-16">
+                        <h2 class="text-4xl lg:text-6xl font-black mb-4 text-blue-600 dark:text-blue-400">Merola Study Hub</h2>
+                        <p class="text-lg lg:text-2xl font-bold text-slate-500 mb-12">Pick a section to start practicing.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                             <div onclick="startSection('lesson')" class="hub-card lesson-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Lesson Mastery</h3><p class="opacity-90 font-medium">Full PDF Review</p></div>
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Lesson Mastery</h3><p class="opacity-90 font-medium text-sm">Full PDF Review</p></div>
                                 <div class="text-5xl">📚</div>
                             </div>
                             <div onclick="startSection('coin')" class="hub-card coin-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Coin Math Lab</h3><p class="opacity-90 font-medium">Money Counting</p></div>
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Coin Math Lab</h3><p class="opacity-90 font-medium text-sm">Money Counting</p></div>
                                 <div class="text-5xl">🪙</div>
                             </div>
                             <div onclick="startSection('time')" class="hub-card time-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Time Lab</h3><p class="opacity-90 font-medium">Read the Clock</p></div>
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Time Lab</h3><p class="opacity-90 font-medium text-sm">Read the Clock</p></div>
                                 <div class="text-5xl">⏰</div>
                             </div>
                             <div onclick="startSection('math')" class="hub-card math-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Math Lab</h3><p class="opacity-90 font-medium">150+ Math Problems</p></div>
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Math Lab</h3><p class="opacity-90 font-medium text-sm">150+ Math Problems</p></div>
                                 <div class="text-5xl">➕</div>
                             </div>
                             <div onclick="startSection('shapes')" class="hub-card shapes-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Shapes Lab</h3><p class="opacity-90 font-medium">2D & 3D Geometry</p></div>
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Shapes Lab</h3><p class="opacity-90 font-medium text-sm">2D & 3D Geometry</p></div>
                                 <div class="text-5xl">🔷</div>
                             </div>
                             <div onclick="startSection('grammar')" class="hub-card grammar-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Grammar Lab</h3><p class="opacity-90 font-medium">Noun vs Verb</p></div>
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Grammar Lab</h3><p class="opacity-90 font-medium text-sm">Noun vs Verb</p></div>
                                 <div class="text-5xl">✍️</div>
                             </div>
                         </div>
@@ -584,16 +608,24 @@
                 document.getElementById('page-indicator').innerText = `Page ${currentPage + 1} of ${activeData.length}`;
                 document.getElementById('progress-bar').style.width = `${((currentPage + 1) / activeData.length) * 100}%`;
 
-                let html = `<div class="mb-4"><h2 class="font-black mb-1 text-2xl" style="color: var(--title-color);">${data.title}</h2><p class="font-bold instr-text">${data.instr || ''}</p></div>`;
-                if (data.passage) html += `<div class="passage-box mb-6"><p class="font-bold font-dynamic">${data.passage}</p></div>`;
+                let passageHtml = '';
+                if (data.passage) {
+                    passageHtml = `
+                        <div class="${data.passage ? 'sticky-passage' : ''}">
+                            <div class="passage-box mb-6 shadow-sm">
+                                <p class="font-bold font-dynamic leading-relaxed">${data.passage}</p>
+                            </div>
+                        </div>`;
+                }
 
+                let questionsHtml = '';
                 data.qs.forEach((q, qIdx) => {
                     const key = `${currentPage}-${qIdx}`;
                     const answered = userAnswers[key] !== undefined;
-                    html += `
-                        <div class="card rounded-3xl p-6 mb-4 shadow-sm">
+                    questionsHtml += `
+                        <div class="card rounded-3xl p-6 mb-6 shadow-sm">
                             <div class="font-bold mb-5 q-text">${q.q}</div>
-                            <div class="space-y-3">
+                            <div class="grid grid-cols-1 ${q.opts.length > 2 ? 'sm:grid-cols-2' : ''} gap-3">
                                 ${q.opts.map((opt, oIdx) => {
                                     let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
                                     return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-5 text-left rounded-2xl font-black flex justify-between items-center ${cls}"><span>${opt}</span></button>`;
@@ -601,7 +633,19 @@
                             </div>
                         </div>`;
                 });
-                main.innerHTML = html;
+
+                main.innerHTML = `
+                    <div class="mb-8 border-b border-gray-200 dark:border-slate-800 pb-4">
+                        <h2 class="font-black mb-1 text-3xl lg:text-4xl" style="color: var(--title-color);">${data.title}</h2>
+                        <p class="font-bold instr-text text-lg">${data.instr || 'Read the following and select the best answer.'}</p>
+                    </div>
+                    <div class="${data.passage ? 'desktop-quiz-layout' : 'max-w-4xl mx-auto'}">
+                        ${passageHtml}
+                        <div class="space-y-4">
+                            ${questionsHtml}
+                        </div>
+                    </div>
+                `;
             }
         }
 
@@ -609,10 +653,15 @@
             userAnswers[`${currentPage}-${qIdx}`] = oIdx;
             const isCorrect = oIdx === activeData[currentPage].qs[qIdx].c;
             const toast = document.getElementById('toast');
-            toast.innerText = isCorrect ? "Correct!" : "Try Again!";
+            toast.innerText = isCorrect ? "✨ Correct!" : "❌ Try Again!";
             toast.style.backgroundColor = isCorrect ? "#16a34a" : "#dc2626";
             toast.style.opacity = "1";
-            setTimeout(() => toast.style.opacity = "0", 1000);
+            toast.style.transform = "translateX(-50%) translateY(-10px)";
+            
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(-50%) translateY(0)";
+            }, 1000);
             render();
         };
 
@@ -622,12 +671,19 @@
             document.getElementById('progress-container').classList.add('hidden');
             let total = 0, correct = 0;
             activeData.forEach((p, pi) => p.qs.forEach((q, qi) => { total++; if (userAnswers[`${pi}-${qi}`] === q.c) correct++; }));
+            
+            const scorePercent = Math.round((correct/total)*100);
+            let emoji = scorePercent >= 90 ? "🏆" : (scorePercent >= 70 ? "⭐️" : "📚");
+
             document.getElementById('main-view').innerHTML = `
-                <div class="text-center py-12 px-6 bg-white dark:bg-slate-800 rounded-[3rem] shadow-2xl">
-                    <div class="text-8xl mb-6">🎖️</div>
-                    <h2 class="text-4xl font-black mb-2 text-blue-600">Session Complete!</h2>
-                    <div class="text-7xl font-black text-blue-700 mb-8">${Math.round((correct/total)*100)}%</div>
-                    <button onclick="goHome()" class="w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl">Back to Hub</button>
+                <div class="max-w-2xl mx-auto text-center py-16 px-8 bg-white dark:bg-slate-800 rounded-[3rem] shadow-2xl mt-12 border border-gray-200 dark:border-slate-700">
+                    <div class="text-9xl mb-8">${emoji}</div>
+                    <h2 class="text-4xl lg:text-5xl font-black mb-4 text-blue-600">Session Complete!</h2>
+                    <p class="text-slate-500 font-bold text-xl mb-10">You did a great job today!</p>
+                    <div class="text-8xl font-black text-blue-700 dark:text-blue-400 mb-12">${scorePercent}%</div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="goHome()" class="flex-1 py-6 bg-blue-600 hover:bg-blue-700 text-white rounded-[2rem] font-black text-xl transition-all shadow-lg hover:shadow-xl">Back to Hub</button>
+                    </div>
                 </div>`;
             window.scrollTo(0, 0);
         }
