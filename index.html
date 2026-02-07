@@ -11,8 +11,8 @@
         :root {
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #0f172a; 
-            --title-color: #1e3a8a; /* Readable deep blue */
+            --text-color: #000000;
+            --title-color: #1e3a8a;
             --instr-color: #334155;
             --border-color: #cbd5e1;
             --primary-action: #1d4ed8;
@@ -22,8 +22,8 @@
         .dark {
             --bg-color: #020617;
             --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --title-color: #93c5fd; /* Readable light blue */
+            --text-color: #ffffff;
+            --title-color: #93c5fd;
             --instr-color: #cbd5e1;
             --border-color: #475569;
             --primary-action: #3b82f6;
@@ -53,7 +53,6 @@
             background-color: #f0f9ff !important;
             color: #1e3a8a !important; 
             border-left: 6px solid #2563eb;
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
             padding: 1.25rem;
             border-radius: 1rem;
         }
@@ -61,14 +60,13 @@
         .dark .passage-box {
             background-color: #0c4a6e !important;
             color: #f0f9ff !important;
-            border-left: 6px solid #3b82f6;
         }
 
         .option-btn {
             transition: all 0.15s ease;
             border: 2px solid var(--border-color);
             background-color: var(--card-bg);
-            color: var(--text-color);
+            color: var(--text-color) !important;
         }
 
         .correct {
@@ -97,60 +95,111 @@
             font-size: var(--user-font-size);
         }
 
-        u { text-decoration: underline; font-weight: bold; }
-        b { font-weight: 800; }
-        
         .header-title {
             color: var(--title-color) !important;
             font-weight: 900;
+        }
+
+        .coin-img {
+            height: 1.8em;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 3px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .hub-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .hub-card:active { transform: scale(0.97); }
+
+        .lesson-gradient { background: linear-gradient(135deg, #1e40af, #3b82f6); }
+        .coin-gradient { background: linear-gradient(135deg, #065f46, #10b981); }
+        .time-gradient { background: linear-gradient(135deg, #7c3aed, #db2777); }
+        .math-gradient { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+
+        .q-text { color: var(--text-color) !important; }
+        .instr-text { color: var(--instr-color) !important; }
+
+        .clock-svg {
+            width: 120px;
+            height: 120px;
+            margin: 10px auto;
+            display: block;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Header Section -->
-    <header class="glass-header sticky top-0 z-50 px-4 py-1.5 flex flex-col gap-0.5 shadow-sm">
+    <header class="glass-header sticky top-0 z-50 px-4 py-2 flex flex-col gap-1 shadow-sm">
         <div class="flex justify-between items-center">
-            <h1 class="text-base header-title">Merola Website</h1>
             <div class="flex items-center gap-2">
-                <!-- Text Resize Controls -->
-                <div class="flex items-center bg-gray-200 dark:bg-slate-700 rounded-lg overflow-hidden border border-gray-400 dark:border-slate-500 shadow-sm">
-                    <button onclick="adjustFont(-2)" class="px-3 py-1 font-black text-slate-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">−</button>
-                    <div class="w-px h-4 bg-gray-400 dark:bg-slate-500"></div>
-                    <button onclick="adjustFont(2)" class="px-3 py-1 font-black text-slate-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">+</button>
+                <span class="text-xl">🏠</span>
+                <h1 class="text-lg header-title">Merola Website</h1>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center bg-gray-200 dark:bg-slate-700 rounded-lg overflow-hidden border border-gray-400 dark:border-slate-500">
+                    <button onclick="adjustFont(-2)" class="px-3 py-1 font-black text-slate-900 dark:text-white">-</button>
+                    <button onclick="adjustFont(2)" class="px-3 py-1 font-black text-slate-900 dark:text-white">+</button>
                 </div>
-                <!-- Theme Switcher -->
                 <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
                     <span id="theme-icon">✨</span>
                 </button>
+                <button onclick="goHome()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
+                    <span>🏠</span>
+                </button>
             </div>
         </div>
-        <!-- Progress Indicator -->
-        <div class="flex justify-between items-center text-[9px] uppercase tracking-wider font-bold opacity-90">
-            <span id="page-indicator" style="color: var(--text-color);">Page 1 of 12</span>
-            <div class="w-1/2 bg-gray-300 dark:bg-gray-700 rounded-full h-1 ml-2">
-                <div id="progress-bar" class="bg-blue-600 h-1 rounded-full transition-all duration-500" style="width: 8%"></div>
+        <div id="progress-container" class="hidden flex justify-between items-center text-[10px] uppercase tracking-widest font-bold opacity-80">
+            <span id="page-indicator" class="instr-text">Page 1</span>
+            <div class="flex-grow h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full mx-3 overflow-hidden">
+                <div id="progress-bar" class="bg-blue-600 h-full transition-all duration-500" style="width: 0%"></div>
             </div>
         </div>
     </header>
 
-    <!-- Main Exam Content -->
-    <main class="flex-grow app-shell px-4 py-4 mb-24">
-        <div id="quiz-container" class="space-y-6"></div>
+    <main class="flex-grow app-shell px-4 py-6 mb-24">
+        <div id="main-view"></div>
     </main>
 
-    <!-- Navigation Footer -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 p-2.5 flex gap-3 z-40 shadow-lg">
-        <button onclick="prevPage()" id="prev-btn" class="flex-1 py-3 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-xl font-bold text-base disabled:opacity-40 transition-opacity">Back</button>
-        <button onclick="nextPage()" id="next-btn" class="flex-1 py-3 bg-blue-700 text-white rounded-xl font-bold text-base shadow-lg active:scale-95 transition-transform">Next</button>
+    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 p-3 flex gap-3 z-40 shadow-lg">
+        <button onclick="handleBack()" id="prev-btn" class="flex-1 py-4 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-2xl font-bold">Back</button>
+        <button onclick="nextPage()" id="next-btn" class="flex-1 py-4 bg-blue-700 text-white rounded-2xl font-bold shadow-lg">Next</button>
     </footer>
 
-    <!-- Result Popups -->
-    <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-white font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-[60]"></div>
+    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-white font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-[60]"></div>
 
     <script>
-        // Full Dataset Including PDF content and new Mastery additions
-        const examData = [
+        const COIN_URLS = {
+            c1: "https://raw.githubusercontent.com/Waeil55/roma/main/1.PNG",
+            c5: "https://raw.githubusercontent.com/Waeil55/roma/main/5.PNG",
+            c10: "https://raw.githubusercontent.com/Waeil55/roma/main/10.PNG",
+            c25: "https://raw.githubusercontent.com/Waeil55/roma/main/25.PNG",
+            c100: "https://raw.githubusercontent.com/Waeil55/roma/main/1dollar.PNG"
+        };
+
+        const getCoin = (key) => `<img src="${COIN_URLS[key]}" class="coin-img" alt="${key}">`;
+
+        function getClockSVG(h, m) {
+            const hDeg = (h % 12 + m / 60) * 30;
+            const mDeg = m * 6;
+            return `
+            <svg class="clock-svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="white" stroke="#333" stroke-width="2"/>
+                ${[12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((n, i) => {
+                    const ang = (i * 30) * Math.PI / 180;
+                    return `<text x="${50 + 35 * Math.sin(ang)}" y="${52 - 35 * Math.cos(ang)}" font-size="8" text-anchor="middle" fill="#333" font-weight="bold">${n}</text>`;
+                }).join('')}
+                <line x1="50" y1="50" x2="50" y2="25" stroke="#000" stroke-width="3" stroke-linecap="round" transform="rotate(${hDeg} 50 50)"/>
+                <line x1="50" y1="50" x2="50" y2="15" stroke="#333" stroke-width="2" stroke-linecap="round" transform="rotate(${mDeg} 50 50)"/>
+                <circle cx="50" cy="50" r="2" fill="#000"/>
+            </svg>`;
+        }
+
+        const lessonData = [
             {
                 title: "Page 1: Antonyms",
                 instr: "Choose the word that means the opposite of the underlined word.",
@@ -219,7 +268,7 @@
             },
             {
                 title: "Page 6: Phonics & Mixed Practice",
-                instr: "Choose the best word based on sounds or context.",
+                passage: "Phonics Mastery",
                 qs: [
                     { q: "5. Same middle sound as <b>chart</b>:", opts: ["past", "brain", "tray", "farm"], c: 3, layout: "row" },
                     { q: "6. Same middle sound as <b>feet</b>:", opts: ["met", "them", "treat", "there"], c: 2, layout: "row" },
@@ -303,140 +352,256 @@
             }
         ];
 
+        const initialCoinData = [
+            { q: `${getCoin('c1')} + ${getCoin('c1')} + ${getCoin('c1')}`, opts: ["2 cents", "3 cents", "5 cents", "10 cents"], c: 1 },
+            { q: `${getCoin('c5')} + ${getCoin('c5')}`, opts: ["5 cents", "10 cents", "25 cents", "2 cents"], c: 1 },
+            { q: `${getCoin('c25')} + ${getCoin('c10')}`, opts: ["30 cents", "35 cents", "40 cents", "25 cents"], c: 1 },
+            { q: `${getCoin('c100')} - ${getCoin('c25')}`, opts: ["75 cents", "50 cents", "25 cents", "100 cents"], c: 0 },
+            { q: `${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}`, opts: ["50 cents", "75 cents", "$1.00", "$2.00"], c: 2 },
+            { q: `${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["15 cents", "16 cents", "20 cents", "11 cents"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')}`, opts: ["$1.25", "$2.25", "$3.00", "$2.50"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} - ${getCoin('c100')}`, opts: ["$1.00", "$2.00", "$3.00", "$0.00"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c5')}`, opts: ["$1.20", "$1.25", "$1.30", "$1.15"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["$2.05", "$2.10", "$2.06", "$2.15"], c: 2 },
+            { q: `${getCoin('c100')} - ${getCoin('c10')} - ${getCoin('c10')}`, opts: ["90 cents", "80 cents", "70 cents", "100 cents"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c5')}`, opts: ["$2.40", "$2.50", "$2.35", "$2.45"], c: 0 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c1')}`, opts: ["$2.30", "$2.36", "$2.40", "$2.41"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c5')}`, opts: ["$1.75", "$1.80", "$1.85", "$1.90"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} - ${getCoin('c25')}`, opts: ["$2.50", "$2.75", "$3.00", "$2.25"], c: 1 },
+            { q: `${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')}`, opts: ["80 cents", "90 cents", "$1.00", "75 cents"], c: 2 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c25')}`, opts: ["$4.25", "$4.50", "$4.75", "$5.00"], c: 1 },
+            { q: `${getCoin('c100')} - ${getCoin('c5')} - ${getCoin('c5')} - ${getCoin('c5')}`, opts: ["90 cents", "85 cents", "80 cents", "75 cents"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c1')} + ${getCoin('c1')} + ${getCoin('c1')}`, opts: ["$1.30", "$1.33", "$1.35", "$1.40"], c: 1 },
+            { q: `${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["35 cents", "40 cents", "41 cents", "45 cents"], c: 2 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c1')}`, opts: ["$3.25", "$3.26", "$3.30", "$3.31"], c: 1 },
+            { q: `${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}`, opts: ["$1.00", "$1.25", "$1.50", "$1.10"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} - ${getCoin('c10')}`, opts: ["$1.80", "$1.90", "$2.00", "$2.10"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')}`, opts: ["$5.00", "$6.00", "$7.00", "$4.00"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["$1.60", "$1.66", "$1.70", "$1.71"], c: 1 },
+            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')}`, opts: ["$4.00", "$5.00", "$6.00", "$4.50"], c: 1 }
+        ];
+
+        function generateTimeData() {
+            const times = [];
+            for (let i = 0; i < 100; i++) {
+                const h = Math.floor(Math.random() * 12) + 1;
+                const m = Math.floor(Math.random() * 12) * 5;
+                const correctStr = `${h}:${m.toString().padStart(2, '0')}`;
+                const opts = new Set([correctStr]);
+                while (opts.size < 4) {
+                    const dh = Math.floor(Math.random() * 12) + 1;
+                    const dm = Math.floor(Math.random() * 12) * 5;
+                    opts.add(`${dh}:${dm.toString().padStart(2, '0')}`);
+                }
+                const sortedOpts = Array.from(opts).sort();
+                times.push({
+                    q: `What time is it now?<br>${getClockSVG(h, m)}`,
+                    opts: sortedOpts,
+                    c: sortedOpts.indexOf(correctStr)
+                });
+            }
+            return times;
+        }
+
+        function generateMathData() {
+            const math = [];
+            for (let i = 0; i < 150; i++) {
+                const op = Math.random() > 0.5 ? '+' : '-';
+                let a, b, res;
+                if (op === '+') {
+                    a = Math.floor(Math.random() * 101);
+                    b = Math.floor(Math.random() * (101 - a));
+                    res = a + b;
+                } else {
+                    a = Math.floor(Math.random() * 101);
+                    b = Math.floor(Math.random() * (a + 1));
+                    res = a - b;
+                }
+                const correct = res.toString();
+                const opts = new Set([correct]);
+                while (opts.size < 4) {
+                    opts.add((res + Math.floor(Math.random() * 20) - 10).toString());
+                }
+                const sortedOpts = Array.from(opts).sort((x, y) => parseInt(x) - parseInt(y));
+                math.push({
+                    q: `Calculate: ${a} ${op} ${b} = ?`,
+                    opts: sortedOpts,
+                    c: sortedOpts.indexOf(correct)
+                });
+            }
+            return math;
+        }
+
+        const initialTimeData = generateTimeData();
+        const initialMathData = generateMathData();
+
+        let currentView = 'home'; 
+        let activeData = [];
         let currentPage = 0;
         let userAnswers = {};
         let fontSize = 20;
         let isDarkMode = false;
 
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         function toggleTheme() {
             isDarkMode = !isDarkMode;
             document.body.classList.toggle('dark', isDarkMode);
             document.getElementById('theme-icon').innerText = isDarkMode ? '☀️' : '✨';
-            renderPage();
+            render();
+        }
+
+        function goHome() {
+            currentView = 'home';
+            render();
         }
 
         function adjustFont(val) {
             fontSize = Math.max(16, Math.min(36, fontSize + val));
             document.documentElement.style.setProperty('--user-font-size', `${fontSize}px`);
-            renderPage();
+            render();
         }
 
-        function renderPage(scrollTop = false) {
-            const container = document.getElementById('quiz-container');
-            const data = examData[currentPage];
-            
-            document.getElementById('page-indicator').innerText = `Page ${currentPage + 1} of ${examData.length}`;
-            document.getElementById('progress-bar').style.width = `${((currentPage + 1) / examData.length) * 100}%`;
-            document.getElementById('prev-btn').disabled = currentPage === 0;
-            
-            let html = `
-                <div class="mb-3 px-1">
-                    <h2 class="font-black mb-1 leading-tight" style="font-size: ${fontSize * 1.25}px; color: var(--title-color);">${data.title}</h2>
-                    <p class="font-bold" style="font-size: ${fontSize * 0.9}px; color: var(--instr-color);">${data.instr || ''}</p>
-                </div>
-            `;
-
-            if (data.passage) {
-                html += `
-                    <div class="passage-box mb-4 shadow-sm">
-                        <p class="leading-relaxed font-bold" style="font-size: ${fontSize * 1.05}px">${data.passage}</p>
-                    </div>
-                `;
+        function startSection(type) {
+            if (type === 'lesson') {
+                activeData = lessonData;
+            } else if (type === 'coin') {
+                const shuffledQs = shuffle([...initialCoinData]);
+                activeData = [];
+                for (let i = 0; i < shuffledQs.length; i += 2) {
+                    activeData.push({ title: `Coin Math Lab - Page ${activeData.length + 1}`, instr: "Calculate the total value.", qs: shuffledQs.slice(i, i + 2) });
+                }
+            } else if (type === 'time') {
+                const shuffledQs = shuffle([...initialTimeData]);
+                activeData = [];
+                for (let i = 0; i < shuffledQs.length; i += 8) {
+                    activeData.push({ title: `Time Lab - Page ${activeData.length + 1}`, instr: "Pick the correct time.", qs: shuffledQs.slice(i, i + 8) });
+                }
+            } else if (type === 'math') {
+                const shuffledQs = shuffle([...initialMathData]);
+                activeData = [];
+                // 150 questions, 10 per page = 15 pages
+                for (let i = 0; i < shuffledQs.length; i += 10) {
+                    activeData.push({ title: `Math Lab - Page ${activeData.length + 1}`, instr: "Solve the equation.", qs: shuffledQs.slice(i, i + 10) });
+                }
             }
-
-            data.qs.forEach((q, qIdx) => {
-                const key = `${currentPage}-${qIdx}`;
-                const answered = userAnswers[key] !== undefined;
-                const isHorizontal = q.layout === "row";
-
-                html += `
-                    <div class="card rounded-2xl p-5 shadow-sm">
-                        <p class="font-bold mb-4 leading-normal font-dynamic" style="color: var(--text-color);">${q.q}</p>
-                        <div class="${isHorizontal ? 'flex flex-wrap gap-2' : 'space-y-2'}">
-                            ${q.opts.map((opt, oIdx) => {
-                                let style = "";
-                                if (answered) {
-                                    if (oIdx === q.c) style = "correct shadow-inner";
-                                    else if (oIdx === userAnswers[key]) style = "wrong shadow-inner";
-                                    else style = "opacity-30";
-                                }
-                                return `
-                                    <button 
-                                        onclick="handleAnswer(${qIdx}, ${oIdx})"
-                                        ${answered ? 'disabled' : ''}
-                                        class="option-btn ${isHorizontal ? 'flex-1 min-w-[80px] p-2 text-center' : 'w-full p-4 text-left'} rounded-xl font-bold flex justify-between items-center ${style}"
-                                        style="font-size: ${fontSize * (isHorizontal ? 0.85 : 0.9)}px"
-                                    >
-                                        <span class="${isHorizontal ? 'w-full' : ''}">${opt}</span>
-                                        ${!isHorizontal && answered && oIdx === q.c ? '<span>✔</span>' : ''}
-                                        ${!isHorizontal && answered && oIdx === userAnswers[key] && oIdx !== q.c ? '<span>✖</span>' : ''}
-                                    </button>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-            if (scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+            currentPage = 0;
+            userAnswers = {};
+            currentView = 'quiz';
+            render();
         }
 
-        window.handleAnswer = (qIdx, oIdx) => {
-            const key = `${currentPage}-${qIdx}`;
-            userAnswers[key] = oIdx;
-            const isCorrect = oIdx === examData[currentPage].qs[qIdx].c;
-            showToast(isCorrect);
-            renderPage(false);
-        };
-
-        function showToast(isCorrect) {
-            const toast = document.getElementById('toast');
-            toast.innerText = isCorrect ? "Correct!" : "Incorrect";
-            toast.style.backgroundColor = isCorrect ? "#16a34a" : "#dc2626";
-            toast.style.opacity = "1";
-            setTimeout(() => toast.style.opacity = "0", 1000);
+        function handleBack() {
+            if (currentPage > 0) {
+                currentPage--;
+                render();
+            } else {
+                goHome();
+            }
         }
 
-        window.nextPage = () => {
-            if (currentPage < examData.length - 1) {
+        function nextPage() {
+            if (currentPage < activeData.length - 1) {
                 currentPage++;
-                renderPage(true);
+                render();
             } else {
                 finish();
             }
-        };
+        }
 
-        window.prevPage = () => {
-            if (currentPage > 0) {
-                currentPage--;
-                renderPage(true);
+        function render() {
+            const main = document.getElementById('main-view');
+            const footer = document.getElementById('quiz-footer');
+            const progress = document.getElementById('progress-container');
+
+            if (currentView === 'home') {
+                footer.classList.add('hidden');
+                progress.classList.add('hidden');
+                main.innerHTML = `
+                    <div class="text-center py-8">
+                        <h2 class="text-4xl font-black mb-2 text-blue-600 dark:text-blue-400">Merola Study Hub</h2>
+                        <p class="text-lg font-bold text-slate-500 mb-10">Pick a section to start practicing.</p>
+                        <div class="space-y-6">
+                            <div onclick="startSection('lesson')" class="hub-card lesson-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Lesson Mastery</h3><p class="opacity-90 font-medium">Full Review</p></div>
+                                <div class="text-5xl">📚</div>
+                            </div>
+                            <div onclick="startSection('coin')" class="hub-card coin-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Coin Math Lab</h3><p class="opacity-90 font-medium">Mixed Challenges</p></div>
+                                <div class="text-5xl">🪙</div>
+                            </div>
+                            <div onclick="startSection('time')" class="hub-card time-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Time Lab</h3><p class="opacity-90 font-medium">Clock Reading</p></div>
+                                <div class="text-5xl">⏰</div>
+                            </div>
+                            <div onclick="startSection('math')" class="hub-card math-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
+                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Math Lab</h3><p class="opacity-90 font-medium">150 Addition & Subtraction</p></div>
+                                <div class="text-5xl">➕</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentView === 'quiz') {
+                footer.classList.remove('hidden');
+                progress.classList.remove('hidden');
+                const data = activeData[currentPage];
+                document.getElementById('page-indicator').innerText = `Page ${currentPage + 1} of ${activeData.length}`;
+                document.getElementById('progress-bar').style.width = `${((currentPage + 1) / activeData.length) * 100}%`;
+
+                let html = `<div class="mb-4"><h2 class="font-black mb-1 text-2xl" style="color: var(--title-color);">${data.title}</h2><p class="font-bold instr-text">${data.instr || ''}</p></div>`;
+                if (data.passage) html += `<div class="passage-box mb-6"><p class="font-bold font-dynamic">${data.passage}</p></div>`;
+
+                data.qs.forEach((q, qIdx) => {
+                    const key = `${currentPage}-${qIdx}`;
+                    const answered = userAnswers[key] !== undefined;
+                    html += `
+                        <div class="card rounded-3xl p-6 mb-4">
+                            <div class="font-bold mb-5 font-dynamic q-text">${q.q}</div>
+                            <div class="space-y-3">
+                                ${q.opts.map((opt, oIdx) => {
+                                    let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
+                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-5 text-left rounded-2xl font-black flex justify-between items-center ${cls}"><span>${opt}</span></button>`;
+                                }).join('')}
+                            </div>
+                        </div>`;
+                });
+                main.innerHTML = html;
+                window.scrollTo(0, 0);
             }
+        }
+
+        window.handleAnswer = (qIdx, oIdx) => {
+            userAnswers[`${currentPage}-${qIdx}`] = oIdx;
+            const isCorrect = oIdx === activeData[currentPage].qs[qIdx].c;
+            const toast = document.getElementById('toast');
+            toast.innerText = isCorrect ? "Correct!" : "Try Again!";
+            toast.style.backgroundColor = isCorrect ? "#16a34a" : "#dc2626";
+            toast.style.opacity = "1";
+            setTimeout(() => toast.style.opacity = "0", 1000);
+            render();
         };
 
         function finish() {
+            currentView = 'results';
+            document.getElementById('quiz-footer').classList.add('hidden');
+            document.getElementById('progress-container').classList.add('hidden');
             let total = 0, correct = 0;
-            examData.forEach((p, pi) => p.qs.forEach((q, qi) => {
-                total++;
-                if (userAnswers[`${pi}-${qi}`] === q.c) correct++;
-            }));
-            const pct = Math.round((correct / total) * 100);
-            
-            document.getElementById('quiz-container').innerHTML = `
-                <div class="text-center py-12 px-4 bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-gray-200 dark:border-slate-700">
-                    <div class="text-7xl mb-4">🏆</div>
-                    <h2 class="text-3xl font-black mb-2" style="color: var(--title-color);">Mastery Results</h2>
-                    <p class="text-lg font-bold" style="color: var(--instr-color);">Everything from the PDF is complete.</p>
-                    <div class="text-7xl font-black text-blue-600 dark:text-blue-400 mb-8">${pct}%</div>
-                    <p class="mb-8 font-bold text-slate-500">Correct Answers: ${correct} / ${total}</p>
-                    <button onclick="location.reload()" class="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-xl shadow-lg hover:bg-blue-700 active:scale-95 transition-all">Restart Practice</button>
-                </div>
-            `;
-            document.querySelector('footer').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            activeData.forEach((p, pi) => p.qs.forEach((q, qi) => { total++; if (userAnswers[`${pi}-${qi}`] === q.c) correct++; }));
+            document.getElementById('main-view').innerHTML = `
+                <div class="text-center py-12 px-6 bg-white dark:bg-slate-800 rounded-[3rem] shadow-2xl">
+                    <div class="text-8xl mb-6">🎖️</div>
+                    <h2 class="text-4xl font-black mb-2 text-blue-600">Great Job!</h2>
+                    <div class="text-7xl font-black text-blue-700 mb-8">${Math.round((correct/total)*100)}%</div>
+                    <button onclick="goHome()" class="w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl">Back Home</button>
+                </div>`;
         }
-
-        renderPage(true);
+        render();
     </script>
 </body>
 </html>
