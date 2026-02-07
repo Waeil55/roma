@@ -3,209 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Merola Website</title>
+    <title>🤪 Merola's Super-Duper Fun Lab!</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Comic+Neue:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-        
         :root {
-            --bg-color: #f8fafc;
+            --bg-color: #FFEFD5; /* Papaya Whip */
             --card-bg: #ffffff;
-            --text-color: #000000;
-            --title-color: #003366; 
-            --instr-color: #334155;
-            --border-color: #cbd5e1;
-            --primary-action: #1d4ed8;
-            --user-font-size: 20px;
+            --text-color: #2D3436;
+            --title-color: #FF6B6B; 
+            --instr-color: #4834D4;
+            --border-color: #FFBE76;
+            --primary-action: #6C5CE7;
+            --user-font-size: 22px;
         }
 
         .dark {
-            --bg-color: #020617;
-            --card-bg: #1e293b;
-            --text-color: #ffffff;
-            --title-color: #60a5fa; 
-            --instr-color: #cbd5e1;
-            --border-color: #475569;
-            --primary-action: #3b82f6;
+            --bg-color: #2D3436;
+            --card-bg: #636E72;
+            --text-color: #FAB1A0;
+            --title-color: #55E6C1; 
+            --instr-color: #FD79A8;
+            --border-color: #E17055;
+            --primary-action: #00CEC9;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Bubblegum Sans', cursive;
             background-color: var(--bg-color);
             color: var(--text-color);
-            transition: background-color 0.2s, color 0.2s;
-            overscroll-behavior-y: contain;
+            background-image: radial-gradient(#FFBE76 1px, transparent 1px);
+            background-size: 30px 30px;
+            transition: all 0.3s ease;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:24px"><text y="24">🍭</text></svg>'), auto;
+        }
+
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .glass-header {
-            background: var(--card-bg);
-            border-bottom: 2px solid var(--border-color);
-            opacity: 0.98;
+            background: #FFEAA7;
+            border-bottom: 6px dashed #FAB1A0;
+            border-radius: 0 0 30px 30px;
         }
 
         .card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 4px solid var(--border-color);
+            border-radius: 40px;
+            box-shadow: 10px 10px 0px var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) rotate(1deg);
         }
 
         .q-text {
             font-size: var(--user-font-size) !important;
             color: var(--text-color) !important;
-            line-height: 1.6;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 900;
         }
 
         .option-btn {
             font-size: calc(var(--user-font-size) * 0.9) !important;
-            transition: all 0.15s ease;
-            border: 2px solid var(--border-color);
-            background-color: var(--card-bg);
-            color: var(--text-color) !important;
+            border: 3px solid var(--border-color);
+            border-radius: 25px;
+            background: #fff;
+            box-shadow: 0 6px 0 var(--border-color);
+            margin-bottom: 8px;
         }
 
-        .font-dynamic {
-            font-size: var(--user-font-size) !important;
-        }
-
-        .instr-text {
-            font-size: calc(var(--user-font-size) * 0.8) !important;
-            color: var(--instr-color) !important;
+        .option-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--border-color);
         }
 
         .passage-box {
-            background-color: #f0f9ff !important;
-            color: #1e3a8a !important; 
-            border-left: 6px solid #2563eb;
-            padding: 1.25rem;
-            border-radius: 1rem;
+            background: #DFF9FB !important;
+            border: 4px dotted #3498DB !important;
+            border-radius: 30px !important;
+            position: relative;
         }
 
-        .dark .passage-box {
-            background-color: #0c4a6e !important;
-            color: #f0f9ff !important;
+        .passage-box::before {
+            content: "📖 Read This! 📖";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #3498DB;
+            color: white;
+            padding: 2px 15px;
+            border-radius: 10px;
+            font-size: 14px;
         }
 
         .correct {
-            background-color: #16a34a !important;
-            border-color: #16a34a !important;
-            color: #ffffff !important;
+            background: #55EFC4 !important;
+            border-color: #00B894 !important;
+            animation: pop 0.3s infinite;
         }
 
         .wrong {
-            background-color: #dc2626 !important;
-            border-color: #dc2626 !important;
-            color: #ffffff !important;
-        }
-
-        .app-shell {
-            width: 100%;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-            .app-shell { max-width: 768px; }
-        }
-
-        @media (min-width: 1024px) {
-            .app-shell { max-width: 1200px; }
-            .desktop-quiz-layout {
-                display: grid;
-                grid-template-columns: 1fr 1.5fr;
-                gap: 2rem;
-                align-items: start;
-            }
-            .sticky-passage {
-                position: sticky;
-                top: 100px;
-                max-height: calc(100vh - 150px);
-                overflow-y: auto;
-            }
-        }
-
-        .header-title {
-            color: var(--title-color) !important;
-            font-weight: 900;
-        }
-
-        .coin-img {
-            display: inline-block;
-            vertical-align: middle;
-            margin: 4px 6px;
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-            width: auto;
+            background: #FF7675 !important;
+            border-color: #D63031 !important;
         }
 
         .hub-card {
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
+            border-radius: 40px;
+            border: 5px solid rgba(255,255,255,0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .hub-card:active { transform: scale(0.97); }
-        .hub-card:hover { transform: translateY(-4px); }
 
-        .lesson-gradient { background: linear-gradient(135deg, #1e40af, #3b82f6); }
-        .coin-gradient { background: linear-gradient(135deg, #065f46, #10b981); }
-        .time-gradient { background: linear-gradient(135deg, #7c3aed, #db2777); }
-        .math-gradient { background: linear-gradient(135deg, #f59e0b, #ef4444); }
-        .shapes-gradient { background: linear-gradient(135deg, #0ea5e9, #6366f1); }
-        .grammar-gradient { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
-
-        .clock-svg, .shape-svg {
-            width: 120px;
-            height: 120px;
-            margin: 10px auto;
-            display: block;
+        .hub-card:hover {
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
         }
+
+        /* Rainbow Buttons */
+        .lesson-gradient { background: linear-gradient(135deg, #FF9F43, #FF6B6B); }
+        .coin-gradient { background: linear-gradient(135deg, #1DD1A1, #10AC84); }
+        .time-gradient { background: linear-gradient(135deg, #54A0FF, #2E86DE); }
+        .math-gradient { background: linear-gradient(135deg, #FECA57, #FF9F43); }
+        .shapes-gradient { background: linear-gradient(135deg, #FF9FF3, #F368E0); }
+        .grammar-gradient { background: linear-gradient(135deg, #48DBFB, #0ABDE3); }
+
+        .coin-img {
+            filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.1));
+            animation: wiggle 2s infinite ease-in-out;
+        }
+
+        /* Scrollbar Fun */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #FFEFD5; }
+        ::-webkit-scrollbar-thumb { background: #FF6B6B; border-radius: 10px; border: 3px solid #FFEFD5; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <header class="glass-header sticky top-0 z-50 px-4 py-3 flex flex-col gap-1 shadow-sm">
-        <div class="app-shell flex justify-between items-center w-full">
-            <div class="flex items-center gap-2">
-                <span class="text-xl">🏠</span>
-                <h1 class="text-base sm:text-lg md:text-xl header-title font-black">Merola Study App</h1>
+    <header class="glass-header sticky top-0 z-50 px-4 py-4 flex flex-col gap-2 shadow-xl">
+        <div class="app-shell flex justify-between items-center w-full max-w-5xl mx-auto">
+            <div class="flex items-center gap-3">
+                <span class="text-4xl animate-bounce">🎈</span>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black text-orange-600 tracking-tighter" style="font-family: 'Comic Neue';">MEROLA'S FUN LAB!</h1>
+                    <p class="text-[10px] font-bold text-blue-500 uppercase">Learning is a Party! 🥳</p>
+                </div>
             </div>
-            <div class="flex items-center gap-2 sm:gap-4">
-                <div class="flex items-center bg-gray-200 dark:bg-slate-700 rounded-lg overflow-hidden border border-gray-400 dark:border-slate-500">
-                    <button onclick="adjustFont(-2)" class="px-3 py-1 font-black text-slate-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">-</button>
-                    <span class="px-1 sm:px-2 text-[10px] sm:text-xs font-black text-slate-900 dark:text-slate-100">FONT</span>
-                    <button onclick="adjustFont(2)" class="px-3 py-1 font-black text-slate-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">+</button>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center bg-white rounded-full p-1 border-2 border-orange-400">
+                    <button onclick="adjustFont(-2)" class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center font-black hover:bg-orange-200">🔍-</button>
+                    <button onclick="adjustFont(2)" class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center font-black hover:bg-orange-200 ml-1">🔍+</button>
                 </div>
-                <div class="flex items-center gap-1 sm:gap-2">
-                    <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
-                        <span id="theme-icon">✨</span>
-                    </button>
-                    <button onclick="goHome()" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-400 dark:border-slate-500 shadow-sm">
-                        <span>🏠</span>
-                    </button>
-                </div>
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-white border-2 border-purple-400 flex items-center justify-center text-xl shadow-md">
+                    <span id="theme-icon">✨</span>
+                </button>
+                <button onclick="goHome()" class="w-10 h-10 rounded-full bg-white border-2 border-green-400 flex items-center justify-center text-xl shadow-md">
+                    <span>🏠</span>
+                </button>
             </div>
         </div>
-        <div id="progress-container" class="hidden app-shell w-full mt-2 flex justify-between items-center text-[10px] uppercase tracking-widest font-bold opacity-80">
-            <span id="page-indicator" class="instr-text">Page 1</span>
-            <div class="flex-grow h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full mx-3 overflow-hidden">
-                <div id="progress-bar" class="bg-blue-600 h-full transition-all duration-500" style="width: 0%"></div>
+        <div id="progress-container" class="hidden w-full max-w-5xl mx-auto mt-2">
+            <div class="flex justify-between items-center mb-1">
+                <span id="page-indicator" class="text-xs font-black text-purple-600">MISSION PROGRESS: 0%</span>
+                <span class="text-xl">🚀</span>
+            </div>
+            <div class="h-4 bg-white rounded-full border-2 border-purple-200 overflow-hidden p-0.5">
+                <div id="progress-bar" class="bg-gradient-to-r from-purple-400 to-pink-500 h-full rounded-full transition-all duration-700" style="width: 0%"></div>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow app-shell px-4 py-6 mb-24">
+    <main class="flex-grow w-full max-w-5xl mx-auto px-4 py-8 mb-24">
         <div id="main-view"></div>
     </main>
 
-    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-2 px-4 z-40 shadow-lg">
-        <div class="app-shell flex gap-3">
-            <button onclick="handleBack()" id="prev-btn" class="flex-1 py-2.5 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-2xl font-bold hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors">Back</button>
-            <button onclick="nextPage()" id="next-btn" class="flex-1 py-2.5 bg-blue-700 text-white rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition-colors">Next</button>
+    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 bg-yellow-100 border-t-4 border-yellow-300 py-4 px-6 z-40 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+        <div class="max-w-xl mx-auto flex gap-4">
+            <button onclick="handleBack()" id="prev-btn" class="flex-1 py-4 bg-white border-4 border-orange-400 text-orange-600 rounded-3xl font-black text-lg hover:bg-orange-50 transition-all active:scale-95 shadow-md">🔙 OOPS, GO BACK</button>
+            <button onclick="nextPage()" id="next-btn" class="flex-1 py-4 bg-green-500 border-4 border-green-700 text-white rounded-3xl font-black text-lg hover:bg-green-600 transition-all active:scale-95 shadow-md">KEEP GOING! 🚀</button>
         </div>
     </footer>
 
-    <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full text-white font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-[60]"></div>
+    <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 px-8 py-4 rounded-full text-white font-black shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-[60] text-xl border-4 border-white"></div>
 
     <script>
+        // Content preserved EXACTLY as requested
         const COIN_URLS = {
             c1: "https://raw.githubusercontent.com/Waeil55/roma/main/1.PNG",
             c5: "https://raw.githubusercontent.com/Waeil55/roma/main/5.PNG",
@@ -215,13 +209,7 @@
         };
 
         const getCoin = (key) => {
-            const sizes = {
-                c10: '4.2em',   // Dime (Smallest)
-                c1: '4.45em',   // Penny
-                c5: '5.0em',    // Nickel
-                c25: '5.7em',   // Quarter
-                c100: '6.25em'  // Dollar (Largest)
-            };
+            const sizes = { c10: '4.2em', c1: '4.45em', c5: '5.0em', c25: '5.7em', c100: '6.25em' };
             return `<img src="${COIN_URLS[key]}" class="coin-img" style="height: ${sizes[key]}" alt="${key}">`;
         };
 
@@ -229,34 +217,35 @@
             const hDeg = (h % 12 + m / 60) * 30;
             const mDeg = m * 6;
             return `
-            <svg class="clock-svg" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="45" fill="white" stroke="#333" stroke-width="2"/>
+            <svg class="clock-svg w-32 h-32 mx-auto" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="#FFF" stroke="#FF6B6B" stroke-width="4"/>
+                <circle cx="50" cy="50" r="2" fill="#FF6B6B"/>
                 ${[12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((n, i) => {
                     const ang = (i * 30) * Math.PI / 180;
-                    return `<text x="${50 + 35 * Math.sin(ang)}" y="${52 - 35 * Math.cos(ang)}" font-size="8" text-anchor="middle" fill="#333" font-weight="bold">${n}</text>`;
+                    return `<text x="${50 + 35 * Math.sin(ang)}" y="${54 - 35 * Math.cos(ang)}" font-size="9" text-anchor="middle" fill="#FF6B6B" font-family="Comic Neue" font-weight="900">${n}</text>`;
                 }).join('')}
-                <line x1="50" y1="50" x2="50" y2="25" stroke="#000" stroke-width="3" stroke-linecap="round" transform="rotate(${hDeg} 50 50)"/>
-                <line x1="50" y1="50" x2="50" y2="15" stroke="#333" stroke-width="2" stroke-linecap="round" transform="rotate(${mDeg} 50 50)"/>
-                <circle cx="50" cy="50" r="2" fill="#000"/>
+                <line x1="50" y1="50" x2="50" y2="28" stroke="#2D3436" stroke-width="4" stroke-linecap="round" transform="rotate(${hDeg} 50 50)"/>
+                <line x1="50" y1="50" x2="50" y2="18" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round" transform="rotate(${mDeg} 50 50)"/>
             </svg>`;
         }
 
         function getShapeSVG(type) {
             const shapes = {
-                circle: '<circle cx="50" cy="50" r="40" fill="#3b82f6" stroke="#1e3a8a" stroke-width="2"/>',
-                square: '<rect x="15" y="15" width="70" height="70" fill="#ef4444" stroke="#7f1d1d" stroke-width="2"/>',
-                triangle: '<polygon points="50,15 90,85 10,85" fill="#10b981" stroke="#064e3b" stroke-width="2"/>',
-                rectangle: '<rect x="10" y="25" width="80" height="50" fill="#f59e0b" stroke="#78350f" stroke-width="2"/>',
-                star: '<polygon points="50,5 63,35 95,35 70,55 80,85 50,65 20,85 30,55 5,35 37,35" fill="#8b5cf6" stroke="#4c1d95" stroke-width="2"/>',
-                sphere: '<circle cx="50" cy="50" r="40" fill="url(#sphereGrad)"/><defs><radialGradient id="sphereGrad" cx="30%" cy="30%" r="50%"><stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient></defs>',
-                cube: '<path d="M20 30 l30 -10 l30 10 v40 l-30 10 l-30 -10 z" fill="#fb7185" stroke="#881337" stroke-width="2"/><path d="M20 30 l30 10 l30 -10 M50 40 v40" fill="none" stroke="#881337" stroke-width="2"/>',
-                cone: '<ellipse cx="50" cy="80" rx="30" ry="10" fill="#fbbf24" stroke="#92400e" stroke-width="2"/><path d="M20 80 L50 20 L80 80" fill="#fbbf24" stroke="#92400e" stroke-width="2"/>',
-                cylinder: '<ellipse cx="50" cy="25" rx="30" ry="10" fill="#2dd4bf" stroke="#115e59" stroke-width="2"/><path d="M20 25 v50 a30 10 0 0 0 60 0 v-50" fill="#2dd4bf" stroke="#115e59" stroke-width="2"/><ellipse cx="50" cy="75" rx="30" ry="10" fill="none" stroke="#115e59" stroke-width="2" stroke-dasharray="2 2"/>',
-                pyramid: '<polygon points="50,15 85,85 15,85" fill="#a855f7" stroke="#581c87" stroke-width="2"/><line x1="50" y1="15" x2="50" y2="85" stroke="#581c87" stroke-width="1"/>'
+                circle: '<circle cx="50" cy="50" r="40" fill="#FF7675" stroke="#D63031" stroke-width="3"/>',
+                square: '<rect x="15" y="15" width="70" height="70" fill="#74B9FF" stroke="#0984E3" stroke-width="3"/>',
+                triangle: '<polygon points="50,15 90,85 10,85" fill="#55EFC4" stroke="#00B894" stroke-width="3"/>',
+                rectangle: '<rect x="10" y="25" width="80" height="50" fill="#FDCB6E" stroke="#E17055" stroke-width="3"/>',
+                star: '<polygon points="50,5 63,35 95,35 70,55 80,85 50,65 20,85 30,55 5,35 37,35" fill="#A29BFE" stroke="#6C5CE7" stroke-width="3"/>',
+                sphere: '<circle cx="50" cy="50" r="40" fill="url(#sphereGrad)"/><defs><radialGradient id="sphereGrad" cx="30%" cy="30%" r="50%"><stop offset="0%" stop-color="#81ECEC"/><stop offset="100%" stop-color="#00CEC9"/></radialGradient></defs>',
+                cube: '<path d="M20 30 l30 -10 l30 10 v40 l-30 10 l-30 -10 z" fill="#FAB1A0" stroke="#E17055" stroke-width="3"/><path d="M20 30 l30 10 l30 -10 M50 40 v40" fill="none" stroke="#E17055" stroke-width="3"/>',
+                cone: '<ellipse cx="50" cy="80" rx="30" ry="10" fill="#FFEAA7" stroke="#FDCB6E" stroke-width="3"/><path d="M20 80 L50 20 L80 80" fill="#FFEAA7" stroke="#FDCB6E" stroke-width="3"/>',
+                cylinder: '<ellipse cx="50" cy="25" rx="30" ry="10" fill="#81ECEC" stroke="#00CEC9" stroke-width="3"/><path d="M20 25 v50 a30 10 0 0 0 60 0 v-50" fill="#81ECEC" stroke="#00CEC9" stroke-width="3"/><ellipse cx="50" cy="75" rx="30" ry="10" fill="none" stroke="#00CEC9" stroke-width="3" stroke-dasharray="2 2"/>',
+                pyramid: '<polygon points="50,15 85,85 15,85" fill="#D63031" stroke="#2D3436" stroke-width="3"/><line x1="50" y1="15" x2="50" y2="85" stroke="#2D3436" stroke-width="2"/>'
             };
-            return `<svg class="shape-svg" viewBox="0 0 100 100">${shapes[type] || ''}</svg>`;
+            return `<svg class="shape-svg w-32 h-32 mx-auto" viewBox="0 0 100 100">${shapes[type] || ''}</svg>`;
         }
 
+        // --- Content Blocks (Pasted Identically) ---
         const lessonData = [
             {
                 title: "Page 1: Antonyms",
@@ -396,7 +385,6 @@
             }
         ];
 
-        // تم تعديل البيانات هنا لتصحيح كافة العمليات الحسابية وضمان دقة النتائج
         const initialCoinData = [
             { q: `${getCoin('c1')} + ${getCoin('c1')} + ${getCoin('c1')}`, opts: ["2 cents", "3 cents", "5 cents", "10 cents"], c: 1 },
             { q: `${getCoin('c5')} + ${getCoin('c5')}`, opts: ["5 cents", "10 cents", "25 cents", "2 cents"], c: 1 },
@@ -406,7 +394,6 @@
             { q: `${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}`, opts: ["50 cents", "75 cents", "$1.00", "$2.00"], c: 2 },
             { q: `${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["15 cents", "16 cents", "20 cents", "11 cents"], c: 1 },
             { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')}`, opts: ["$1.25", "$2.25", "$3.00", "$2.50"], c: 1 },
-            // تصحيح السؤال الذي أشير إليه في الصورة ليكون 1 + 1 + 1 = 3 لتفادي لبس علامة الطرح
             { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')}`, opts: ["$1.00", "$2.00", "$3.00", "$4.00"], c: 2 },
             { q: `${getCoin('c100')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c5')}`, opts: ["$1.20", "$1.25", "$1.30", "$1.15"], c: 1 },
             { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["$2.05", "$2.10", "$2.06", "$2.15"], c: 2 },
@@ -418,6 +405,7 @@
             { q: `${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c1')}`, opts: ["$1.25", "$1.26", "$1.30", "$1.01"], c: 1 }
         ];
 
+        // --- Logic (Identical) ---
         function generateTimeData() {
             const times = [];
             for (let i = 0; i < 100; i++) {
@@ -487,7 +475,7 @@
         let activeData = [];
         let currentPage = 0;
         let userAnswers = {};
-        let fontSize = 20;
+        let fontSize = 22;
         let isDarkMode = false;
 
         function shuffle(array) {
@@ -529,8 +517,8 @@
                 activeData = [];
                 for (let i = 0; i < baseData.length; i += perPage) {
                     activeData.push({ 
-                        title: `${type.toUpperCase()} Lab - Page ${activeData.length + 1}`, 
-                        instr: "Select the correct answer below.", 
+                        title: `The ${type.toUpperCase()} Quest - Map ${activeData.length + 1}`, 
+                        instr: "Solve these puzzles to win stickers! 🏆", 
                         qs: baseData.slice(i, i + perPage) 
                     });
                 }
@@ -543,20 +531,12 @@
         }
 
         function handleBack() {
-            if (currentPage > 0) { 
-                currentPage--; 
-                render(); 
-                window.scrollTo(0, 0);
-            }
+            if (currentPage > 0) { currentPage--; render(); window.scrollTo(0, 0); }
             else goHome();
         }
 
         function nextPage() {
-            if (currentPage < activeData.length - 1) { 
-                currentPage++; 
-                render(); 
-                window.scrollTo(0, 0);
-            }
+            if (currentPage < activeData.length - 1) { currentPage++; render(); window.scrollTo(0, 0); }
             else finish();
         }
 
@@ -569,33 +549,40 @@
                 footer.classList.add('hidden');
                 progress.classList.add('hidden');
                 main.innerHTML = `
-                    <div class="text-center py-8 lg:py-16">
-                        <h2 class="text-4xl lg:text-6xl font-black mb-4 text-blue-600 dark:text-blue-400">Merola Study Hub</h2>
-                        <p class="text-lg lg:text-2xl font-bold text-slate-500 mb-12">Pick a section to start practicing.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                            <div onclick="startSection('lesson')" class="hub-card lesson-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Lesson Mastery</h3><p class="opacity-90 font-medium text-sm">Full PDF Review</p></div>
-                                <div class="text-5xl">📚</div>
+                    <div class="text-center py-6">
+                        <div class="inline-block bg-white p-4 rounded-3xl border-4 border-orange-400 rotate-2 mb-8 shadow-lg">
+                             <h2 class="text-3xl lg:text-5xl font-black text-orange-500">PICK YOUR ADVENTURE! 🏰</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div onclick="startSection('lesson')" class="hub-card lesson-gradient p-8 text-white shadow-xl cursor-pointer">
+                                <div class="text-6xl mb-4">📖</div>
+                                <h3 class="text-3xl font-black mb-1">Lesson Mastery</h3>
+                                <p class="font-bold opacity-80">Full PDF Review</p>
                             </div>
-                            <div onclick="startSection('coin')" class="hub-card coin-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Coin Math Lab</h3><p class="opacity-90 font-medium text-sm">Money Counting</p></div>
-                                <div class="text-5xl">🪙</div>
+                            <div onclick="startSection('coin')" class="hub-card coin-gradient p-8 text-white shadow-xl cursor-pointer">
+                                <div class="text-6xl mb-4">💰</div>
+                                <h3 class="text-3xl font-black mb-1">Coin Math Lab</h3>
+                                <p class="font-bold opacity-80">Money Counting</p>
                             </div>
-                            <div onclick="startSection('time')" class="hub-card time-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Time Lab</h3><p class="opacity-90 font-medium text-sm">Read the Clock</p></div>
-                                <div class="text-5xl">⏰</div>
+                            <div onclick="startSection('time')" class="hub-card time-gradient p-8 text-white shadow-xl cursor-pointer">
+                                <div class="text-6xl mb-4">⏰</div>
+                                <h3 class="text-3xl font-black mb-1">Time Lab</h3>
+                                <p class="font-bold opacity-80">Read the Clock</p>
                             </div>
-                            <div onclick="startSection('math')" class="hub-card math-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Math Lab</h3><p class="opacity-90 font-medium text-sm">150+ Math Problems</p></div>
-                                <div class="text-5xl">➕</div>
+                            <div onclick="startSection('math')" class="hub-card math-gradient p-8 text-white shadow-xl cursor-pointer">
+                                <div class="text-6xl mb-4">➕</div>
+                                <h3 class="text-3xl font-black mb-1">Math Lab</h3>
+                                <p class="font-bold opacity-80">150+ Problems</p>
                             </div>
-                            <div onclick="startSection('shapes')" class="hub-card shapes-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Shapes Lab</h3><p class="opacity-90 font-medium text-sm">2D & 3D Geometry</p></div>
-                                <div class="text-5xl">🔷</div>
+                            <div onclick="startSection('shapes')" class="hub-card shapes-gradient p-8 text-white shadow-xl cursor-pointer">
+                                <div class="text-6xl mb-4">📐</div>
+                                <h3 class="text-3xl font-black mb-1">Shapes Lab</h3>
+                                <p class="font-bold opacity-80">2D & 3D Geometry</p>
                             </div>
-                            <div onclick="startSection('grammar')" class="hub-card grammar-gradient p-8 rounded-[2rem] text-white flex items-center justify-between shadow-xl">
-                                <div class="text-left"><h3 class="text-2xl font-black mb-1">Grammar Lab</h3><p class="opacity-90 font-medium text-sm">Noun vs Verb</p></div>
-                                <div class="text-5xl">✍️</div>
+                            <div onclick="startSection('grammar')" class="hub-card grammar-gradient p-8 text-white shadow-xl cursor-pointer">
+                                <div class="text-6xl mb-4">🖍️</div>
+                                <h3 class="text-3xl font-black mb-1">Grammar Lab</h3>
+                                <p class="font-bold opacity-80">Noun vs Verb</p>
                             </div>
                         </div>
                     </div>
@@ -604,41 +591,47 @@
                 footer.classList.remove('hidden');
                 progress.classList.remove('hidden');
                 const data = activeData[currentPage];
-                document.getElementById('page-indicator').innerText = `Page ${currentPage + 1} of ${activeData.length}`;
-                document.getElementById('progress-bar').style.width = `${((currentPage + 1) / activeData.length) * 100}%`;
+                const progVal = ((currentPage + 1) / activeData.length) * 100;
+                document.getElementById('page-indicator').innerText = `QUEST PROGRESS: ${Math.round(progVal)}%`;
+                document.getElementById('progress-bar').style.width = `${progVal}%`;
 
-                let passageHtml = '';
-                if (data.passage) {
-                    passageHtml = `
-                        <div class="${data.passage ? 'sticky-passage' : ''}">
-                            <div class="passage-box mb-6 shadow-sm">
-                                <p class="font-bold font-dynamic leading-relaxed">${data.passage}</p>
-                            </div>
-                        </div>`;
-                }
+                let passageHtml = data.passage ? `
+                    <div class="sticky-passage">
+                        <div class="passage-box p-8 mb-6 shadow-xl bg-white">
+                            <p class="font-bold font-dynamic text-blue-900 leading-loose">${data.passage}</p>
+                        </div>
+                        <div class="text-center mb-4"><span class="text-4xl">🕵️‍♂️</span></div>
+                    </div>` : '';
 
                 let questionsHtml = '';
                 data.qs.forEach((q, qIdx) => {
                     const key = `${currentPage}-${qIdx}`;
                     const answered = userAnswers[key] !== undefined;
                     questionsHtml += `
-                        <div class="card rounded-3xl p-6 mb-6 shadow-sm">
-                            <div class="font-bold mb-5 q-text">${q.q}</div>
-                            <div class="grid grid-cols-1 ${q.opts.length > 2 ? 'sm:grid-cols-2' : ''} gap-3">
+                        <div class="card p-8 mb-8 bg-white overflow-hidden relative">
+                            <div class="absolute -top-2 -right-2 text-4xl opacity-10">🤔</div>
+                            <div class="font-black mb-6 q-text text-2xl text-purple-700">${q.q}</div>
+                            <div class="grid grid-cols-1 ${q.opts.length > 2 ? 'sm:grid-cols-2' : ''} gap-4">
                                 ${q.opts.map((opt, oIdx) => {
                                     let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
-                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-5 text-left rounded-2xl font-black flex justify-between items-center ${cls}"><span>${opt}</span></button>`;
+                                    let icon = answered ? (oIdx === q.c ? "✅" : (oIdx === userAnswers[key] ? "❌" : "")) : "";
+                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-4 text-left font-black transition-all flex justify-between items-center ${cls}">
+                                        <span>${opt}</span>
+                                        <span>${icon}</span>
+                                    </button>`;
                                 }).join('')}
                             </div>
                         </div>`;
                 });
 
                 main.innerHTML = `
-                    <div class="mb-8 border-b border-gray-200 dark:border-slate-800 pb-4">
-                        <h2 class="font-black mb-1 text-3xl lg:text-4xl" style="color: var(--title-color);">${data.title}</h2>
-                        <p class="font-bold instr-text text-lg">${data.instr || 'Read the following and select the best answer.'}</p>
+                    <div class="mb-10 text-center">
+                        <h2 class="font-black text-4xl mb-2 text-purple-600">${data.title}</h2>
+                        <div class="inline-block bg-yellow-200 px-4 py-1 rounded-full border-2 border-yellow-400 font-bold text-yellow-700">
+                             💡 ${data.instr || 'Read carefully, little genius!'}
+                        </div>
                     </div>
-                    <div class="${data.passage ? 'desktop-quiz-layout' : 'max-w-4xl mx-auto'}">
+                    <div class="${data.passage ? 'lg:grid lg:grid-cols-2 lg:gap-12' : 'max-w-3xl mx-auto'}">
                         ${passageHtml}
                         <div class="space-y-4">
                             ${questionsHtml}
@@ -652,15 +645,20 @@
             userAnswers[`${currentPage}-${qIdx}`] = oIdx;
             const isCorrect = oIdx === activeData[currentPage].qs[qIdx].c;
             const toast = document.getElementById('toast');
-            toast.innerText = isCorrect ? "✨ Correct!" : "❌ Try Again!";
-            toast.style.backgroundColor = isCorrect ? "#16a34a" : "#dc2626";
+            
+            const coolMessages = isCorrect ? 
+                ["BOOM! CORRECT! 💥", "YOU'RE A WIZARD! 🧙‍♂️", "SUPER GENIUS! 🧠", "YAY! HOORAY! 🎉"] : 
+                ["OOPSIE! 🍌", "NOT QUITE! 🧐", "TRY AGAIN, HERO! 🦸‍♂️", "OH NO! 🙈"];
+            
+            toast.innerText = coolMessages[Math.floor(Math.random()*coolMessages.length)];
+            toast.style.backgroundColor = isCorrect ? "#00B894" : "#D63031";
             toast.style.opacity = "1";
-            toast.style.transform = "translateX(-50%) translateY(-10px)";
+            toast.style.transform = "translateX(-50%) translateY(-20px) scale(1.2)";
             
             setTimeout(() => {
                 toast.style.opacity = "0";
-                toast.style.transform = "translateX(-50%) translateY(0)";
-            }, 1000);
+                toast.style.transform = "translateX(-50%) translateY(0) scale(1)";
+            }, 1200);
             render();
         };
 
@@ -670,19 +668,32 @@
             document.getElementById('progress-container').classList.add('hidden');
             let total = 0, correct = 0;
             activeData.forEach((p, pi) => p.qs.forEach((q, qi) => { total++; if (userAnswers[`${pi}-${qi}`] === q.c) correct++; }));
-            
             const scorePercent = Math.round((correct/total)*100);
-            let emoji = scorePercent >= 90 ? "🏆" : (scorePercent >= 70 ? "⭐️" : "📚");
+            
+            let resultStuff = scorePercent >= 90 ? 
+                { emoji: "👑", msg: "YOU ARE THE KING/QUEEN!", sub: "Unbelievable skills!", color: "text-yellow-500" } : 
+                (scorePercent >= 70 ? 
+                    { emoji: "🌟", msg: "SUPERSTAR STATUS!", sub: "You're doing amazing!", color: "text-blue-500" } : 
+                    { emoji: "🚀", msg: "KEEP TRAINING, PILOT!", sub: "You're getting better every day!", color: "text-green-500" }
+                );
 
             document.getElementById('main-view').innerHTML = `
-                <div class="max-w-2xl mx-auto text-center py-16 px-8 bg-white dark:bg-slate-800 rounded-[3rem] shadow-2xl mt-12 border border-gray-200 dark:border-slate-700">
-                    <div class="text-9xl mb-8">${emoji}</div>
-                    <h2 class="text-4xl lg:text-5xl font-black mb-4 text-blue-600">Session Complete!</h2>
-                    <p class="text-slate-500 font-bold text-xl mb-10">You did a great job today!</p>
-                    <div class="text-8xl font-black text-blue-700 dark:text-blue-400 mb-12">${scorePercent}%</div>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="goHome()" class="flex-1 py-6 bg-blue-600 hover:bg-blue-700 text-white rounded-[2rem] font-black text-xl transition-all shadow-lg hover:shadow-xl">Back to Hub</button>
+                <div class="max-w-3xl mx-auto text-center py-12 px-8 bg-white rounded-[4rem] shadow-2xl mt-8 border-8 border-orange-200">
+                    <div class="text-9xl mb-8 animate-bounce">${resultStuff.emoji}</div>
+                    <h2 class="text-5xl font-black mb-4 ${resultStuff.color}">${resultStuff.msg}</h2>
+                    <p class="text-slate-500 font-black text-2xl mb-10">${resultStuff.sub}</p>
+                    
+                    <div class="relative inline-block mb-12">
+                        <div class="text-8xl font-black text-purple-600">${scorePercent}%</div>
+                        <div class="absolute -top-4 -right-8 text-4xl rotate-12">🏆</div>
                     </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button onclick="goHome()" class="py-6 bg-orange-500 border-b-8 border-orange-700 hover:bg-orange-400 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">PLAY AGAIN! 🎮</button>
+                        <button onclick="location.reload()" class="py-6 bg-purple-500 border-b-8 border-purple-700 hover:bg-purple-400 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">NEW QUEST! 🗺️</button>
+                    </div>
+                    
+                    <div class="mt-8 text-6xl">🎈 🎊 🦄 🥳 🍭</div>
                 </div>`;
             window.scrollTo(0, 0);
         }
