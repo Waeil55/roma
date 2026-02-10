@@ -152,6 +152,7 @@
         .coin-img {
             filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.1));
             animation: wiggle 2s infinite ease-in-out;
+            display: inline-block;
         }
 
         /* Scrollbar Fun */
@@ -167,6 +168,17 @@
         #quiz-footer {
             background: var(--footer-bg);
             border-top: 4px solid var(--border-color);
+        }
+
+        .coin-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
         }
     </style>
 </head>
@@ -403,23 +415,30 @@
         ];
 
         const initialCoinData = [
-            { q: `${getCoin('c1')} + ${getCoin('c1')} + ${getCoin('c1')}`, opts: ["2 cents", "3 cents", "5 cents", "10 cents"], c: 1 },
-            { q: `${getCoin('c5')} + ${getCoin('c5')}`, opts: ["5 cents", "10 cents", "25 cents", "2 cents"], c: 1 },
-            { q: `${getCoin('c10')} + ${getCoin('c10')}`, opts: ["10 cents", "20 cents", "25 cents", "15 cents"], c: 1 },
-            { q: `${getCoin('c25')} + ${getCoin('c10')}`, opts: ["30 cents", "35 cents", "40 cents", "25 cents"], c: 1 },
-            { q: `${getCoin('c100')} - ${getCoin('c25')}`, opts: ["75 cents", "50 cents", "25 cents", "100 cents"], c: 0 },
-            { q: `${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}`, opts: ["50 cents", "75 cents", "$1.00", "$2.00"], c: 2 },
-            { q: `${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["15 cents", "16 cents", "20 cents", "11 cents"], c: 1 },
-            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')}`, opts: ["$1.25", "$2.25", "$3.00", "$2.50"], c: 1 },
-            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')}`, opts: ["$1.00", "$2.00", "$3.00", "$4.00"], c: 2 },
-            { q: `${getCoin('c100')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c5')}`, opts: ["$1.20", "$1.25", "$1.30", "$1.15"], c: 1 },
-            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c5')} + ${getCoin('c1')}`, opts: ["$2.05", "$2.10", "$2.06", "$2.15"], c: 2 },
-            { q: `${getCoin('c100')} - ${getCoin('c10')} - ${getCoin('c10')}`, opts: ["90 cents", "80 cents", "70 cents", "100 cents"], c: 1 },
-            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c5')}`, opts: ["$2.40", "$2.50", "$2.35", "$2.45"], c: 0 },
-            { q: `${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')}`, opts: ["$3.00", "$4.00", "$5.00", "$2.00"], c: 1 },
-            { q: `${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}`, opts: ["50 cents", "75 cents", "$1.00", "25 cents"], c: 1 },
-            { q: `${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')}`, opts: ["30 cents", "40 cents", "50 cents", "20 cents"], c: 1 },
-            { q: `${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c1')}`, opts: ["$1.25", "$1.26", "$1.30", "$1.01"], c: 1 }
+            { q: `<div class="coin-wrap">${getCoin('c1')} + ${getCoin('c1')} + ${getCoin('c1')}</div>`, opts: ["2 cents", "3 cents", "5 cents", "10 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c5')} + ${getCoin('c5')}</div>`, opts: ["5 cents", "10 cents", "25 cents", "2 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c10')} + ${getCoin('c10')}</div>`, opts: ["10 cents", "20 cents", "25 cents", "15 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c25')} + ${getCoin('c10')}</div>`, opts: ["30 cents", "35 cents", "40 cents", "25 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} - ${getCoin('c25')}</div>`, opts: ["75 cents", "50 cents", "25 cents", "100 cents"], c: 0 },
+            { q: `<div class="coin-wrap">${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}</div>`, opts: ["50 cents", "75 cents", "$1.00", "$2.00"], c: 2 },
+            { q: `<div class="coin-wrap">${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c1')}</div>`, opts: ["15 cents", "16 cents", "20 cents", "11 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')}</div>`, opts: ["$1.25", "$2.25", "$3.00", "$2.50"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} - ${getCoin('c10')} - ${getCoin('c10')}</div>`, opts: ["90 cents", "80 cents", "70 cents", "100 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')}</div>`, opts: ["$1.00", "$2.00", "$3.00", "$4.00"], c: 2 },
+            { q: `<div class="coin-wrap">${getCoin('c25')} - ${getCoin('c10')}</div>`, opts: ["10 cents", "15 cents", "20 cents", "5 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c10')} - ${getCoin('c5')}</div>`, opts: ["1 cent", "2 cents", "5 cents", "10 cents"], c: 2 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c5')}</div>`, opts: ["$1.20", "$1.25", "$1.30", "$1.15"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c5')} + ${getCoin('c1')}</div>`, opts: ["$2.05", "$2.10", "$2.06", "$2.15"], c: 2 },
+            { q: `<div class="coin-wrap">${getCoin('c50')} - ${getCoin('c10')}</div>`, opts: ["30 cents", "40 cents", "50 cents", "20 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c25')} + ${getCoin('c25')} - ${getCoin('c10')}</div>`, opts: ["30 cents", "40 cents", "50 cents", "20 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c5')}</div>`, opts: ["$2.40", "$2.50", "$2.35", "$2.45"], c: 0 },
+            { q: `<div class="coin-wrap">${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')} - ${getCoin('c5')}</div>`, opts: ["15 cents", "20 cents", "25 cents", "30 cents"], c: 2 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} - ${getCoin('c100')}</div>`, opts: ["$1.00", "50 cents", "0 cents", "1 cent"], c: 2 },
+            { q: `<div class="coin-wrap">${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}</div>`, opts: ["50 cents", "75 cents", "$1.00", "25 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')}</div>`, opts: ["30 cents", "40 cents", "50 cents", "20 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c1')}</div>`, opts: ["$1.25", "$1.26", "$1.30", "$1.01"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c100')} - ${getCoin('c50')}</div>`, opts: ["25 cents", "50 cents", "75 cents", "10 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c25')} - ${getCoin('c1')}</div>`, opts: ["20 cents", "24 cents", "25 cents", "26 cents"], c: 1 }
         ];
 
         function generateTimeData() {
