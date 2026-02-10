@@ -92,6 +92,17 @@
             margin-bottom: 8px;
         }
 
+        /* Specific style for Page 17 compact buttons */
+        .option-btn-compact {
+            font-size: 14px !important;
+            padding: 8px 4px !important;
+            border-width: 2px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 3px 0 var(--border-color) !important;
+            text-align: center !important;
+            justify-content: center !important;
+        }
+
         .option-btn:active {
             transform: translateY(4px);
             box-shadow: 0 2px 0 var(--border-color);
@@ -235,11 +246,12 @@
             c5: "https://raw.githubusercontent.com/Waeil55/roma/main/5.PNG",
             c10: "https://raw.githubusercontent.com/Waeil55/roma/main/10.PNG",
             c25: "https://raw.githubusercontent.com/Waeil55/roma/main/25.PNG",
+            c50: "https://raw.githubusercontent.com/Waeil55/roma/main/50.PNG",
             c100: "https://raw.githubusercontent.com/Waeil55/roma/main/1dollar.PNG"
         };
 
         const getCoin = (key) => {
-            const sizes = { c10: '4.2em', c1: '4.45em', c5: '5.0em', c25: '5.7em', c100: '6.25em' };
+            const sizes = { c10: '4.2em', c1: '4.45em', c5: '5.0em', c25: '5.7em', c50: '6.0em', c100: '6.25em' };
             return `<img src="${COIN_URLS[key]}" class="coin-img" style="height: ${sizes[key]}" alt="${key}">`;
         };
 
@@ -405,11 +417,15 @@
             {
                 title: "Page 17: Context Clues Mastery",
                 instr: "Read the context and fill in the numbered blanks.",
-                passage: "My family is going on a (1) trip. We will (2) to the beach in our car. Some people like to (3) soda and eat candy. You should (4) brush your teeth. We are going to learn (6) animals. I do not have (7) time to finish my book.",
+                passage: "My family is going on a (1) trip. We will (2) to the beach in our car. Some people like to (3) soda and eat candy. You should (4) brush your teeth. At the (5) we will swim. We are going to learn (6) animals. I do not have (7) time to finish my book.",
                 qs: [
                     { q: "1. Blank (1):", opts: ["large", "clean", "special", "hard"], c: 2 },
                     { q: "2. Blank (2):", opts: ["swim", "travel", "together", "bring"], c: 1 },
-                    { q: "3. Blank (3):", opts: ["drink", "carry", "start", "bring"], c: 0 }
+                    { q: "3. Blank (3):", opts: ["drink", "carry", "start", "bring"], c: 0 },
+                    { q: "4. Blank (4):", opts: ["never", "always", "often", "sometimes"], c: 1 },
+                    { q: "5. Blank (5):", opts: ["store", "beach", "school", "house"], c: 1 },
+                    { q: "6. Blank (6):", opts: ["about", "from", "with", "near"], c: 0 },
+                    { q: "7. Blank (7):", opts: ["little", "much", "enough", "zero"], c: 2 }
                 ]
             }
         ];
@@ -422,6 +438,8 @@
             { q: `<div class="coin-wrap">${getCoin('c100')} - ${getCoin('c25')}</div>`, opts: ["75 cents", "50 cents", "25 cents", "100 cents"], c: 0 },
             { q: `<div class="coin-wrap">${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')} + ${getCoin('c25')}</div>`, opts: ["50 cents", "75 cents", "$1.00", "$2.00"], c: 2 },
             { q: `<div class="coin-wrap">${getCoin('c10')} + ${getCoin('c5')} + ${getCoin('c1')}</div>`, opts: ["15 cents", "16 cents", "20 cents", "11 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c50')} + ${getCoin('c50')}</div>`, opts: ["50 cents", "75 cents", "$1.00", "$1.50"], c: 2 },
+            { q: `<div class="coin-wrap">${getCoin('c50')} - ${getCoin('c25')}</div>`, opts: ["10 cents", "15 cents", "25 cents", "50 cents"], c: 2 },
             { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')}</div>`, opts: ["$1.25", "$2.25", "$3.00", "$2.50"], c: 1 },
             { q: `<div class="coin-wrap">${getCoin('c100')} - ${getCoin('c10')} - ${getCoin('c10')}</div>`, opts: ["90 cents", "80 cents", "70 cents", "100 cents"], c: 1 },
             { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c100')}</div>`, opts: ["$1.00", "$2.00", "$3.00", "$4.00"], c: 2 },
@@ -429,8 +447,7 @@
             { q: `<div class="coin-wrap">${getCoin('c10')} - ${getCoin('c5')}</div>`, opts: ["1 cent", "2 cents", "5 cents", "10 cents"], c: 2 },
             { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c5')}</div>`, opts: ["$1.20", "$1.25", "$1.30", "$1.15"], c: 1 },
             { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c5')} + ${getCoin('c1')}</div>`, opts: ["$2.05", "$2.10", "$2.06", "$2.15"], c: 2 },
-            { q: `<div class="coin-wrap">${getCoin('c50')} - ${getCoin('c10')}</div>`, opts: ["30 cents", "40 cents", "50 cents", "20 cents"], c: 1 },
-            { q: `<div class="coin-wrap">${getCoin('c25')} + ${getCoin('c25')} - ${getCoin('c10')}</div>`, opts: ["30 cents", "40 cents", "50 cents", "20 cents"], c: 1 },
+            { q: `<div class="coin-wrap">${getCoin('c50')} + ${getCoin('c25')} + ${getCoin('c10')}</div>`, opts: ["75 cents", "85 cents", "90 cents", "65 cents"], c: 1 },
             { q: `<div class="coin-wrap">${getCoin('c100')} + ${getCoin('c100')} + ${getCoin('c25')} + ${getCoin('c10')} + ${getCoin('c5')}</div>`, opts: ["$2.40", "$2.50", "$2.35", "$2.45"], c: 0 },
             { q: `<div class="coin-wrap">${getCoin('c10')} + ${getCoin('c10')} + ${getCoin('c10')} - ${getCoin('c5')}</div>`, opts: ["15 cents", "20 cents", "25 cents", "30 cents"], c: 2 },
             { q: `<div class="coin-wrap">${getCoin('c100')} - ${getCoin('c100')}</div>`, opts: ["$1.00", "50 cents", "0 cents", "1 cent"], c: 2 },
@@ -648,18 +665,25 @@
                     </div>` : '';
 
                 let questionsHtml = '';
+                const isPage17 = data.title.includes("Page 17");
+
                 data.qs.forEach((q, qIdx) => {
                     const key = `${currentPage}-${qIdx}`;
                     const answered = userAnswers[key] !== undefined;
+                    
+                    // Layout changes for Page 17 to keep options beside each other
+                    const gridClass = isPage17 ? 'grid grid-cols-4 gap-2 sm:gap-4' : `grid grid-cols-1 ${q.opts.length > 2 ? 'sm:grid-cols-2' : ''} gap-6`;
+                    const btnClassExt = isPage17 ? 'option-btn-compact' : '';
+
                     questionsHtml += `
-                        <div class="card p-10 mb-10 overflow-hidden relative">
+                        <div class="card p-6 sm:p-10 mb-6 overflow-hidden relative">
                             <div class="absolute -top-2 -right-2 text-4xl opacity-10">🤔</div>
-                            <div class="font-black mb-8 q-text text-2xl">${q.q}</div>
-                            <div class="grid grid-cols-1 ${q.opts.length > 2 ? 'sm:grid-cols-2' : ''} gap-6">
+                            <div class="font-black mb-4 sm:mb-8 q-text text-xl sm:text-2xl">${q.q}</div>
+                            <div class="${gridClass}">
                                 ${q.opts.map((opt, oIdx) => {
                                     let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
-                                    let icon = answered ? (oIdx === q.c ? "✅" : (oIdx === userAnswers[key] ? "❌" : "")) : "";
-                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-5 text-left font-black transition-all flex justify-between items-center ${cls}">
+                                    let icon = (answered && !isPage17) ? (oIdx === q.c ? "✅" : (oIdx === userAnswers[key] ? "❌" : "")) : "";
+                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-3 sm:p-5 text-left font-black transition-all flex justify-between items-center ${cls} ${btnClassExt}">
                                         <span>${opt}</span>
                                         <span>${icon}</span>
                                     </button>`;
