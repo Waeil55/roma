@@ -11,7 +11,7 @@
             --bg-color: #F8F4FF; /* Soft Lavender */
             --card-bg: #ffffff;
             --text-color: #2D3436;
-            --title-color: #9C27B0; 
+            --title-color: #9C27B0;
             --instr-color: #673AB7;
             --border-color: #B39DDB;
             --primary-action: #6C5CE7;
@@ -25,7 +25,7 @@
             --bg-color: #1A1A2E;
             --card-bg: #2D3436;
             --text-color: #E1BEE7;
-            --title-color: #BB86FC; 
+            --title-color: #BB86FC;
             --instr-color: #CFD8DC;
             --border-color: #5E35B1;
             --primary-action: #03DAC6;
@@ -154,12 +154,10 @@
             animation: wiggle 2s infinite ease-in-out;
         }
 
-        /* Scrollbar Fun */
         ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: var(--title-color); border-radius: 10px; border: 3px solid var(--bg-color); }
 
-        /* Dark Mode Specific fixes for Question items */
         .dark .card { background-color: var(--card-bg); }
         .dark .option-btn { background-color: #3d4649; }
         .dark .option-btn:disabled { opacity: 0.5; }
@@ -172,7 +170,6 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Header: Compact & Darker for visibility -->
     <header class="glass-header sticky top-0 z-50 px-4 py-3 flex flex-col gap-1 shadow-xl">
         <div class="app-shell flex justify-between items-center w-full max-w-5xl mx-auto">
             <div class="flex items-center gap-3">
@@ -202,13 +199,11 @@
         </div>
     </header>
 
-    <!-- Main Content: Maximized -->
     <main class="flex-grow w-full max-w-5xl mx-auto px-4 py-12 mb-20">
         <div id="main-view"></div>
     </main>
 
-    <!-- Footer: Responsive & Smaller Height -->
-    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 py-2 px-6 z-40 shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+    <footer id="quiz-footer" class="hidden fixed bottom-0 left-0 right-0 py-2 px-6 z-40 shadow-[0_-10px_20_rgba(0,0,0,0.1)]">
         <div class="max-w-xl mx-auto flex gap-4">
             <button onclick="handleBack()" id="prev-btn" class="flex-1 py-2 bg-white dark:bg-gray-800 border-4 border-purple-400 text-purple-600 dark:text-purple-300 rounded-3xl font-black text-lg hover:bg-purple-50 transition-all active:scale-95 shadow-md">🔙 OOPS, GO BACK</button>
             <button onclick="nextPage()" id="next-btn" class="flex-1 py-2 bg-purple-600 border-4 border-purple-800 text-white rounded-3xl font-black text-lg hover:bg-purple-700 transition-all active:scale-95 shadow-md">KEEP GOING! 🚀</button>
@@ -346,37 +341,37 @@
                 title: "Pages 7-8: Section 2 - Penguins",
                 passage: "Most penguins live in a land of snow and ice. They have feathers, wings, and a beak... But they cannot fly because their body is too heavy. They use their flat, stiff wings as flippers to help them swim swiftly. They eat shrimplike animals called krill.",
                 qs: [
-                    { q: "1. Which sentence DOES NOT tell how they move?", opts: ["waddle land", "slide on bellies", "make nest of pebbles", "webbed feet"], c: 2 },
-                    { q: "2. Meaning of <b>swiftly</b>:", opts: ["carefully", "quickly", "slowly", "safely"], c: 1 },
-                    { q: "3. <b>Krill</b> means:", opts: ["eggs", "fish", "shrimplike animals", "babies"], c: 2 },
-                    { q: "4. Fact about penguins:", opts: ["bad swimmers", "exactly like other birds", "wings help swim", "only mothers"], c: 2 }
+                    { q: "1.", qText: "Which sentence DOES NOT tell how they move?", opts: ["waddle land", "slide on bellies", "make nest of pebbles", "webbed feet"], c: 2 },
+                    { q: "2.", qText: "Meaning of <b>swiftly</b>:", opts: ["carefully", "quickly", "slowly", "safely"], c: 1 },
+                    { q: "3.", qText: "<b>Krill</b> means:", opts: ["eggs", "fish", "shrimplike animals", "babies"], c: 2 },
+                    { q: "4.", qText: "Fact about penguins:", opts: ["bad swimmers", "exactly like other birds", "wings help swim", "only mothers"], c: 2 }
                 ]
             },
             {
                 title: "Pages 9-10: Wright Brothers",
                 passage: "Orville and Wilbur Wright owned a bicycle shop. In 1899, they began to experiment with flight using kites and gliders. In 1903, they took the first motor-powered flight for 12 seconds.",
                 qs: [
-                    { q: "8. Main idea:", opts: ["Testing bad", "Flyer first", "Early pilots", "Bike shop"], c: 2 },
-                    { q: "9. <b>Experiment</b>:", opts: ["try new ideas", "test kites", "stay in air", "fly airplane"], c: 0 },
-                    { q: "12. Opposite of started:", opts: ["began", "finished", "first", "continued"], c: 1 },
-                    { q: "13. Opinion:", opts: ["Tested kites", "Flight in 1903", "Very smart", "Flyer first"], c: 2 }
+                    { q: "8.", qText: "Main idea:", opts: ["Testing bad", "Flyer first", "Early pilots", "Bike shop"], c: 2 },
+                    { q: "9.", qText: "<b>Experiment</b>:", opts: ["try new ideas", "test kites", "stay in air", "fly airplane"], c: 0 },
+                    { q: "12.", qText: "Opposite of started:", opts: ["began", "finished", "first", "continued"], c: 1 },
+                    { q: "13.", qText: "Opinion:", opts: ["Tested kites", "Flight in 1903", "Very smart", "Flyer first"], c: 2 }
                 ]
             },
             {
                 title: "Pages 11-12: Section 3 - My Shadow",
                 passage: "I have a little shadow that goes in and out with me. He is very like me from the heels up to the head... The funniest thing about him is the way he likes to grow.",
                 qs: [
-                    { q: "1. Poem focus:", opts: ["school", "animals", "shadow relationship", "lost"], c: 2 },
-                    { q: "2. Feeling:", opts: ["afraid", "bored", "amused", "quiet"], c: 2 },
-                    { q: "3. Difference:", opts: ["grow/shrink", "jump", "find dew", "play"], c: 0 }
+                    { q: "1.", qText: "Poem focus:", opts: ["school", "animals", "shadow relationship", "lost"], c: 2 },
+                    { q: "2.", qText: "Feeling:", opts: ["afraid", "bored", "amused", "quiet"], c: 2 },
+                    { q: "3.", qText: "Difference:", opts: ["grow/shrink", "jump", "find dew", "play"], c: 0 }
                 ]
             },
             {
                 title: "Pages 13-14: Uncle Wilber",
                 passage: "Uncle Wilber is strange. He sent Oscar the goldfish. Friday Wilber came to take Oscar home. He left a heavy box that hisses and says 'Be Careful'.",
                 qs: [
-                    { q: "8. What happened Friday?", opts: ["got fish", "got letter", "picked up Oscar", "vacation"], c: 2 },
-                    { q: "10. Describe Wilber:", opts: ["weird", "rude", "greedy", "selfish"], c: 0 }
+                    { q: "8.", qText: "What happened Friday?", opts: ["got fish", "got letter", "picked up Oscar", "vacation"], c: 2 },
+                    { q: "10.", qText: "Describe Wilber:", opts: ["weird", "rude", "greedy", "selfish"], c: 0 }
                 ]
             },
             {
@@ -464,23 +459,13 @@
             const list = [];
             const names = ["circle", "square", "triangle", "rectangle", "star", "sphere", "cube", "cone", "cylinder", "pyramid"];
             const allShapeOptions = ["Circle", "Square", "Triangle", "Rectangle", "Star", "Sphere", "Cube", "Cone", "Cylinder", "Pyramid"];
-            
             for (let i = 0; i < 120; i++) {
                 const type = names[Math.floor(Math.random() * names.length)];
                 const correct = type.charAt(0).toUpperCase() + type.slice(1);
-                
-                // Select 3 random wrong options
                 let wrongOptions = allShapeOptions.filter(opt => opt !== correct);
                 wrongOptions = shuffle([...wrongOptions]).slice(0, 3);
-                
-                // Combine and sort for consistent UI
                 const finalOptions = shuffle([correct, ...wrongOptions]).sort();
-                
-                list.push({
-                    q: `What shape is this?<br>${getShapeSVG(type)}`,
-                    opts: finalOptions,
-                    c: finalOptions.indexOf(correct)
-                });
+                list.push({ q: `What shape is this?<br>${getShapeSVG(type)}`, opts: finalOptions, c: finalOptions.indexOf(correct) });
             }
             return list;
         }
@@ -491,17 +476,13 @@
             const list = [];
             for (let i = 0; i < 120; i++) {
                 const isNoun = Math.random() > 0.5;
-                const word = isNoun ? nouns[nouns[Math.floor(Math.random() * nouns.length)]] : verbs[verbs[Math.floor(Math.random() * verbs.length)]];
-                list.push({
-                    q: `Is the word "<b>${word}</b>" a Noun or a Verb?`,
-                    opts: ["Noun", "Verb"],
-                    c: isNoun ? 0 : 1
-                });
+                const word = isNoun ? nouns[Math.floor(Math.random() * nouns.length)] : verbs[Math.floor(Math.random() * verbs.length)];
+                list.push({ q: `Is the word "<b>${word}</b>" a Noun or a Verb?`, opts: ["Noun", "Verb"], c: isNoun ? 0 : 1 });
             }
             return list;
         }
 
-        let currentView = 'home'; 
+        let currentView = 'home';
         let activeData = [];
         let currentPage = 0;
         let userAnswers = {};
@@ -546,10 +527,10 @@
             if (type !== 'lesson') {
                 activeData = [];
                 for (let i = 0; i < baseData.length; i += perPage) {
-                    activeData.push({ 
-                        title: `The ${type.toUpperCase()} Quest - Map ${activeData.length + 1}`, 
-                        instr: "Solve these puzzles to win stickers! 🏆", 
-                        qs: baseData.slice(i, i + perPage) 
+                    activeData.push({
+                        title: `The ${type.toUpperCase()} Quest - Map ${activeData.length + 1}`,
+                        instr: "Solve these puzzles to win stickers! 🏆",
+                        qs: baseData.slice(i, i + perPage)
                     });
                 }
             }
@@ -633,28 +614,47 @@
                     </div>` : '';
 
                 let questionsHtml = '';
-                const isSpecialPage17 = data.title.includes("Page 17");
+                // Checks for Pages 7,8,9,10,11,12,13,14 explicitly using title text
+                const isOneBoxPage = ["Pages 7-8", "Pages 9-10", "Pages 11-12", "Pages 13-14", "Page 17"].some(p => data.title.includes(p));
 
-                if (isSpecialPage17) {
+                if (isOneBoxPage) {
                     questionsHtml = `
-                        <div class="card p-6 mb-10 overflow-hidden relative">
-                            <div class="absolute -top-2 -right-2 text-4xl opacity-10">🤔</div>
-                            <div class="space-y-4">
+                        <div class="card p-8 mb-10 overflow-hidden relative border-4 border-purple-300">
+                            <div class="absolute -top-2 -right-2 text-4xl opacity-10">🕵️</div>
+                            <div class="space-y-8">
                                 ${data.qs.map((q, qIdx) => {
                                     const key = `${currentPage}-${qIdx}`;
                                     const answered = userAnswers[key] !== undefined;
-                                    return `
-                                        <div class="flex items-center gap-2 sm:gap-4 border-b border-gray-100 dark:border-gray-700 pb-2">
-                                            <div class="font-black text-purple-600 dark:text-purple-300 w-6">${q.q}</div>
-                                            <div class="grid grid-cols-4 gap-2 flex-grow">
-                                                ${q.opts.map((opt, oIdx) => {
-                                                    let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
-                                                    return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full py-2 px-1 text-center font-bold text-sm transition-all shadow-sm ${cls}" style="margin-bottom:0">
-                                                        ${opt}
-                                                    </button>`;
-                                                }).join('')}
-                                            </div>
-                                        </div>`;
+                                    const fullText = q.qText ? `${q.q} ${q.qText}` : q.q;
+                                    
+                                    if (data.title.includes("Page 17")) {
+                                        return `
+                                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-dashed border-gray-200 dark:border-gray-700 pb-4 last:border-0">
+                                                <div class="font-black text-purple-600 dark:text-purple-300 text-lg mb-2 sm:mb-0 sm:mr-4">${fullText}</div>
+                                                <div class="grid grid-cols-4 gap-2 sm:w-80">
+                                                    ${q.opts.map((opt, oIdx) => {
+                                                        let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
+                                                        return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full py-2 px-1 text-center font-bold text-xs sm:text-sm transition-all shadow-sm ${cls}" style="margin-bottom:0">
+                                                                ${opt}
+                                                            </button>`;
+                                                    }).join('')}
+                                                </div>
+                                            </div>`;
+                                    } else {
+                                        // THIS IS FOR PAGES 7-14 (Stacked Format)
+                                        return `
+                                            <div class="border-b-2 border-dashed border-gray-200 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
+                                                <div class="font-black text-purple-600 dark:text-purple-300 mb-4 text-xl leading-snug">${fullText}</div>
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                                                    ${q.opts.map((opt, oIdx) => {
+                                                        let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
+                                                        return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full py-3 px-2 text-center font-bold text-sm transition-all shadow-sm ${cls}" style="margin-bottom:0">
+                                                                ${opt}
+                                                            </button>`;
+                                                    }).join('')}
+                                                </div>
+                                            </div>`;
+                                    }
                                 }).join('')}
                             </div>
                         </div>`;
@@ -671,9 +671,9 @@
                                         let cls = answered ? (oIdx === q.c ? "correct" : (oIdx === userAnswers[key] ? "wrong" : "opacity-30")) : "";
                                         let icon = answered ? (oIdx === q.c ? "✅" : (oIdx === userAnswers[key] ? "❌" : "")) : "";
                                         return `<button onclick="handleAnswer(${qIdx}, ${oIdx})" ${answered ? 'disabled' : ''} class="option-btn w-full p-5 text-left font-black transition-all flex justify-between items-center ${cls}">
-                                            <span>${opt}</span>
-                                            <span>${icon}</span>
-                                        </button>`;
+                                                <span>${opt}</span>
+                                                <span>${icon}</span>
+                                            </button>`;
                                     }).join('')}
                                 </div>
                             </div>`;
@@ -694,8 +694,6 @@
                         </div>
                     </div>
                 `;
-            } else if (currentView === 'results') {
-                // Keep the results view logic
             }
         }
 
@@ -703,9 +701,8 @@
             userAnswers[`${currentPage}-${qIdx}`] = oIdx;
             const isCorrect = oIdx === activeData[currentPage].qs[qIdx].c;
             const toast = document.getElementById('toast');
-            
-            const coolMessages = isCorrect ? 
-                ["BOOM! CORRECT! 💥", "YOU'RE A WIZARD! 🧙‍♂️", "SUPER GENIUS! 🧠", "YAY! HOORAY! 🎉"] : 
+            const coolMessages = isCorrect ?
+                ["BOOM! CORRECT! 💥", "YOU'RE A WIZARD! 🧙‍♂️", "SUPER GENIUS! 🧠", "YAY! HOORAY! 🎉"] :
                 ["OOPSIE! 🍌", "NOT QUITE! 🧐", "TRY AGAIN, HERO! 🦸‍♂️", "OH NO! 🙈"];
             
             toast.innerText = coolMessages[Math.floor(Math.random()*coolMessages.length)];
@@ -728,10 +725,10 @@
             activeData.forEach((p, pi) => p.qs.forEach((q, qi) => { total++; if (userAnswers[`${pi}-${qi}`] === q.c) correct++; }));
             const scorePercent = Math.round((correct/total)*100);
             
-            let resultStuff = scorePercent >= 90 ? 
-                { emoji: "👑", msg: "YOU ARE THE KING/QUEEN!", sub: "Unbelievable skills!", color: "text-purple-500" } : 
-                (scorePercent >= 70 ? 
-                    { emoji: "🌟", msg: "SUPERSTAR STATUS!", sub: "You're doing amazing!", color: "text-blue-500" } : 
+            let resultStuff = scorePercent >= 90 ?
+                { emoji: "👑", msg: "YOU ARE THE KING/QUEEN!", sub: "Unbelievable skills!", color: "text-purple-500" } :
+                (scorePercent >= 70 ?
+                    { emoji: "🌟", msg: "SUPERSTAR STATUS!", sub: "You're doing amazing!", color: "text-blue-500" } :
                     { emoji: "🚀", msg: "KEEP TRAINING, PILOT!", sub: "You're getting better every day!", color: "text-green-500" }
                 );
 
@@ -740,22 +737,19 @@
                     <div class="text-9xl mb-8 animate-bounce">${resultStuff.emoji}</div>
                     <h2 class="text-5xl font-black mb-4 ${resultStuff.color}">${resultStuff.msg}</h2>
                     <p class="text-slate-500 dark:text-slate-400 font-black text-2xl mb-10">${resultStuff.sub}</p>
-                    
                     <div class="relative inline-block mb-12">
                         <div class="text-8xl font-black text-purple-600 dark:text-purple-300">${scorePercent}%</div>
                         <div class="absolute -top-4 -right-8 text-4xl rotate-12">🏆</div>
                     </div>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="goHome()" class="py-6 bg-purple-600 border-b-8 border-purple-800 hover:bg-purple-500 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">PLAY AGAIN! 🎮</button>
                         <button onclick="location.reload()" class="py-6 bg-pink-600 border-b-8 border-pink-800 hover:bg-pink-500 text-white rounded-[2.5rem] font-black text-2xl transition-all active:translate-y-2 active:border-b-0 shadow-lg">NEW QUEST! 🗺️</button>
                     </div>
-                    
                     <div class="mt-8 text-6xl">🎈 🎊 🦄 🥳 🍭</div>
                 </div>`;
             window.scrollTo(0, 0);
         }
         render();
     </script>
-</body>
+</body> 
 </html>
