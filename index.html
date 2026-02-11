@@ -181,10 +181,10 @@
             </div>
 
             <!-- SMART SCORE TRACKER -->
-            <div id="smart-score-box" class="hidden flex items-center bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full border-4 border-white shadow-lg animate-pulse transform hover:scale-110 transition-transform cursor-pointer">
+            <div id="smart-score-box" class="flex items-center bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full border-4 border-white shadow-lg animate-pulse transform hover:scale-110 transition-transform cursor-pointer">
                 <span class="text-2xl mr-2">⭐</span>
                 <div class="flex flex-col leading-none">
-                    <span class="text-[10px] uppercase font-bold opacity-80">Score</span>
+                    <span class="text-[10px] uppercase font-bold opacity-80">Total Score</span>
                     <span id="score-val" class="text-xl font-black">0</span>
                 </div>
             </div>
@@ -501,6 +501,7 @@
         let userAnswers = {};
         let fontSize = 22;
         let isDarkMode = false;
+        let globalScore = 0; // GLOBAL SCORE TRACKER
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -548,7 +549,7 @@
                 }
             }
             currentPage = 0;
-            userAnswers = {};
+            userAnswers = {}; // Resets only current activity progress
             currentView = 'quiz';
             render();
             window.scrollTo(0, 0);
@@ -571,10 +572,15 @@
             const scoreBox = document.getElementById('smart-score-box');
             const pageIndicator = document.getElementById('page-indicator');
 
+            // Always update the global score display
+            document.getElementById('score-val').innerText = `${globalScore}`;
+
             if (currentView === 'home') {
                 footer.classList.add('hidden');
                 progress.classList.add('hidden');
-                scoreBox.classList.add('hidden');
+                // Ensure score box is visible on home
+                scoreBox.classList.remove('hidden');
+                
                 main.innerHTML = `
                     <div class="text-center py-6">
                         <div class="inline-block bg-white dark:bg-gray-800 p-6 rounded-3xl border-4 border-purple-400 rotate-2 mb-10 shadow-lg">
@@ -624,23 +630,6 @@
                 document.getElementById('progress-bar').style.width = `${progVal}%`;
                 pageIndicator.innerText = `${currentPage + 1}/${activeData.length}`;
 
-                // --- SMART SCORE LOGIC ---
-                let currentSectionScore = 0;
-                let totalAttempted = 0;
-                activeData.forEach((pg, pIndex) => {
-                    pg.qs.forEach((q, qIndex) => {
-                         const key = `${pIndex}-${qIndex}`;
-                         if (userAnswers[key] !== undefined) {
-                             totalAttempted++;
-                             if (userAnswers[key] === q.c) {
-                                 currentSectionScore++;
-                             }
-                         }
-                    });
-                });
-                document.getElementById('score-val').innerText = `${currentSectionScore}`;
-                // -------------------------
-
                 let passageHtml = data.passage ? `
                     <div class="sticky-passage mb-10">
                         <div class="passage-box p-8 shadow-xl">
@@ -650,7 +639,6 @@
                     </div>` : '';
 
                 let questionsHtml = '';
-                // Checks for Pages 7,8,9,10,11,12,13,14 explicitly using title text
                 const isOneBoxPage = ["Pages 7-8", "Pages 9-10", "Pages 11-12", "Pages 13-14", "Page 17"].some(p => data.title.includes(p));
 
                 if (isOneBoxPage) {
@@ -677,7 +665,6 @@
                                                 </div>
                                             </div>`;
                                     } else {
-                                        // THIS IS FOR PAGES 7-14 (Stacked Format)
                                         return `
                                             <div class="border-b-2 border-dashed border-gray-200 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
                                                 <div class="font-black text-purple-600 dark:text-purple-300 mb-4 text-xl leading-snug">${fullText}</div>
@@ -736,9 +723,15 @@
         window.handleAnswer = (qIdx, oIdx) => {
             userAnswers[`${currentPage}-${qIdx}`] = oIdx;
             const isCorrect = oIdx === activeData[currentPage].qs[qIdx].c;
+            
+            // --- GLOBAL SCORE UPDATE ---
+            if (isCorrect) {
+                globalScore++;
+            }
+            // ---------------------------
+
             const toast = document.getElementById('toast');
             
-            // Animation for score
             if (isCorrect) {
                 const scoreBox = document.getElementById('smart-score-box');
                 scoreBox.classList.add('scale-125');
@@ -765,7 +758,9 @@
             currentView = 'results';
             document.getElementById('quiz-footer').classList.add('hidden');
             document.getElementById('progress-container').classList.add('hidden');
-            document.getElementById('smart-score-box').classList.add('hidden');
+            // Keep Score Box visible on result screen too
+            document.getElementById('smart-score-box').classList.remove('hidden');
+
             let total = 0, correct = 0;
             activeData.forEach((p, pi) => p.qs.forEach((q, qi) => { total++; if (userAnswers[`${pi}-${qi}`] === q.c) correct++; }));
             const scorePercent = Math.round((correct/total)*100);
@@ -786,7 +781,7 @@
                         <div class="text-8xl font-black text-purple-600 dark:text-purple-300">${scorePercent}%</div>
                         <div class="absolute -top-4 -right-8 text-4xl rotate-12">🏆</div>
                         <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-lg font-bold bg-yellow-300 text-yellow-900 px-4 py-1 rounded-full whitespace-nowrap border-2 border-white shadow-md">
-                           Total Score: ${correct} / ${total}
+                           Activity Score: ${correct} / ${total}
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
