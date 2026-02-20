@@ -1,628 +1,629 @@
-import React, { useState, useEffect } from 'react';
-import { BookOpen, Star, Lock, Unlock, Trophy, ChevronRight, Home, CheckCircle2, XCircle, Sparkles, Award } from 'lucide-react';
-
-// --- DATA: ALL 20 STORIES AND QUESTIONS ---
-const storyData = [
-  {
-    id: 1,
-    title: "The Brave Ant",
-    content: "Andy the ant found a huge breadcrumb near a picnic blanket. It was much heavier than he was, but he didn't want to leave it behind. He tried to lift it alone and failed many times. Soon, five of his friends arrived to help him. Together, they carried the giant crumb all the way back to their anthill to feed the queen.",
-    questions: [
-      { q: "What did Andy the ant find near the picnic blanket?", options: ["A small piece of shiny silver foil.", "A breadcrumb that was much larger than him.", "A sweet purple grape that had fallen.", "A colorful plastic spoon left on the grass."], a: 1 },
-      { q: "What happened when Andy tried to lift the crumb by himself?", options: ["He carried it easily back to his home.", "He was able to lift it but then he dropped it.", "He failed to move it because it was too heavy.", "He decided it wasn't worth the effort and left."], a: 2 },
-      { q: "How many friends came to help Andy with his task?", options: ["Ten friends came running from the garden.", "Only one friend came to help him push it.", "Five of his ant friends arrived to assist him.", "A large beetle came by to offer some help."], a: 2 },
-      { q: "Where did the group of ants take the heavy breadcrumb?", options: ["They took it to the top of a tall flower.", "They hid it under a large brown leaf.", "They carried it all the way back to their anthill.", "They left it near a puddle of water."], a: 2 },
-      { q: "What is the lesson regarding teamwork in this story?", options: ["It is always better to work alone on a project.", "Working together makes difficult jobs much easier.", "Ants should never try to carry heavy things.", "You should only help others if they ask you first."], a: 1 }
-    ]
-  },
-  {
-    id: 2,
-    title: "The Magic Paintbrush",
-    content: "Mia found an old paintbrush in her grandmother’s attic. When she dipped it in water and painted a sun, the room felt warmer. When she painted a blue cloud, a cool breeze blew through the window. Mia realized the brush was magic. Instead of painting for herself, she painted a bowl of soup for a hungry neighbor, and a real steaming bowl appeared.",
-    questions: [
-      { q: "Where did Mia discover the old, dusty paintbrush?", options: ["She found it in a box at a garage sale.", "She found it hidden in her grandmother’s attic.", "She found it lying on the floor of her art class.", "She received it as a gift for her birthday."], a: 1 },
-      { q: "What happened when Mia painted a picture of the sun?", options: ["The room suddenly became very dark and cold.", "The walls of the room turned a bright yellow.", "The room began to feel much warmer than before.", "A bright light blinded everyone in the house."], a: 2 },
-      { q: "What was the effect of painting a blue cloud on the paper?", options: ["It started to rain inside the living room.", "A cool breeze began to blow through the window.", "The paper turned wet and started to tear apart.", "The sky outside turned a dark shade of blue."], a: 1 },
-      { q: "How did Mia choose to use her magic power at the end?", options: ["She painted a giant castle made of gold for herself.", "She painted a mountain of toys to keep in her room.", "She painted a bowl of hot soup for a neighbor.", "She painted a new car for her parents to drive."], a: 2 },
-      { q: "What does the story suggest about having special talents?", options: ["Magic should only be used to make yourself rich.", "It is better to use your gifts to help other people.", "You should never touch things you find in an attic.", "Painting is only fun if the pictures come to life."], a: 1 }
-    ]
-  },
-  {
-    id: 3,
-    title: "The Library Lion",
-    content: "Leo the Lion lived in a quiet library. He loved the smell of books and the sound of pages turning. One afternoon, a little girl fell down and hurt her knee in the hallway. Leo let out a giant roar to get the librarian’s attention. Even though lions are usually scary, the girl felt safe because Leo was trying to help her.",
-    questions: [
-      { q: "Where was the lion named Leo living in this story?", options: ["He lived in a large cage at the city zoo.", "He lived inside a quiet and peaceful library.", "He lived in the middle of a hot, dry jungle.", "He lived under a bridge in a big city."], a: 1 },
-      { q: "What happened to the little girl while she was visiting?", options: ["She got lost in the rows of tall bookshelves.", "She fell down and accidentally hurt her knee.", "She couldn't find the book she wanted to read.", "She was scared by the sight of the big lion."], a: 1 },
-      { q: "Why did Leo the Lion decide to roar very loudly?", options: ["He was hungry and wanted someone to feed him.", "He was angry because the library was too quiet.", "He wanted to get the librarian’s attention for help.", "He was trying to scare the people away."], a: 2 },
-      { q: "How did the little girl feel about Leo after the event?", options: ["She was more terrified of him than ever before.", "She felt safe because he was trying to protect her.", "She was annoyed because his roar was too loud.", "She didn't notice that the lion had done anything."], a: 1 },
-      { q: "What is the main idea about appearances in this story?", options: ["Lions are always dangerous and should be avoided.", "Someone who looks scary can actually be very kind.", "Libraries are not a good place for large animals.", "You should never make noise when you are in a library."], a: 1 }
-    ]
-  },
-  {
-    id: 4,
-    title: "The Star That Fell",
-    content: "One night, a tiny star fell from the sky and landed in Chloe’s garden. It was dim and shivering because it was cold. Chloe wrapped the star in her softest silk scarf and sang it a lullaby. By morning, the star was glowing brightly again. It floated back up to the sky, leaving a trail of silver glitter on Chloe’s favorite flowers.",
-    questions: [
-      { q: "Where did the tiny star land after falling from the sky?", options: ["It landed on the roof of Chloe's big house.", "It landed right in the middle of Chloe's garden.", "It landed in the deep water of a nearby lake.", "It landed in the branches of a tall oak tree."], a: 1 },
-      { q: "Why was the star dim and shivering when Chloe found it?", options: ["It was feeling very lonely in the dark garden.", "It was shivering because it felt very cold.", "It was sad because it missed its friends in space.", "It was scared of the cat that lived next door."], a: 1 },
-      { q: "What did Chloe use to keep the little star warm?", options: ["She used a heavy wool blanket from her bed.", "She used her softest silk scarf to wrap it up.", "She built a small fire using sticks from the yard.", "She took it inside and put it near the heater."], a: 1 },
-      { q: "What did the star leave behind when it returned home?", options: ["It left a small piece of gold on the porch.", "It left a trail of silver glitter on the flowers.", "It left a note thanking Chloe for her help.", "It didn't leave anything behind in the garden."], a: 1 },
-      { q: "What does the story show about being kind to nature?", options: ["Even small acts of care can help something shine.", "Stars are very dangerous if they fall on your house.", "You should never touch things that fall from the sky.", "Singing is the only way to make a star glow again."], a: 0 }
-    ]
-  },
-  {
-    id: 5,
-    title: "The Missing Mittens",
-    content: "Oliver lost his red mittens on the way to school. He looked in the snow, under the park bench, and near the bus stop. He was very cold and sad. Later that day, he saw a mother squirrel using the wool from his mittens to line her nest for her babies. Oliver smiled and decided he didn't mind having cold hands if the babies were warm.",
-    questions: [
-      { q: "What color were the mittens that Oliver lost?", options: ["They were a bright shade of forest green.", "They were dark blue with white stripes.", "They were a bright and noticeable red.", "They were black and made of thick leather."], a: 2 },
-      { q: "Where did Oliver go to search for his missing items?", options: ["He only looked in his cubby at the school.", "He checked the snow, the park bench, and the bus stop.", "He looked in the kitchen and the living room.", "He asked the bus driver if he had seen them."], a: 1 },
-      { q: "What did Oliver discover later in the afternoon?", options: ["A bully had taken his mittens and hidden them.", "A mother squirrel was using the wool for a nest.", "His mittens were actually in his backpack.", "The mittens had been flattened by a passing car."], a: 1 },
-      { q: "Why was the squirrel using the material from the mittens?", options: ["She wanted to play with the bright red string.", "She was trying to hide them from other animals.", "She was lining her nest to keep her babies warm.", "She thought they were a type of giant berry."], a: 2 },
-      { q: "Why did Oliver decide that losing his mittens was okay?", options: ["His mother promised to buy him better ones.", "He realized he didn't like the color red anymore.", "He was happy that the baby squirrels were warm.", "He found a different pair of gloves in the snow."], a: 2 }
-    ]
-  },
-  {
-    id: 6,
-    title: "The Grumpy Cloud",
-    content: "Barnaby was a very grumpy cloud who only wanted to rain on people’s parades. One day, he saw a dry, brown field of thirsty corn. The corn was drooping and looked very sad. Barnaby decided to let all his rain out. As the corn turned green and tall, Barnaby felt a strange wiggling in his chest. He realized that helping made him feel happy instead of grumpy.",
-    questions: [
-      { q: "What kind of personality did Barnaby the cloud have?", options: ["He was always very happy and loved the sun.", "He was a grumpy cloud who liked to ruin things.", "He was a shy cloud who hid behind the mountains.", "He was a very fast cloud that liked to race."], a: 1 },
-      { q: "What did Barnaby see that changed his mind about raining?", options: ["He saw a group of children playing at the beach.", "He saw a dry, brown field of very thirsty corn.", "He saw a beautiful rainbow in the distance.", "He saw a mountain that was covered in snow."], a: 1 },
-      { q: "What happened to the corn after Barnaby rained on it?", options: ["The corn washed away in a giant flood.", "The corn stayed brown and eventually died.", "The corn turned bright green and grew very tall.", "The corn turned into popcorn because of the heat."], a: 2 },
-      { q: "How did Barnaby's feelings change at the end of the story?", options: ["He became even angrier than he was before.", "He felt happy because he had helped the plants.", "He felt sad because he had no more rain left.", "He was bored and wanted to find a new field."], a: 1 },
-      { q: "What is the lesson about kindness in this story?", options: ["Being grumpy is the best way to get attention.", "Helping others can change your own bad mood.", "Clouds should only rain when it is nighttime.", "Corn is the only plant that needs rain to grow."], a: 1 }
-    ]
-  },
-  {
-    id: 7,
-    title: "The Clock That Ran Backward",
-    content: "The clock in the town square was very old. One Tuesday, it started running backward! People started walking backward, and the sun began to go down in the East. The town baker, Mr. Crumb, realized the clock just needed a little bit of oil. He climbed the tower and fixed the gears. Time started moving forward again, and everyone felt much better.",
-    questions: [
-      { q: "What was unusual about the clock in the town square?", options: ["It started to chime every single minute.", "It began to run backward instead of forward.", "It turned into solid gold and stopped moving.", "It started to glow with a bright purple light."], a: 1 },
-      { q: "How did the townspeople react to the clock's behavior?", options: ["They ignored it and went about their day.", "They started walking backward just like the clock.", "They all went to sleep because they were confused.", "They threw a party to celebrate the strange event."], a: 1 },
-      { q: "Who was the person who figured out how to fix the clock?", options: ["The mayor of the town called a special meeting.", "A young student who was studying science.", "Mr. Crumb, the local baker, found the solution.", "A clockmaker from a different country arrived."], a: 2 },
-      { q: "What did the clock need in order to function correctly?", options: ["It needed to be cleaned with soap and water.", "It needed a new set of silver batteries.", "It needed a little bit of oil for its old gears.", "It needed to be painted a brighter color."], a: 2 },
-      { q: "What happened to the town once the clock was fixed?", options: ["Time stopped completely for everyone.", "Everything went back to moving forward normally.", "The clock started running even faster than before.", "Everyone forgot that the event had happened."], a: 1 }
-    ]
-  },
-  {
-    id: 8,
-    title: "The Bird Who Forgot to Fly",
-    content: "Pip was a bird who preferred to walk everywhere. He said flying was too much work and his wings got tired. His friends laughed, but Pip didn't care. One day, a big cat started chasing Pip across the grass. Pip ran as fast as he could, but the cat was faster. Without thinking, Pip flapped his wings and soared into the air. He realized flying was much faster than walking.",
-    questions: [
-      { q: "Why did Pip the bird choose to walk instead of fly?", options: ["He was afraid of heights and didn't like the wind.", "He thought flying was too much work for his wings.", "He had a broken wing that wouldn't let him fly.", "He liked to look for bugs in the deep grass."], a: 1 },
-      { q: "What happened that put Pip in a dangerous situation?", options: ["He got stuck in a thick patch of sticky mud.", "A large cat began to chase him across the yard.", "He couldn't find his way back to his nest.", "It started to rain and he got very wet."], a: 1 },
-      { q: "How did Pip manage to escape from the hungry cat?", options: ["He crawled into a small hole in the ground.", "He hid behind a large rock until the cat left.", "He flapped his wings and flew up into the air.", "His friends came down to distract the cat."], a: 2 },
-      { q: "What did Pip realize after he was safe in the sky?", options: ["Flying was actually much faster than walking.", "He was still very tired and wanted to land.", "He preferred the grass over the open air.", "He wanted to go back and talk to the cat."], a: 0 },
-      { q: "What is the message about using your natural talents?", options: ["You should only use your talents if you are scared.", "It is important to practice what you are meant to do.", "Walking is always safer than flying in the sky.", "Friends should not laugh at you for being different."], a: 1 }
-    ]
-  },
-  {
-    id: 9,
-    title: "The Chocolate River",
-    content: "Sam dreamt that the river in his town turned into liquid chocolate. He ran to the bank with a giant spoon. Just as he was about to take a bite, he saw a fish made of marshmallow struggling to swim. Sam used his spoon to lift the fish out and put it in a bowl of milk nearby. The fish turned into a real fish, and Sam woke up feeling very kind.",
-    questions: [
-      { q: "What did Sam see in his dream about the local river?", options: ["The water had turned into cold fruit juice.", "The river was filled with liquid chocolate.", "The river had dried up and was full of candy.", "The water was glowing with a bright green light."], a: 1 },
-      { q: "What item did Sam bring with him to the riverbank?", options: ["He brought a large bucket to collect the chocolate.", "He brought a giant spoon to take a big bite.", "He brought a loaf of bread to dip in the water.", "He brought his fishing rod to catch some treats."], a: 1 },
-      { q: "What kind of creature did Sam see in the chocolate?", options: ["A real trout that was covered in dark cocoa.", "A fish that appeared to be made of marshmallow.", "A chocolate frog that was jumping on the rocks.", "A tiny boat that was sinking in the thick liquid."], a: 1 },
-      { q: "How did Sam help the struggling marshmallow fish?", options: ["He ate the fish before it could sink any further.", "He used his giant spoon to lift it into some milk.", "He called for his friends to come and see it.", "He pushed it deeper into the chocolate river."], a: 1 },
-      { q: "How did Sam feel when he eventually woke up?", options: ["He was very hungry for a chocolate bar.", "He felt a sense of kindness and happiness.", "He was disappointed that it wasn't a real river.", "He was confused about where his spoon went."], a: 1 }
-    ]
-  },
-  {
-    id: 10,
-    title: "The Tree That Could Talk",
-    content: "Deep in the woods, there was a tree named Oaky who could talk. However, Oaky only spoke to people who were quiet enough to listen. Most people ran past him shouting. One day, a boy named Liam sat under Oaky for three hours without saying a word. Finally, Oaky whispered, \"Thank you for the company.\" Liam learned that listening is just as important as talking.",
-    questions: [
-      { q: "What was special about the tree named Oaky in the woods?", options: ["He had leaves that were made of solid silver.", "He had the ability to talk to human beings.", "He could walk around the forest at nighttime.", "He grew every kind of fruit on his branches."], a: 1 },
-      { q: "Under what condition would Oaky speak to someone?", options: ["They had to bring him a bucket of fresh water.", "They had to be quiet enough to actually listen.", "They had to sing a song to his wooden trunk.", "They had to climb to the very top of his branches."], a: 1 },
-      { q: "What did most people do when they were near Oaky?", options: ["They sat down and tried to talk to him.", "They ran past him while shouting and making noise.", "They took photos of him for their collections.", "They tried to cut down his thick branches."], a: 1 },
-      { q: "How long did Liam sit under the tree in total silence?", options: ["He only stayed for five minutes before leaving.", "He sat there for three hours without speaking.", "He stayed under the tree for an entire day.", "He fell asleep after only ten minutes."], a: 1 },
-      { q: "What was the main lesson Liam learned from Oaky?", options: ["Trees are very lonely and need more friends.", "Listening is just as important as speaking.", "It is very hard to stay quiet for a long time.", "You should always talk to plants in the woods."], a: 1 }
-    ]
-  },
-  {
-    id: 11,
-    title: "The Golden Egg",
-    content: "A farmer named Fred had a goose that laid one golden egg every morning. Fred became very rich, but he also became very greedy. He thought if he cut the goose open, he could get all the gold at once. When he did, he found no gold inside, and now he had no goose to lay eggs. Fred realized that being greedy made him lose everything.",
-    questions: [
-      { q: "What was special about the goose that Fred owned?", options: ["It could talk and tell Fred very funny jokes.", "It laid a single golden egg every single morning.", "It was the largest goose in the entire country.", "It could fly higher than any other bird."], a: 1 },
-      { q: "How did Fred's personality change as he got richer?", options: ["He became very kind and gave his money away.", "He became very greedy and wanted more gold.", "He became very lazy and stopped working at all.", "He became afraid that someone would steal his bird."], a: 1 },
-      { q: "What was Fred’s plan to get more gold quickly?", options: ["He wanted to feed the goose more expensive food.", "He planned to cut the goose open to find the gold.", "He tried to buy another goose from a neighbor.", "He asked a wizard to make the goose lay two eggs."], a: 1 },
-      { q: "What did Fred discover after he followed through with his plan?", options: ["He found a giant pile of gold inside the bird.", "He found absolutely no gold inside the goose.", "He found a map to a hidden treasure chest.", "He found that the goose was actually a robot."], a: 1 },
-      { q: "What is the classic lesson taught by this story?", options: ["You should always check inside things before buying.", "Greed can cause you to lose the good things you have.", "Geese are not a good source of steady income.", "Golden eggs are not as valuable as real ones."], a: 1 }
-    ]
-  },
-  {
-    id: 12,
-    title: "The Spaceship in the Backyard",
-    content: "Zoe built a spaceship out of cardboard boxes and silver tape. She sat inside and imagined she was flying to Mars. Her dog, Buster, hopped in too. Suddenly, the boxes started to shake and a red light blinked. Zoe realized it was just her dad shaking the box from the outside, but she had so much fun that she felt like she really traveled through space.",
-    questions: [
-      { q: "What materials did Zoe use to build her spaceship?", options: ["She used pieces of wood and some old nails.", "She used cardboard boxes and some silver tape.", "She used plastic bottles and a lot of glue.", "She used her old bedsheets and some chairs."], a: 1 },
-      { q: "Who joined Zoe inside the spaceship for the mission?", options: ["Her younger brother wanted to be the pilot.", "Her dog, Buster, hopped inside the box with her.", "Her best friend brought snacks for the trip.", "Her mother came in to check on her progress."], a: 1 },
-      { q: "What caused the \"spaceship\" to start shaking?", options: ["The engine finally started working properly.", "Her dad was shaking the boxes from the outside.", "A big wind was blowing through the backyard.", "The dog was jumping around inside the box."], a: 1 },
-      { q: "Where was Zoe imagining she was traveling to?", options: ["She was heading toward the bright, round moon.", "She was flying her ship all the way to Mars.", "She was going to visit a different galaxy.", "She was traveling to the bottom of the ocean."], a: 1 },
-      { q: "What does the story tell us about imagination?", options: ["Cardboard boxes are better than real spaceships.", "You can have a great adventure just by using your mind.", "Dads should not ruin their children's games.", "Dogs are not very good co-pilots for space travel."], a: 1 }
-    ]
-  },
-  {
-    id: 13,
-    title: "The Dragon Who Liked Tea",
-    content: "Dax was a dragon who didn't like to breathe fire. He preferred to use his hot breath to boil water for tea. The other dragons teased him for being \"soft.\" One day, the village near the dragon cave ran out of wood for fires during a blizzard. Dax flew down and made giant pots of warm tea for everyone. The villagers loved Dax, and the other dragons finally realized he was special.",
-    questions: [
-      { q: "Why was Dax different from the other dragons?", options: ["He couldn't fly as high as the other dragons.", "He didn't like to breathe fire for destruction.", "He was much smaller than all of his friends.", "He was a different color than the rest of them."], a: 1 },
-      { q: "What did Dax prefer to do with his hot breath?", options: ["He used it to melt the snow on the mountains.", "He used it to boil water to make pots of tea.", "He used it to create beautiful smoke rings.", "He used it to stay warm during the cold nights."], a: 1 },
-      { q: "What problem did the village face during the blizzard?", options: ["The village was being attacked by mean dragons.", "The people ran out of wood to keep their fires going.", "The water in the town well had frozen solid.", "A giant snow monster was blocking the roads."], a: 1 },
-      { q: "How did Dax help the people in the village?", options: ["He fought off the other dragons to save them.", "He made giant pots of warm tea for everyone.", "He carried the people to a warmer place.", "He used his fire to burn down the old forest."], a: 1 },
-      { q: "What did the other dragons learn at the end?", options: ["Tea is much better to drink than cold water.", "Being different can be a very helpful thing.", "Villagers are very friendly toward all dragons.", "Breathing fire is the most important skill to have."], a: 1 }
-    ]
-  },
-  {
-    id: 14,
-    title: "The Robot’s Heart",
-    content: "Rusty was a robot made of old tin cans. He was very good at fixing toasters, but he felt sad because he didn't have a heart. He went to the scientist who built him and asked for one. The scientist laughed and said, \"Rusty, you spent all day helping people for free. Only someone with a heart would do that.\" Rusty realized he had a heart all along.",
-    questions: [
-      { q: "What material was used to build the robot named Rusty?", options: ["He was made from expensive shiny silver.", "He was built using a collection of old tin cans.", "He was made of hard plastic and blue wires.", "He was carved out of a single block of wood."], a: 1 },
-      { q: "What was the specific skill that Rusty was good at?", options: ["He was excellent at running very fast races.", "He was very good at fixing broken toasters.", "He could sing songs in many different languages.", "He was a great cook for the scientist."], a: 1 },
-      { q: "Why did Rusty feel sad about his own construction?", options: ["He thought he was too old and starting to rust.", "He felt sad because he didn't have a real heart.", "He wanted to be able to sleep like a human.", "He didn't like the way his metal body looked."], a: 1 },
-      { q: "What did the scientist tell Rusty about his actions?", options: ["He needed to work harder to earn a real heart.", "His kindness toward others proved he already had one.", "A heart was too expensive to put inside a robot.", "Robots are not supposed to have any feelings."], a: 1 },
-      { q: "What is the main message about being a good person?", options: ["You need a physical heart to be able to feel love.", "Your actions and kindness show who you really are.", "Scientists are the only ones who can give you feelings.", "Fixing toasters is a very noble and important job."], a: 1 }
-    ]
-  },
-  {
-    id: 15,
-    title: "The Boy Who Cried Wolf",
-    content: "Lucas was bored while watching the sheep. He decided to shout, \"Wolf! Wolf!\" just to see the villagers run. They came to help him, but there was no wolf. Lucas laughed at them. The next day, a real wolf appeared. Lucas screamed for help, but the villagers thought he was joking again and stayed home. Lucas learned that nobody believes a liar.",
-    questions: [
-      { q: "Why did Lucas decide to shout for help the first time?", options: ["He saw a large wolf hiding in the bushes.", "He was bored and wanted to see the people run.", "He had lost one of the sheep in the tall grass.", "He wanted to show everyone how loud he could be."], a: 1 },
-      { q: "How did the villagers react to Lucas's first shout?", options: ["They ignored him because they knew he was joking.", "They ran to the field immediately to help him.", "They stayed in their houses and locked the doors.", "They sent the town dogs to find the wolf."], a: 1 },
-      { q: "What happened on the second day when Lucas was alone?", options: ["Lucas decided to play the same joke again.", "A real wolf actually appeared near the sheep.", "All of the sheep ran away into the mountains.", "The villagers came to check on him anyway."], a: 1 },
-      { q: "Why didn't the villagers come to help the second time?", options: ["They were too busy working in their gardens.", "They thought Lucas was lying to them again.", "They didn't hear him because the wind was too loud.", "They had gone to a different town for the day."], a: 1 },
-      { q: "What is the important lesson about honesty in this story?", options: ["Wolves are very dangerous animals to be around.", "If you tell lies, people won't believe you when you tell the truth.", "Sheep are very difficult animals to take care of.", "You should never shout when you are in a field."], a: 1 }
-    ]
-  },
-  {
-    id: 16,
-    title: "The Invisible Cape",
-    content: "Timmy found a piece of clear plastic in the trash and tied it around his neck. He told everyone it was an \"Invisible Cape\" that made him super strong. When his sister got stuck on top of the jungle gym, Timmy \"flew\" over and helped her down. His mom told him the cape didn't make him strong—his bravery did. Timmy kept the cape anyway.",
-    questions: [
-      { q: "What did Timmy use to create his \"Invisible Cape\"?", options: ["He used an old white bedsheet from his room.", "He used a piece of clear plastic he found in the trash.", "He used his father's large black rain coat.", "He bought a real costume at a local store."], a: 1 },
-      { q: "What special power did Timmy claim the cape gave him?", options: ["He said it made him completely invisible to people.", "He claimed it made him feel incredibly strong.", "He said it allowed him to breathe underwater.", "He told people he could talk to animals with it."], a: 1 },
-      { q: "What happened to Timmy's sister at the playground?", options: ["She lost her favorite doll in the sandbox.", "She got stuck at the top of the jungle gym.", "She fell down and scraped her elbow on the ground.", "She was too scared to go down the big slide."], a: 1 },
-      { q: "What did Timmy's mom say about his heroic actions?", options: ["The plastic cape was actually magic after all.", "His bravery was what actually made him strong.", "He shouldn't be playing with trash from the bin.", "His sister could have gotten down by herself."], a: 1 },
-      { q: "What does the story teach about self-confidence?", options: ["You need a costume to be a real superhero.", "Believing in yourself can help you do brave things.", "Plastic is a very dangerous material to wear.", "Sisters always need their brothers to help them."], a: 1 }
-    ]
-  },
-  {
-    id: 17,
-    title: "The Painting That Moved",
-    content: "Sophie painted a picture of a horse. That night, she heard a \"clop-clop\" sound coming from her desk. She turned on her light and saw the horse's tail swishing on the paper. The horse looked thirsty, so Sophie painted a bucket of water. The horse lowered its head and drank the painted water. Sophie realized her art was a living world.",
-    questions: [
-      { q: "What animal did Sophie choose to draw in her picture?", options: ["She drew a large elephant with a long trunk.", "She painted a picture of a majestic horse.", "She drew a small cat sitting on a fence.", "She painted a bird flying over a house."], a: 1 },
-      { q: "What sound did Sophie hear during the middle of the night?", options: ["She heard a loud barking coming from outside.", "She heard a \"clop-clop\" sound from her desk.", "She heard a soft whispering near her bed.", "She heard the sound of rain hitting the window."], a: 1 },
-      { q: "What was the horse doing when Sophie turned on the light?", options: ["It was running across the entire piece of paper.", "It was swishing its tail back and forth on the page.", "It was trying to jump out of the picture frame.", "It was sleeping soundly in a painted stable."], a: 1 },
-      { q: "How did Sophie help the horse in her painting?", options: ["She painted a field of green grass for it to eat.", "She painted a bucket of water for it to drink.", "She used her eraser to change the horse's color.", "She tore the paper to set the horse free."], a: 1 },
-      { q: "What was the magical discovery Sophie made that night?", options: ["Her desk was haunted by a friendly ghost.", "Her artwork was actually a living, breathing world.", "She was dreaming the whole time she was awake.", "Painting is much harder than she originally thought."], a: 1 }
-    ]
-  },
-  {
-    id: 18,
-    title: "The Giant Carrot",
-    content: "A rabbit named Barnaby found a seed that grew into a carrot as big as a house. At first, Barnaby didn't want to share. He tried to eat it all, but he got a tummy ache after two bites. He invited all the rabbits in the forest to a \"Carrot Party.\" They ate for a week and still had some left. Barnaby felt much better sharing than eating alone.",
-    questions: [
-      { q: "How large did the carrot grow in Barnaby's garden?", options: ["It was the size of a normal, healthy carrot.", "It grew to be as big as a whole house.", "It was so small that Barnaby couldn't see it.", "It was as tall as a tree in the forest."], a: 1 },
-      { q: "What happened when Barnaby tried to eat the carrot alone?", options: ["He finished the whole thing in just one day.", "He got a bad tummy ache after only two bites.", "He realized he didn't actually like carrots.", "He became the strongest rabbit in the world."], a: 1 },
-      { q: "Who did Barnaby invite to help him with the giant vegetable?", options: ["He invited his family members to come over.", "He invited every rabbit living in the forest.", "He invited a giant to help him pull it up.", "He didn't invite anyone and stayed alone."], a: 1 },
-      { q: "How long did the \"Carrot Party\" last for the animals?", options: ["They ate all of the food in just one hour.", "The party lasted for a full week of eating.", "They only ate for one afternoon before leaving.", "They took the food home and didn't have a party."], a: 1 },
-      { q: "What did Barnaby learn about the act of sharing?", options: ["Sharing makes a meal more enjoyable than eating alone.", "It is impossible to eat a carrot that is as big as a house.", "You should always keep the best food for yourself.", "Parties are a lot of work and very messy."], a: 0 }
-    ]
-  },
-  {
-    id: 19,
-    title: "The Moon’s Reflection",
-    content: "A young fox saw the moon in a pond and thought it was a giant piece of cheese. He jumped into the water to grab it, but the \"cheese\" broke into tiny ripples. His mother told him that sometimes things aren't what they seem. The fox dried himself off and looked up at the real moon in the sky. He realized the real moon was much more beautiful than cheese.",
-    questions: [
-      { q: "What did the young fox think he saw in the pond?", options: ["He thought a silver coin was sitting on the bottom.", "He thought the moon was a giant piece of cheese.", "He saw a fish that was glowing in the dark.", "He thought a white ball was floating in the water."], a: 1 },
-      { q: "What happened to the object when the fox jumped in?", options: ["The fox caught the cheese and ate it all.", "The image broke into many tiny ripples in the water.", "The fox sank to the bottom of the deep pond.", "The moon flew away back into the night sky."], a: 1 },
-      { q: "What advice did the mother fox give to her son?", options: ["You should always be careful when you go swimming.", "Sometimes things are not actually what they seem to be.", "Cheese is not a good food for young foxes to eat.", "You should only hunt for food during the daytime."], a: 1 },
-      { q: "What did the fox do after he got out of the water?", options: ["He went back in to try and find the cheese again.", "He dried himself off and looked up at the real moon.", "He ran away because he was scared of the water.", "He started crying because he was very hungry."], a: 1 },
-      { q: "What was the fox's final realization about the moon?", options: ["The real moon was even more beautiful than cheese.", "He would never be able to reach the moon.", "The pond was a magic place that changed things.", "He should listen to his mother more often."], a: 0 }
-    ]
-  },
-  {
-    id: 20,
-    title: "The Shoe House",
-    content: "Milly found a giant boot in the middle of a field. She decided to turn it into a house for all the stray ladybugs she found. She put tiny beds made of leaves and tables made of pebbles inside. The ladybugs loved their new home. One day, the boot's owner, a friendly giant, came back. Instead of taking the boot, he left the other one so Milly could build a school too.",
-    questions: [
-      { q: "Where did Milly find the giant boot in the story?", options: ["She found it in the middle of a wide field.", "She found it at the bottom of a deep lake.", "She found it behind her house in the garden.", "She found it at a store that sold giant clothes."], a: 0 },
-      { q: "Who did Milly build the house for inside the boot?", options: ["She built it for a family of small brown mice.", "She built it for all the stray ladybugs she found.", "She built it for her collection of dolls.", "She decided to live inside the giant boot herself."], a: 1 },
-      { q: "What materials did Milly use to make the furniture?", options: ["She used small pieces of wood and some fabric.", "She used green leaves for beds and pebbles for tables.", "She used plastic caps and some old rubber bands.", "She didn't put any furniture inside the boot."], a: 1 },
-      { q: "What did the friendly giant do when he returned?", options: ["He took his boot back and walked away.", "He left his other boot so Milly could build a school.", "He stepped on the boot house by accident.", "He asked Milly to give him some of her ladybugs."], a: 1 },
-      { q: "What does the story say about being kind to creatures?", options: ["Giants are very scary and should be avoided.", "Making a home for others is a very kind thing to do.", "Ladybugs prefer to live in trees rather than boots.", "You should never touch things that don't belong to you."], a: 1 }
-    ]
-  }
-];
-
-// --- COMPONENTS ---
-
-// Confetti Component for visual rewards
-const Confetti = () => {
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
-      {[...Array(50)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-3 h-3 rounded-full"
-          style={{
-            backgroundColor: ['#ffeb3b', '#ff4081', '#00e5ff', '#b2ff59', '#e040fb'][Math.floor(Math.random() * 5)],
-            left: `${Math.random() * 100}vw`,
-            top: `-20px`,
-            animation: `fall ${Math.random() * 3 + 2}s linear infinite`,
-            animationDelay: `${Math.random() * 2}s`
-          }}
-        />
-      ))}
-      <style>{`
-        @keyframes fall {
-          to { transform: translateY(100vh) rotate(360deg); }
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default function App() {
-  // Application State
-  const [view, setView] = useState('dashboard'); // 'dashboard', 'story', 'result'
-  const [currentStoryId, setCurrentStoryId] = useState(null);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [score, setScore] = useState(0);
-  const [xp, setXp] = useState(0);
-  const [unlockedLevels, setUnlockedLevels] = useState([1]); // Array of unlocked story IDs
-  const [storyScores, setStoryScores] = useState({}); // Track stars/score per story
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StoryQuest Academy</title>
   
-  // Interactive state within a question
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [feedback, setFeedback] = useState(null); // 'correct', 'incorrect'
-  const [attempts, setAttempts] = useState(0);
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  // Load progress from local storage on mount
-  useEffect(() => {
-    const savedProgress = localStorage.getItem('storyQuestProgress');
-    if (savedProgress) {
-      const parsed = JSON.parse(savedProgress);
-      setUnlockedLevels(parsed.unlockedLevels || [1]);
-      setXp(parsed.xp || 0);
-      setScore(parsed.score || 0);
-      setStoryScores(parsed.storyScores || {});
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
     }
-  }, []);
-
-  // Save progress whenever it changes
-  useEffect(() => {
-    localStorage.setItem('storyQuestProgress', JSON.stringify({
-      unlockedLevels,
-      xp,
-      score,
-      storyScores
-    }));
-  }, [unlockedLevels, xp, score, storyScores]);
-
-  // Derived variables
-  const level = Math.floor(xp / 100) + 1;
-  const xpProgress = xp % 100;
-  const currentStory = storyData.find(s => s.id === currentStoryId);
-
-  // Handlers
-  const openStory = (id) => {
-    if (unlockedLevels.includes(id)) {
-      setCurrentStoryId(id);
-      setQuestionIndex(0);
-      setSelectedOption(null);
-      setFeedback(null);
-      setAttempts(0);
-      setView('story');
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-  };
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
 
-  const handleOptionClick = (optIndex) => {
-    if (feedback === 'correct') return; // Prevent clicking after right answer
+  <script type="text/babel">
+    const { useState, useEffect } = React;
 
-    setSelectedOption(optIndex);
-    const isCorrect = optIndex === currentStory.questions[questionIndex].a;
+    const storyData = [
+      {
+        id: 1,
+        title: "The Brave Ant",
+        content: "Andy the ant found a huge breadcrumb near a picnic blanket. It was much heavier than he was, but he didn't want to leave it behind. He tried to lift it alone and failed many times. Soon, five of his friends arrived to help him. Together, they carried the giant crumb all the way back to their anthill to feed the queen.",
+        questions: [
+          { q: "What did Andy the ant find near the picnic blanket?", options: ["A small piece of shiny silver foil.", "A breadcrumb that was much larger than him.", "A sweet purple grape that had fallen.", "A colorful plastic spoon left on the grass."], a: 1 },
+          { q: "What happened when Andy tried to lift the crumb by himself?", options: ["He carried it easily back to his home.", "He was able to lift it but then he dropped it.", "He failed to move it because it was too heavy.", "He decided it wasn't worth the effort and left."], a: 2 },
+          { q: "How many friends came to help Andy with his task?", options: ["Ten friends came running from the garden.", "Only one friend came to help him push it.", "Five of his ant friends arrived to assist him.", "A large beetle came by to offer some help."], a: 2 },
+          { q: "Where did the group of ants take the heavy breadcrumb?", options: ["They took it to the top of a tall flower.", "They hid it under a large brown leaf.", "They carried it all the way back to their anthill.", "They left it near a puddle of water."], a: 2 },
+          { q: "What is the lesson regarding teamwork in this story?", options: ["It is always better to work alone on a project.", "Working together makes difficult jobs much easier.", "Ants should never try to carry heavy things.", "You should only help others if they ask you first."], a: 1 }
+        ]
+      },
+      {
+        id: 2,
+        title: "The Magic Paintbrush",
+        content: "Mia found an old paintbrush in her grandmother’s attic. When she dipped it in water and painted a sun, the room felt warmer. When she painted a blue cloud, a cool breeze blew through the window. Mia realized the brush was magic. Instead of painting for herself, she painted a bowl of soup for a hungry neighbor, and a real steaming bowl appeared.",
+        questions: [
+          { q: "Where did Mia discover the old, dusty paintbrush?", options: ["She found it in a box at a garage sale.", "She found it hidden in her grandmother’s attic.", "She found it lying on the floor of her art class.", "She received it as a gift for her birthday."], a: 1 },
+          { q: "What happened when Mia painted a picture of the sun?", options: ["The room suddenly became very dark and cold.", "The walls of the room turned a bright yellow.", "The room began to feel much warmer than before.", "A bright light blinded everyone in the house."], a: 2 },
+          { q: "What was the effect of painting a blue cloud on the paper?", options: ["It started to rain inside the living room.", "A cool breeze began to blow through the window.", "The paper turned wet and started to tear apart.", "The sky outside turned a dark shade of blue."], a: 1 },
+          { q: "How did Mia choose to use her magic power at the end?", options: ["She painted a giant castle made of gold for herself.", "She painted a mountain of toys to keep in her room.", "She painted a bowl of hot soup for a neighbor.", "She painted a new car for her parents to drive."], a: 2 },
+          { q: "What does the story suggest about having special talents?", options: ["Magic should only be used to make yourself rich.", "It is better to use your gifts to help other people.", "You should never touch things you find in an attic.", "Painting is only fun if the pictures come to life."], a: 1 }
+        ]
+      },
+      {
+        id: 3,
+        title: "The Library Lion",
+        content: "Leo the Lion lived in a quiet library. He loved the smell of books and the sound of pages turning. One afternoon, a little girl fell down and hurt her knee in the hallway. Leo let out a giant roar to get the librarian’s attention. Even though lions are usually scary, the girl felt safe because Leo was trying to help her.",
+        questions: [
+          { q: "Where was the lion named Leo living in this story?", options: ["He lived in a large cage at the city zoo.", "He lived inside a quiet and peaceful library.", "He lived in the middle of a hot, dry jungle.", "He lived under a bridge in a big city."], a: 1 },
+          { q: "What happened to the little girl while she was visiting?", options: ["She got lost in the rows of tall bookshelves.", "She fell down and accidentally hurt her knee.", "She couldn't find the book she wanted to read.", "She was scared by the sight of the big lion."], a: 1 },
+          { q: "Why did Leo the Lion decide to roar very loudly?", options: ["He was hungry and wanted someone to feed him.", "He was angry because the library was too quiet.", "He wanted to get the librarian’s attention for help.", "He was trying to scare the people away."], a: 2 },
+          { q: "How did the little girl feel about Leo after the event?", options: ["She was more terrified of him than ever before.", "She felt safe because he was trying to protect her.", "She was annoyed because his roar was too loud.", "She didn't notice that the lion had done anything."], a: 1 },
+          { q: "What is the main idea about appearances in this story?", options: ["Lions are always dangerous and should be avoided.", "Someone who looks scary can actually be very kind.", "Libraries are not a good place for large animals.", "You should never make noise when you are in a library."], a: 1 }
+        ]
+      },
+      {
+        id: 4,
+        title: "The Star That Fell",
+        content: "One night, a tiny star fell from the sky and landed in Chloe’s garden. It was dim and shivering because it was cold. Chloe wrapped the star in her softest silk scarf and sang it a lullaby. By morning, the star was glowing brightly again. It floated back up to the sky, leaving a trail of silver glitter on Chloe’s favorite flowers.",
+        questions: [
+          { q: "Where did the tiny star land after falling from the sky?", options: ["It landed on the roof of Chloe's big house.", "It landed right in the middle of Chloe's garden.", "It landed in the deep water of a nearby lake.", "It landed in the branches of a tall oak tree."], a: 1 },
+          { q: "Why was the star dim and shivering when Chloe found it?", options: ["It was feeling very lonely in the dark garden.", "It was shivering because it felt very cold.", "It was sad because it missed its friends in space.", "It was scared of the cat that lived next door."], a: 1 },
+          { q: "What did Chloe use to keep the little star warm?", options: ["She used a heavy wool blanket from her bed.", "She used her softest silk scarf to wrap it up.", "She built a small fire using sticks from the yard.", "She took it inside and put it near the heater."], a: 1 },
+          { q: "What did the star leave behind when it returned home?", options: ["It left a small piece of gold on the porch.", "It left a trail of silver glitter on the flowers.", "It left a note thanking Chloe for her help.", "It didn't leave anything behind in the garden."], a: 1 },
+          { q: "What does the story show about being kind to nature?", options: ["Even small acts of care can help something shine.", "Stars are very dangerous if they fall on your house.", "You should never touch things that fall from the sky.", "Singing is the only way to make a star glow again."], a: 0 }
+        ]
+      },
+      {
+        id: 5,
+        title: "The Missing Mittens",
+        content: "Oliver lost his red mittens on the way to school. He looked in the snow, under the park bench, and near the bus stop. He was very cold and sad. Later that day, he saw a mother squirrel using the wool from his mittens to line her nest for her babies. Oliver smiled and decided he didn't mind having cold hands if the babies were warm.",
+        questions: [
+          { q: "What color were the mittens that Oliver lost?", options: ["They were a bright shade of forest green.", "They were dark blue with white stripes.", "They were a bright and noticeable red.", "They were black and made of thick leather."], a: 2 },
+          { q: "Where did Oliver go to search for his missing items?", options: ["He only looked in his cubby at the school.", "He checked the snow, the park bench, and the bus stop.", "He looked in the kitchen and the living room.", "He asked the bus driver if he had seen them."], a: 1 },
+          { q: "What did Oliver discover later in the afternoon?", options: ["A bully had taken his mittens and hidden them.", "A mother squirrel was using the wool for a nest.", "His mittens were actually in his backpack.", "The mittens had been flattened by a passing car."], a: 1 },
+          { q: "Why was the squirrel using the material from the mittens?", options: ["She wanted to play with the bright red string.", "She was trying to hide them from other animals.", "She was lining her nest to keep her babies warm.", "She thought they were a type of giant berry."], a: 2 },
+          { q: "Why did Oliver decide that losing his mittens was okay?", options: ["His mother promised to buy him better ones.", "He realized he didn't like the color red anymore.", "He was happy that the baby squirrels were warm.", "He found a different pair of gloves in the snow."], a: 2 }
+        ]
+      },
+      {
+        id: 6,
+        title: "The Grumpy Cloud",
+        content: "Barnaby was a very grumpy cloud who only wanted to rain on people’s parades. One day, he saw a dry, brown field of thirsty corn. The corn was drooping and looked very sad. Barnaby decided to let all his rain out. As the corn turned green and tall, Barnaby felt a strange wiggling in his chest. He realized that helping made him feel happy instead of grumpy.",
+        questions: [
+          { q: "What kind of personality did Barnaby the cloud have?", options: ["He was always very happy and loved the sun.", "He was a grumpy cloud who liked to ruin things.", "He was a shy cloud who hid behind the mountains.", "He was a very fast cloud that liked to race."], a: 1 },
+          { q: "What did Barnaby see that changed his mind about raining?", options: ["He saw a group of children playing at the beach.", "He saw a dry, brown field of very thirsty corn.", "He saw a beautiful rainbow in the distance.", "He saw a mountain that was covered in snow."], a: 1 },
+          { q: "What happened to the corn after Barnaby rained on it?", options: ["The corn washed away in a giant flood.", "The corn stayed brown and eventually died.", "The corn turned bright green and grew very tall.", "The corn turned into popcorn because of the heat."], a: 2 },
+          { q: "How did Barnaby's feelings change at the end of the story?", options: ["He became even angrier than he was before.", "He felt happy because he had helped the plants.", "He felt sad because he had no more rain left.", "He was bored and wanted to find a new field."], a: 1 },
+          { q: "What is the lesson about kindness in this story?", options: ["Being grumpy is the best way to get attention.", "Helping others can change your own bad mood.", "Clouds should only rain when it is nighttime.", "Corn is the only plant that needs rain to grow."], a: 1 }
+        ]
+      },
+      {
+        id: 7,
+        title: "The Clock That Ran Backward",
+        content: "The clock in the town square was very old. One Tuesday, it started running backward! People started walking backward, and the sun began to go down in the East. The town baker, Mr. Crumb, realized the clock just needed a little bit of oil. He climbed the tower and fixed the gears. Time started moving forward again, and everyone felt much better.",
+        questions: [
+          { q: "What was unusual about the clock in the town square?", options: ["It started to chime every single minute.", "It began to run backward instead of forward.", "It turned into solid gold and stopped moving.", "It started to glow with a bright purple light."], a: 1 },
+          { q: "How did the townspeople react to the clock's behavior?", options: ["They ignored it and went about their day.", "They started walking backward just like the clock.", "They all went to sleep because they were confused.", "They threw a party to celebrate the strange event."], a: 1 },
+          { q: "Who was the person who figured out how to fix the clock?", options: ["The mayor of the town called a special meeting.", "A young student who was studying science.", "Mr. Crumb, the local baker, found the solution.", "A clockmaker from a different country arrived."], a: 2 },
+          { q: "What did the clock need in order to function correctly?", options: ["It needed to be cleaned with soap and water.", "It needed a new set of silver batteries.", "It needed a little bit of oil for its old gears.", "It needed to be painted a brighter color."], a: 2 },
+          { q: "What happened to the town once the clock was fixed?", options: ["Time stopped completely for everyone.", "Everything went back to moving forward normally.", "The clock started running even faster than before.", "Everyone forgot that the event had happened."], a: 1 }
+        ]
+      },
+      {
+        id: 8,
+        title: "The Bird Who Forgot to Fly",
+        content: "Pip was a bird who preferred to walk everywhere. He said flying was too much work and his wings got tired. His friends laughed, but Pip didn't care. One day, a big cat started chasing Pip across the grass. Pip ran as fast as he could, but the cat was faster. Without thinking, Pip flapped his wings and soared into the air. He realized flying was much faster than walking.",
+        questions: [
+          { q: "Why did Pip the bird choose to walk instead of fly?", options: ["He was afraid of heights and didn't like the wind.", "He thought flying was too much work for his wings.", "He had a broken wing that wouldn't let him fly.", "He liked to look for bugs in the deep grass."], a: 1 },
+          { q: "What happened that put Pip in a dangerous situation?", options: ["He got stuck in a thick patch of sticky mud.", "A large cat began to chase him across the yard.", "He couldn't find his way back to his nest.", "It started to rain and he got very wet."], a: 1 },
+          { q: "How did Pip manage to escape from the hungry cat?", options: ["He crawled into a small hole in the ground.", "He hid behind a large rock until the cat left.", "He flapped his wings and flew up into the air.", "His friends came down to distract the cat."], a: 2 },
+          { q: "What did Pip realize after he was safe in the sky?", options: ["Flying was actually much faster than walking.", "He was still very tired and wanted to land.", "He preferred the grass over the open air.", "He wanted to go back and talk to the cat."], a: 0 },
+          { q: "What is the message about using your natural talents?", options: ["You should only use your talents if you are scared.", "It is important to practice what you are meant to do.", "Walking is always safer than flying in the sky.", "Friends should not laugh at you for being different."], a: 1 }
+        ]
+      },
+      {
+        id: 9,
+        title: "The Chocolate River",
+        content: "Sam dreamt that the river in his town turned into liquid chocolate. He ran to the bank with a giant spoon. Just as he was about to take a bite, he saw a fish made of marshmallow struggling to swim. Sam used his spoon to lift the fish out and put it in a bowl of milk nearby. The fish turned into a real fish, and Sam woke up feeling very kind.",
+        questions: [
+          { q: "What did Sam see in his dream about the local river?", options: ["The water had turned into cold fruit juice.", "The river was filled with liquid chocolate.", "The river had dried up and was full of candy.", "The water was glowing with a bright green light."], a: 1 },
+          { q: "What item did Sam bring with him to the riverbank?", options: ["He brought a large bucket to collect the chocolate.", "He brought a giant spoon to take a big bite.", "He brought a loaf of bread to dip in the water.", "He brought his fishing rod to catch some treats."], a: 1 },
+          { q: "What kind of creature did Sam see in the chocolate?", options: ["A real trout that was covered in dark cocoa.", "A fish that appeared to be made of marshmallow.", "A chocolate frog that was jumping on the rocks.", "A tiny boat that was sinking in the thick liquid."], a: 1 },
+          { q: "How did Sam help the struggling marshmallow fish?", options: ["He ate the fish before it could sink any further.", "He used his giant spoon to lift it into some milk.", "He called for his friends to come and see it.", "He pushed it deeper into the chocolate river."], a: 1 },
+          { q: "How did Sam feel when he eventually woke up?", options: ["He was very hungry for a chocolate bar.", "He felt a sense of kindness and happiness.", "He was disappointed that it wasn't a real river.", "He was confused about where his spoon went."], a: 1 }
+        ]
+      },
+      {
+        id: 10,
+        title: "The Tree That Could Talk",
+        content: "Deep in the woods, there was a tree named Oaky who could talk. However, Oaky only spoke to people who were quiet enough to listen. Most people ran past him shouting. One day, a boy named Liam sat under Oaky for three hours without saying a word. Finally, Oaky whispered, \"Thank you for the company.\" Liam learned that listening is just as important as talking.",
+        questions: [
+          { q: "What was special about the tree named Oaky in the woods?", options: ["He had leaves that were made of solid silver.", "He had the ability to talk to human beings.", "He could walk around the forest at nighttime.", "He grew every kind of fruit on his branches."], a: 1 },
+          { q: "Under what condition would Oaky speak to someone?", options: ["They had to bring him a bucket of fresh water.", "They had to be quiet enough to actually listen.", "They had to sing a song to his wooden trunk.", "They had to climb to the very top of his branches."], a: 1 },
+          { q: "What did most people do when they were near Oaky?", options: ["They sat down and tried to talk to him.", "They ran past him while shouting and making noise.", "They took photos of him for their collections.", "They tried to cut down his thick branches."], a: 1 },
+          { q: "How long did Liam sit under the tree in total silence?", options: ["He only stayed for five minutes before leaving.", "He sat there for three hours without speaking.", "He stayed under the tree for an entire day.", "He fell asleep after only ten minutes."], a: 1 },
+          { q: "What was the main lesson Liam learned from Oaky?", options: ["Trees are very lonely and need more friends.", "Listening is just as important as speaking.", "It is very hard to stay quiet for a long time.", "You should always talk to plants in the woods."], a: 1 }
+        ]
+      },
+      {
+        id: 11,
+        title: "The Golden Egg",
+        content: "A farmer named Fred had a goose that laid one golden egg every morning. Fred became very rich, but he also became very greedy. He thought if he cut the goose open, he could get all the gold at once. When he did, he found no gold inside, and now he had no goose to lay eggs. Fred realized that being greedy made him lose everything.",
+        questions: [
+          { q: "What was special about the goose that Fred owned?", options: ["It could talk and tell Fred very funny jokes.", "It laid a single golden egg every single morning.", "It was the largest goose in the entire country.", "It could fly higher than any other bird."], a: 1 },
+          { q: "How did Fred's personality change as he got richer?", options: ["He became very kind and gave his money away.", "He became very greedy and wanted more gold.", "He became very lazy and stopped working at all.", "He became afraid that someone would steal his bird."], a: 1 },
+          { q: "What was Fred’s plan to get more gold quickly?", options: ["He wanted to feed the goose more expensive food.", "He planned to cut the goose open to find the gold.", "He tried to buy another goose from a neighbor.", "He asked a wizard to make the goose lay two eggs."], a: 1 },
+          { q: "What did Fred discover after he followed through with his plan?", options: ["He found a giant pile of gold inside the bird.", "He found absolutely no gold inside the goose.", "He found a map to a hidden treasure chest.", "He found that the goose was actually a robot."], a: 1 },
+          { q: "What is the classic lesson taught by this story?", options: ["You should always check inside things before buying.", "Greed can cause you to lose the good things you have.", "Geese are not a good source of steady income.", "Golden eggs are not as valuable as real ones."], a: 1 }
+        ]
+      },
+      {
+        id: 12,
+        title: "The Spaceship in the Backyard",
+        content: "Zoe built a spaceship out of cardboard boxes and silver tape. She sat inside and imagined she was flying to Mars. Her dog, Buster, hopped in too. Suddenly, the boxes started to shake and a red light blinked. Zoe realized it was just her dad shaking the box from the outside, but she had so much fun that she felt like she really traveled through space.",
+        questions: [
+          { q: "What materials did Zoe use to build her spaceship?", options: ["She used pieces of wood and some old nails.", "She used cardboard boxes and some silver tape.", "She used plastic bottles and a lot of glue.", "She used her old bedsheets and some chairs."], a: 1 },
+          { q: "Who joined Zoe inside the spaceship for the mission?", options: ["Her younger brother wanted to be the pilot.", "Her dog, Buster, hopped inside the box with her.", "Her best friend brought snacks for the trip.", "Her mother came in to check on her progress."], a: 1 },
+          { q: "What caused the \"spaceship\" to start shaking?", options: ["The engine finally started working properly.", "Her dad was shaking the boxes from the outside.", "A big wind was blowing through the backyard.", "The dog was jumping around inside the box."], a: 1 },
+          { q: "Where was Zoe imagining she was traveling to?", options: ["She was heading toward the bright, round moon.", "She was flying her ship all the way to Mars.", "She was going to visit a different galaxy.", "She was traveling to the bottom of the ocean."], a: 1 },
+          { q: "What does the story tell us about imagination?", options: ["Cardboard boxes are better than real spaceships.", "You can have a great adventure just by using your mind.", "Dads should not ruin their children's games.", "Dogs are not very good co-pilots for space travel."], a: 1 }
+        ]
+      },
+      {
+        id: 13,
+        title: "The Dragon Who Liked Tea",
+        content: "Dax was a dragon who didn't like to breathe fire. He preferred to use his hot breath to boil water for tea. The other dragons teased him for being \"soft.\" One day, the village near the dragon cave ran out of wood for fires during a blizzard. Dax flew down and made giant pots of warm tea for everyone. The villagers loved Dax, and the other dragons finally realized he was special.",
+        questions: [
+          { q: "Why was Dax different from the other dragons?", options: ["He couldn't fly as high as the other dragons.", "He didn't like to breathe fire for destruction.", "He was much smaller than all of his friends.", "He was a different color than the rest of them."], a: 1 },
+          { q: "What did Dax prefer to do with his hot breath?", options: ["He used it to melt the snow on the mountains.", "He used it to boil water to make pots of tea.", "He used it to create beautiful smoke rings.", "He used it to stay warm during the cold nights."], a: 1 },
+          { q: "What problem did the village face during the blizzard?", options: ["The village was being attacked by mean dragons.", "The people ran out of wood to keep their fires going.", "The water in the town well had frozen solid.", "A giant snow monster was blocking the roads."], a: 1 },
+          { q: "How did Dax help the people in the village?", options: ["He fought off the other dragons to save them.", "He made giant pots of warm tea for everyone.", "He carried the people to a warmer place.", "He used his fire to burn down the old forest."], a: 1 },
+          { q: "What did the other dragons learn at the end?", options: ["Tea is much better to drink than cold water.", "Being different can be a very helpful thing.", "Villagers are very friendly toward all dragons.", "Breathing fire is the most important skill to have."], a: 1 }
+        ]
+      },
+      {
+        id: 14,
+        title: "The Robot’s Heart",
+        content: "Rusty was a robot made of old tin cans. He was very good at fixing toasters, but he felt sad because he didn't have a heart. He went to the scientist who built him and asked for one. The scientist laughed and said, \"Rusty, you spent all day helping people for free. Only someone with a heart would do that.\" Rusty realized he had a heart all along.",
+        questions: [
+          { q: "What material was used to build the robot named Rusty?", options: ["He was made from expensive shiny silver.", "He was built using a collection of old tin cans.", "He was made of hard plastic and blue wires.", "He was carved out of a single block of wood."], a: 1 },
+          { q: "What was the specific skill that Rusty was good at?", options: ["He was excellent at running very fast races.", "He was very good at fixing broken toasters.", "He could sing songs in many different languages.", "He was a great cook for the scientist."], a: 1 },
+          { q: "Why did Rusty feel sad about his own construction?", options: ["He thought he was too old and starting to rust.", "He felt sad because he didn't have a real heart.", "He wanted to be able to sleep like a human.", "He didn't like the way his metal body looked."], a: 1 },
+          { q: "What did the scientist tell Rusty about his actions?", options: ["He needed to work harder to earn a real heart.", "His kindness toward others proved he already had one.", "A heart was too expensive to put inside a robot.", "Robots are not supposed to have any feelings."], a: 1 },
+          { q: "What is the main message about being a good person?", options: ["You need a physical heart to be able to feel love.", "Your actions and kindness show who you really are.", "Scientists are the only ones who can give you feelings.", "Fixing toasters is a very noble and important job."], a: 1 }
+        ]
+      },
+      {
+        id: 15,
+        title: "The Boy Who Cried Wolf",
+        content: "Lucas was bored while watching the sheep. He decided to shout, \"Wolf! Wolf!\" just to see the villagers run. They came to help him, but there was no wolf. Lucas laughed at them. The next day, a real wolf appeared. Lucas screamed for help, but the villagers thought he was joking again and stayed home. Lucas learned that nobody believes a liar.",
+        questions: [
+          { q: "Why did Lucas decide to shout for help the first time?", options: ["He saw a large wolf hiding in the bushes.", "He was bored and wanted to see the people run.", "He had lost one of the sheep in the tall grass.", "He wanted to show everyone how loud he could be."], a: 1 },
+          { q: "How did the villagers react to Lucas's first shout?", options: ["They ignored him because they knew he was joking.", "They ran to the field immediately to help him.", "They stayed in their houses and locked the doors.", "They sent the town dogs to find the wolf."], a: 1 },
+          { q: "What happened on the second day when Lucas was alone?", options: ["Lucas decided to play the same joke again.", "A real wolf actually appeared near the sheep.", "All of the sheep ran away into the mountains.", "The villagers came to check on him anyway."], a: 1 },
+          { q: "Why didn't the villagers come to help the second time?", options: ["They were too busy working in their gardens.", "They thought Lucas was lying to them again.", "They didn't hear him because the wind was too loud.", "They had gone to a different town for the day."], a: 1 },
+          { q: "What is the important lesson about honesty in this story?", options: ["Wolves are very dangerous animals to be around.", "If you tell lies, people won't believe you when you tell the truth.", "Sheep are very difficult animals to take care of.", "You should never shout when you are in a field."], a: 1 }
+        ]
+      },
+      {
+        id: 16,
+        title: "The Invisible Cape",
+        content: "Timmy found a piece of clear plastic in the trash and tied it around his neck. He told everyone it was an \"Invisible Cape\" that made him super strong. When his sister got stuck on top of the jungle gym, Timmy \"flew\" over and helped her down. His mom told him the cape didn't make him strong—his bravery did. Timmy kept the cape anyway.",
+        questions: [
+          { q: "What did Timmy use to create his \"Invisible Cape\"?", options: ["He used an old white bedsheet from his room.", "He used a piece of clear plastic he found in the trash.", "He used his father's large black rain coat.", "He bought a real costume at a local store."], a: 1 },
+          { q: "What special power did Timmy claim the cape gave him?", options: ["He said it made him completely invisible to people.", "He claimed it made him feel incredibly strong.", "He said it allowed him to breathe underwater.", "He told people he could talk to animals with it."], a: 1 },
+          { q: "What happened to Timmy's sister at the playground?", options: ["She lost her favorite doll in the sandbox.", "She got stuck at the top of the jungle gym.", "She fell down and scraped her elbow on the ground.", "She was too scared to go down the big slide."], a: 1 },
+          { q: "What did Timmy's mom say about his heroic actions?", options: ["The plastic cape was actually magic after all.", "His bravery was what actually made him strong.", "He shouldn't be playing with trash from the bin.", "His sister could have gotten down by herself."], a: 1 },
+          { q: "What does the story teach about self-confidence?", options: ["You need a costume to be a real superhero.", "Believing in yourself can help you do brave things.", "Plastic is a very dangerous material to wear.", "Sisters always need their brothers to help them."], a: 1 }
+        ]
+      },
+      {
+        id: 17,
+        title: "The Painting That Moved",
+        content: "Sophie painted a picture of a horse. That night, she heard a \"clop-clop\" sound coming from her desk. She turned on her light and saw the horse's tail swishing on the paper. The horse looked thirsty, so Sophie painted a bucket of water. The horse lowered its head and drank the painted water. Sophie realized her art was a living world.",
+        questions: [
+          { q: "What animal did Sophie choose to draw in her picture?", options: ["She drew a large elephant with a long trunk.", "She painted a picture of a majestic horse.", "She drew a small cat sitting on a fence.", "She painted a bird flying over a house."], a: 1 },
+          { q: "What sound did Sophie hear during the middle of the night?", options: ["She heard a loud barking coming from outside.", "She heard a \"clop-clop\" sound from her desk.", "She heard a soft whispering near her bed.", "She heard the sound of rain hitting the window."], a: 1 },
+          { q: "What was the horse doing when Sophie turned on the light?", options: ["It was running across the entire piece of paper.", "It was swishing its tail back and forth on the page.", "It was trying to jump out of the picture frame.", "It was sleeping soundly in a painted stable."], a: 1 },
+          { q: "How did Sophie help the horse in her painting?", options: ["She painted a field of green grass for it to eat.", "She painted a bucket of water for it to drink.", "She used her eraser to change the horse's color.", "She tore the paper to set the horse free."], a: 1 },
+          { q: "What was the magical discovery Sophie made that night?", options: ["Her desk was haunted by a friendly ghost.", "Her artwork was actually a living, breathing world.", "She was dreaming the whole time she was awake.", "Painting is much harder than she originally thought."], a: 1 }
+        ]
+      },
+      {
+        id: 18,
+        title: "The Giant Carrot",
+        content: "A rabbit named Barnaby found a seed that grew into a carrot as big as a house. At first, Barnaby didn't want to share. He tried to eat it all, but he got a tummy ache after two bites. He invited all the rabbits in the forest to a \"Carrot Party.\" They ate for a week and still had some left. Barnaby felt much better sharing than eating alone.",
+        questions: [
+          { q: "How large did the carrot grow in Barnaby's garden?", options: ["It was the size of a normal, healthy carrot.", "It grew to be as big as a whole house.", "It was so small that Barnaby couldn't see it.", "It was as tall as a tree in the forest."], a: 1 },
+          { q: "What happened when Barnaby tried to eat the carrot alone?", options: ["He finished the whole thing in just one day.", "He got a bad tummy ache after only two bites.", "He realized he didn't actually like carrots.", "He became the strongest rabbit in the world."], a: 1 },
+          { q: "Who did Barnaby invite to help him with the giant vegetable?", options: ["He invited his family members to come over.", "He invited every rabbit living in the forest.", "He invited a giant to help him pull it up.", "He didn't invite anyone and stayed alone."], a: 1 },
+          { q: "How long did the \"Carrot Party\" last for the animals?", options: ["They ate all of the food in just one hour.", "The party lasted for a full week of eating.", "They only ate for one afternoon before leaving.", "They took the food home and didn't have a party."], a: 1 },
+          { q: "What did Barnaby learn about the act of sharing?", options: ["Sharing makes a meal more enjoyable than eating alone.", "It is impossible to eat a carrot that is as big as a house.", "You should always keep the best food for yourself.", "Parties are a lot of work and very messy."], a: 0 }
+        ]
+      },
+      {
+        id: 19,
+        title: "The Moon’s Reflection",
+        content: "A young fox saw the moon in a pond and thought it was a giant piece of cheese. He jumped into the water to grab it, but the \"cheese\" broke into tiny ripples. His mother told him that sometimes things aren't what they seem. The fox dried himself off and looked up at the real moon in the sky. He realized the real moon was much more beautiful than cheese.",
+        questions: [
+          { q: "What did the young fox think he saw in the pond?", options: ["He thought a silver coin was sitting on the bottom.", "He thought the moon was a giant piece of cheese.", "He saw a fish that was glowing in the dark.", "He thought a white ball was floating in the water."], a: 1 },
+          { q: "What happened to the object when the fox jumped in?", options: ["The fox caught the cheese and ate it all.", "The image broke into many tiny ripples in the water.", "The fox sank to the bottom of the deep pond.", "The moon flew away back into the night sky."], a: 1 },
+          { q: "What advice did the mother fox give to her son?", options: ["You should always be careful when you go swimming.", "Sometimes things are not actually what they seem to be.", "Cheese is not a good food for young foxes to eat.", "You should only hunt for food during the daytime."], a: 1 },
+          { q: "What did the fox do after he got out of the water?", options: ["He went back in to try and find the cheese again.", "He dried himself off and looked up at the real moon.", "He ran away because he was scared of the water.", "He started crying because he was very hungry."], a: 1 },
+          { q: "What was the fox's final realization about the moon?", options: ["The real moon was even more beautiful than cheese.", "He would never be able to reach the moon.", "The pond was a magic place that changed things.", "He should listen to his mother more often."], a: 0 }
+        ]
+      },
+      {
+        id: 20,
+        title: "The Shoe House",
+        content: "Milly found a giant boot in the middle of a field. She decided to turn it into a house for all the stray ladybugs she found. She put tiny beds made of leaves and tables made of pebbles inside. The ladybugs loved their new home. One day, the boot's owner, a friendly giant, came back. Instead of taking the boot, he left the other one so Milly could build a school too.",
+        questions: [
+          { q: "Where did Milly find the giant boot in the story?", options: ["She found it in the middle of a wide field.", "She found it at the bottom of a deep lake.", "She found it behind her house in the garden.", "She found it at a store that sold giant clothes."], a: 0 },
+          { q: "Who did Milly build the house for inside the boot?", options: ["She built it for a family of small brown mice.", "She built it for all the stray ladybugs she found.", "She built it for her collection of dolls.", "She decided to live inside the giant boot herself."], a: 1 },
+          { q: "What materials did Milly use to make the furniture?", options: ["She used small pieces of wood and some fabric.", "She used green leaves for beds and pebbles for tables.", "She used plastic caps and some old rubber bands.", "She didn't put any furniture inside the boot."], a: 1 },
+          { q: "What did the friendly giant do when he returned?", options: ["He took his boot back and walked away.", "He left his other boot so Milly could build a school.", "He stepped on the boot house by accident.", "He asked Milly to give him some of her ladybugs."], a: 1 },
+          { q: "What does the story say about being kind to creatures?", options: ["Giants are very scary and should be avoided.", "Making a home for others is a very kind thing to do.", "Ladybugs prefer to live in trees rather than boots.", "You should never touch things that don't belong to you."], a: 1 }
+        ]
+      }
+    ];
 
-    if (isCorrect) {
-      setFeedback('correct');
-      // Calculate points based on attempts (smart grading)
-      let pointsEarned = 10;
-      if (attempts === 1) pointsEarned = 7;
-      if (attempts >= 2) pointsEarned = 5;
+    const Confetti = () => {
+      return (
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-3 h-3 rounded-full"
+              style={{
+                backgroundColor: ['#ffeb3b', '#ff4081', '#00e5ff', '#b2ff59', '#e040fb'][Math.floor(Math.random() * 5)],
+                left: `${Math.random() * 100}vw`,
+                top: `-20px`,
+                animation: `fall ${Math.random() * 3 + 2}s linear infinite`,
+                animationDelay: `${Math.random() * 2}s`
+              }}
+            />
+          ))}
+        </div>
+      );
+    };
+
+    function App() {
+      const [view, setView] = useState('dashboard');
+      const [currentStoryId, setCurrentStoryId] = useState(null);
+      const [questionIndex, setQuestionIndex] = useState(0);
+      const [score, setScore] = useState(0);
+      const [xp, setXp] = useState(0);
+      const [unlockedLevels, setUnlockedLevels] = useState([1]);
+      const [storyScores, setStoryScores] = useState({});
       
-      setScore(prev => prev + pointsEarned);
-      setXp(prev => prev + (pointsEarned * 2)); // 20 XP for perfect
+      const [selectedOption, setSelectedOption] = useState(null);
+      const [feedback, setFeedback] = useState(null);
+      const [attempts, setAttempts] = useState(0);
 
-      setTimeout(() => {
-        if (questionIndex < currentStory.questions.length - 1) {
-          setQuestionIndex(prev => prev + 1);
+      useEffect(() => {
+        const savedProgress = localStorage.getItem('storyQuestProgress');
+        if (savedProgress) {
+          const parsed = JSON.parse(savedProgress);
+          setUnlockedLevels(parsed.unlockedLevels || [1]);
+          setXp(parsed.xp || 0);
+          setScore(parsed.score || 0);
+          setStoryScores(parsed.storyScores || {});
+        }
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem('storyQuestProgress', JSON.stringify({
+          unlockedLevels,
+          xp,
+          score,
+          storyScores
+        }));
+      }, [unlockedLevels, xp, score, storyScores]);
+
+      const level = Math.floor(xp / 100) + 1;
+      const xpProgress = xp % 100;
+      const currentStory = storyData.find(s => s.id === currentStoryId);
+
+      const openStory = (id) => {
+        if (unlockedLevels.includes(id)) {
+          setCurrentStoryId(id);
+          setQuestionIndex(0);
           setSelectedOption(null);
           setFeedback(null);
           setAttempts(0);
-        } else {
-          // Finished Story
-          handleStoryComplete();
+          setView('story');
         }
-      }, 2000);
-    } else {
-      setFeedback('incorrect');
-      setAttempts(prev => prev + 1);
-    }
-  };
+      };
 
-  const handleStoryComplete = () => {
-    // Unlock next level
-    if (currentStoryId < storyData.length && !unlockedLevels.includes(currentStoryId + 1)) {
-      setUnlockedLevels(prev => [...prev, currentStoryId + 1]);
-    }
-    // Save completion
-    setStoryScores(prev => ({
-      ...prev,
-      [currentStoryId]: true
-    }));
-    setView('result');
-  };
+      const handleOptionClick = (optIndex) => {
+        if (feedback === 'correct') return;
 
-  const goHome = () => {
-    setView('dashboard');
-    setCurrentStoryId(null);
-  };
+        setSelectedOption(optIndex);
+        const isCorrect = optIndex === currentStory.questions[questionIndex].a;
 
-  // Views
-  if (view === 'dashboard') {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-4 md:p-8 font-sans text-white">
-        {/* Header / Stats */}
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/20 mb-8">
-          <div className="flex items-center gap-4 mb-4 md:mb-0">
-            <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
-              <Trophy className="w-8 h-8 text-yellow-600" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold tracking-wider">StoryQuest Academy</h1>
-              <p className="text-blue-100 font-medium tracking-wide">Reader Level: {level}</p>
-            </div>
-          </div>
-          <div className="flex gap-6">
-            <div className="bg-black/20 px-6 py-3 rounded-2xl flex flex-col items-center">
-              <span className="text-xs uppercase font-bold text-yellow-300 tracking-wider">Total Score</span>
-              <span className="text-2xl font-black flex items-center gap-2">
-                <Star className="w-5 h-5 text-yellow-400 fill-current" /> {score}
-              </span>
-            </div>
-            <div className="bg-black/20 px-6 py-3 rounded-2xl flex flex-col items-center min-w-[150px]">
-              <span className="text-xs uppercase font-bold text-green-300 tracking-wider">XP to next level</span>
-              <div className="w-full bg-black/30 h-3 rounded-full mt-2 relative overflow-hidden">
-                <div 
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-green-400 to-green-300 transition-all duration-500 rounded-full"
-                  style={{ width: `${xpProgress}%` }}
-                ></div>
+        if (isCorrect) {
+          setFeedback('correct');
+          let pointsEarned = 10;
+          if (attempts === 1) pointsEarned = 7;
+          if (attempts >= 2) pointsEarned = 5;
+          
+          setScore(prev => prev + pointsEarned);
+          setXp(prev => prev + (pointsEarned * 2));
+
+          setTimeout(() => {
+            if (questionIndex < currentStory.questions.length - 1) {
+              setQuestionIndex(prev => prev + 1);
+              setSelectedOption(null);
+              setFeedback(null);
+              setAttempts(0);
+            } else {
+              handleStoryComplete();
+            }
+          }, 2000);
+        } else {
+          setFeedback('incorrect');
+          setAttempts(prev => prev + 1);
+        }
+      };
+
+      const handleStoryComplete = () => {
+        if (currentStoryId < storyData.length && !unlockedLevels.includes(currentStoryId + 1)) {
+          setUnlockedLevels(prev => [...prev, currentStoryId + 1]);
+        }
+        setStoryScores(prev => ({
+          ...prev,
+          [currentStoryId]: true
+        }));
+        setView('result');
+      };
+
+      const goHome = () => {
+        setView('dashboard');
+        setCurrentStoryId(null);
+      };
+
+      if (view === 'dashboard') {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-4 md:p-8 font-sans text-white">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/20 mb-8">
+              <div className="flex items-center gap-4 mb-4 md:mb-0">
+                <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
+                  <i className="fa-solid fa-trophy text-yellow-600 text-3xl"></i>
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold tracking-wider">StoryQuest Academy</h1>
+                  <p className="text-blue-100 font-medium tracking-wide">Reader Level: {level}</p>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Level Map */}
-        <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 pb-12">
-          {storyData.map((story, idx) => {
-            const isUnlocked = unlockedLevels.includes(story.id);
-            const isCompleted = storyScores[story.id];
-            
-            return (
-              <button
-                key={story.id}
-                onClick={() => openStory(story.id)}
-                disabled={!isUnlocked}
-                className={`relative group flex flex-col items-center justify-center p-6 rounded-3xl transition-all duration-300 shadow-xl border-4 ${
-                  isUnlocked 
-                    ? 'bg-white text-indigo-900 border-white hover:-translate-y-2 hover:shadow-2xl hover:border-yellow-400 cursor-pointer' 
-                    : 'bg-white/20 text-white/50 border-transparent cursor-not-allowed backdrop-blur-sm'
-                }`}
-              >
-                {/* Completed Badge */}
-                {isCompleted && (
-                  <div className="absolute -top-3 -right-3 bg-green-500 rounded-full p-2 shadow-lg border-2 border-white z-10">
-                    <CheckCircle2 className="w-5 h-5 text-white" />
+              <div className="flex gap-6">
+                <div className="bg-black/20 px-6 py-3 rounded-2xl flex flex-col items-center">
+                  <span className="text-xs uppercase font-bold text-yellow-300 tracking-wider">Total Score</span>
+                  <span className="text-2xl font-black flex items-center gap-2">
+                    <i className="fa-solid fa-star text-yellow-400"></i> {score}
+                  </span>
+                </div>
+                <div className="bg-black/20 px-6 py-3 rounded-2xl flex flex-col items-center min-w-[150px]">
+                  <span className="text-xs uppercase font-bold text-green-300 tracking-wider">XP to next level</span>
+                  <div className="w-full bg-black/30 h-3 rounded-full mt-2 relative overflow-hidden">
+                    <div 
+                      className="absolute top-0 left-0 h-full bg-gradient-to-r from-green-400 to-green-300 transition-all duration-500 rounded-full"
+                      style={{ width: `${xpProgress}%` }}
+                    ></div>
                   </div>
-                )}
+                </div>
+              </div>
+            </div>
+
+            <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 pb-12">
+              {storyData.map((story) => {
+                const isUnlocked = unlockedLevels.includes(story.id);
+                const isCompleted = storyScores[story.id];
                 
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 shadow-inner ${isUnlocked ? 'bg-indigo-100' : 'bg-black/20'}`}>
-                  {isUnlocked ? (
-                    <BookOpen className={`w-8 h-8 ${isCompleted ? 'text-green-500' : 'text-indigo-500'}`} />
-                  ) : (
-                    <Lock className="w-8 h-8" />
+                return (
+                  <button
+                    key={story.id}
+                    onClick={() => openStory(story.id)}
+                    disabled={!isUnlocked}
+                    className={`relative group flex flex-col items-center justify-center p-6 rounded-3xl transition-all duration-300 shadow-xl border-4 ${
+                      isUnlocked 
+                        ? 'bg-white text-indigo-900 border-white hover:-translate-y-2 hover:shadow-2xl hover:border-yellow-400 cursor-pointer' 
+                        : 'bg-white/20 text-white/50 border-transparent cursor-not-allowed backdrop-blur-sm'
+                    }`}
+                  >
+                    {isCompleted && (
+                      <div className="absolute -top-3 -right-3 bg-green-500 rounded-full p-2 shadow-lg border-2 border-white z-10 flex items-center justify-center">
+                        <i className="fa-solid fa-circle-check text-white text-lg"></i>
+                      </div>
+                    )}
+                    
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 shadow-inner ${isUnlocked ? 'bg-indigo-100' : 'bg-black/20'}`}>
+                      {isUnlocked ? (
+                        <i className={`fa-solid fa-book-open text-3xl ${isCompleted ? 'text-green-500' : 'text-indigo-500'}`}></i>
+                      ) : (
+                        <i className="fa-solid fa-lock text-3xl"></i>
+                      )}
+                    </div>
+                    <div className="text-center font-bold">
+                      <span className="block text-xs uppercase text-gray-400 mb-1 font-black tracking-widest">Story {story.id}</span>
+                      <span className={`block leading-tight ${isUnlocked ? 'text-gray-800' : ''}`}>{story.title}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      }
+
+      if (view === 'story' && currentStory) {
+        const currentQ = currentStory.questions[questionIndex];
+
+        return (
+          <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+            <div className="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-20">
+              <button onClick={goHome} className="flex items-center gap-2 text-indigo-600 font-bold hover:bg-indigo-50 px-4 py-2 rounded-xl transition-colors">
+                <i className="fa-solid fa-house"></i> Back to Map
+              </button>
+              <div className="flex gap-2">
+                {[...Array(currentStory.questions.length)].map((_, i) => (
+                  <div 
+                    key={i} 
+                    className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                      i < questionIndex ? 'bg-green-500 text-white shadow-md' :
+                      i === questionIndex ? 'bg-yellow-400 text-yellow-900 shadow-lg ring-4 ring-yellow-200 scale-110' :
+                      'bg-gray-200 text-gray-400'
+                    }`}
+                  >
+                    {i + 1}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full p-4 lg:p-8 gap-8">
+              
+              <div className="w-full lg:w-1/2 flex flex-col">
+                <div className="bg-white rounded-3xl shadow-xl border-t-8 border-indigo-400 p-8 flex-1 lg:sticky lg:top-28">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="bg-indigo-100 p-3 rounded-2xl">
+                      <i className="fa-solid fa-book-open text-2xl text-indigo-600"></i>
+                    </div>
+                    <h2 className="text-3xl font-black text-slate-800">{currentStory.title}</h2>
+                  </div>
+                  <p className="text-xl md:text-2xl leading-relaxed text-slate-700 font-medium bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
+                    {currentStory.content}
+                  </p>
+                </div>
+              </div>
+
+              <div className="w-full lg:w-1/2 flex flex-col">
+                <div className="bg-white rounded-3xl shadow-xl border-t-8 border-pink-400 p-8 flex-1">
+                  <h3 className="text-sm font-black tracking-widest text-pink-500 uppercase mb-4">Question {questionIndex + 1} of {currentStory.questions.length}</h3>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 leading-snug">
+                    {currentQ.q}
+                  </p>
+
+                  <div className="space-y-4">
+                    {currentQ.options.map((opt, idx) => {
+                      let btnClass = "w-full text-left p-6 rounded-2xl border-4 text-xl font-semibold transition-all duration-200 flex items-center justify-between ";
+                      
+                      if (selectedOption === idx) {
+                        if (feedback === 'correct') {
+                          btnClass += "bg-green-100 border-green-500 text-green-800 shadow-lg scale-[1.02]";
+                        } else if (feedback === 'incorrect') {
+                          btnClass += "bg-red-50 border-red-400 text-red-700 animate-[shake_0.5s_ease-in-out]";
+                        }
+                      } else if (feedback === 'correct' && idx === currentQ.a) {
+                        btnClass += "bg-green-100 border-green-500 text-green-800";
+                      } else if (feedback === 'correct') {
+                         btnClass += "bg-white border-slate-100 text-slate-300 opacity-50";
+                      } else {
+                        btnClass += "bg-white border-slate-200 text-slate-600 hover:border-indigo-300 hover:shadow-md hover:bg-indigo-50 active:scale-95 cursor-pointer";
+                      }
+
+                      return (
+                        <button 
+                          key={idx}
+                          onClick={() => handleOptionClick(idx)}
+                          disabled={feedback === 'correct'}
+                          className={btnClass}
+                        >
+                          <span>{opt}</span>
+                          {selectedOption === idx && feedback === 'correct' && <i className="fa-solid fa-circle-check text-green-500 text-2xl ml-4 flex-shrink-0"></i>}
+                          {selectedOption === idx && feedback === 'incorrect' && <i className="fa-solid fa-circle-xmark text-red-500 text-2xl ml-4 flex-shrink-0"></i>}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {feedback === 'incorrect' && (
+                    <div className="mt-6 bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-xl flex items-start gap-4 animate-[fadeIn_0.3s_ease-in-out]">
+                      <i className="fa-solid fa-wand-magic-sparkles text-orange-500 text-xl flex-shrink-0 mt-1"></i>
+                      <p className="text-lg text-orange-800 font-medium">
+                        Not quite! Let's read the story one more time on the left to find the clue. You can do it!
+                      </p>
+                    </div>
                   )}
-                </div>
-                <div className="text-center font-bold">
-                  <span className="block text-xs uppercase text-gray-400 mb-1 font-black tracking-widest">Story {story.id}</span>
-                  <span className={`block leading-tight ${isUnlocked ? 'text-gray-800' : ''}`}>{story.title}</span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
+                  {feedback === 'correct' && (
+                    <div className="mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-r-xl flex items-start gap-4 animate-[fadeIn_0.3s_ease-in-out]">
+                      <i className="fa-solid fa-award text-green-600 text-xl flex-shrink-0 mt-1"></i>
+                      <p className="text-lg text-green-800 font-bold">
+                        Fantastic job! You found the right answer!
+                      </p>
+                    </div>
+                  )}
 
-  if (view === 'story' && currentStory) {
-    const currentQ = currentStory.questions[questionIndex];
-
-    return (
-      <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-        {/* Navbar */}
-        <div className="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-20">
-          <button onClick={goHome} className="flex items-center gap-2 text-indigo-600 font-bold hover:bg-indigo-50 px-4 py-2 rounded-xl transition-colors">
-            <Home className="w-5 h-5" /> Back to Map
-          </button>
-          <div className="flex gap-2">
-            {[...Array(currentStory.questions.length)].map((_, i) => (
-              <div 
-                key={i} 
-                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
-                  i < questionIndex ? 'bg-green-500 text-white shadow-md' :
-                  i === questionIndex ? 'bg-yellow-400 text-yellow-900 shadow-lg ring-4 ring-yellow-200 scale-110' :
-                  'bg-gray-200 text-gray-400'
-                }`}
-              >
-                {i + 1}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Split Layout */}
-        <div className="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full p-4 lg:p-8 gap-8">
-          
-          {/* Left Side: The Story */}
-          <div className="w-full lg:w-1/2 flex flex-col">
-            <div className="bg-white rounded-3xl shadow-xl border-t-8 border-indigo-400 p-8 flex-1 lg:sticky lg:top-28">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="bg-indigo-100 p-3 rounded-2xl">
-                  <BookOpen className="w-8 h-8 text-indigo-600" />
-                </div>
-                <h2 className="text-3xl font-black text-slate-800">{currentStory.title}</h2>
-              </div>
-              <p className="text-xl md:text-2xl leading-relaxed text-slate-700 font-medium bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
-                {currentStory.content}
-              </p>
             </div>
           </div>
+        );
+      }
 
-          {/* Right Side: The Question */}
-          <div className="w-full lg:w-1/2 flex flex-col">
-            <div className="bg-white rounded-3xl shadow-xl border-t-8 border-pink-400 p-8 flex-1">
-              <h3 className="text-sm font-black tracking-widest text-pink-500 uppercase mb-4">Question {questionIndex + 1} of {currentStory.questions.length}</h3>
-              <p className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 leading-snug">
-                {currentQ.q}
-              </p>
-
-              <div className="space-y-4">
-                {currentQ.options.map((opt, idx) => {
-                  let btnClass = "w-full text-left p-6 rounded-2xl border-4 text-xl font-semibold transition-all duration-200 flex items-center justify-between ";
-                  
-                  // Styling Logic based on state
-                  if (selectedOption === idx) {
-                    if (feedback === 'correct') {
-                      btnClass += "bg-green-100 border-green-500 text-green-800 shadow-lg scale-[1.02]";
-                    } else if (feedback === 'incorrect') {
-                      btnClass += "bg-red-50 border-red-400 text-red-700 animate-[shake_0.5s_ease-in-out]";
-                    }
-                  } else if (feedback === 'correct' && idx === currentQ.a) {
-                    // Highlight correct answer if they picked wrong but eventually get it right (not used here as they have to click it, but good practice)
-                    btnClass += "bg-green-100 border-green-500 text-green-800";
-                  } else if (feedback === 'correct') {
-                     // Fade out others when correct
-                     btnClass += "bg-white border-slate-100 text-slate-300 opacity-50";
-                  } else {
-                    // Default unselected state
-                    btnClass += "bg-white border-slate-200 text-slate-600 hover:border-indigo-300 hover:shadow-md hover:bg-indigo-50 active:scale-95 cursor-pointer";
-                  }
-
-                  return (
-                    <button 
-                      key={idx}
-                      onClick={() => handleOptionClick(idx)}
-                      disabled={feedback === 'correct'}
-                      className={btnClass}
-                    >
-                      <span>{opt}</span>
-                      {selectedOption === idx && feedback === 'correct' && <CheckCircle2 className="w-8 h-8 text-green-500 ml-4 flex-shrink-0" />}
-                      {selectedOption === idx && feedback === 'incorrect' && <XCircle className="w-8 h-8 text-red-500 ml-4 flex-shrink-0" />}
-                    </button>
-                  );
-                })}
+      if (view === 'result') {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 flex items-center justify-center p-4 font-sans text-center">
+            <Confetti />
+            <div className="bg-white/95 backdrop-blur-md rounded-[3rem] p-10 md:p-16 max-w-2xl w-full shadow-2xl relative border-8 border-white mt-16">
+              <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
+                <div className="bg-gradient-to-b from-yellow-300 to-yellow-500 w-32 h-32 rounded-full border-8 border-white flex items-center justify-center shadow-xl">
+                  <i className="fa-solid fa-star text-white text-5xl"></i>
+                </div>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-black text-slate-800 mt-12 mb-4">Story Complete!</h2>
+              <p className="text-2xl text-slate-600 mb-8 font-medium">You are an amazing reader!</p>
+              
+              <div className="bg-slate-100 rounded-3xl p-8 mb-8 inline-block shadow-inner">
+                <span className="block text-sm uppercase tracking-widest font-bold text-slate-400 mb-2">You earned</span>
+                <div className="text-5xl font-black text-green-500 flex items-center justify-center gap-2">
+                   +100 XP
+                </div>
               </div>
 
-              {/* Smart Feedback Message */}
-              {feedback === 'incorrect' && (
-                <div className="mt-6 bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-xl flex items-start gap-4 animate-[fadeIn_0.3s_ease-in-out]">
-                  <Sparkles className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />
-                  <p className="text-lg text-orange-800 font-medium">
-                    Not quite! Let's read the story one more time on the left to find the clue. You can do it!
-                  </p>
-                </div>
-              )}
-              {feedback === 'correct' && (
-                <div className="mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-r-xl flex items-start gap-4 animate-[bounce_0.5s_ease-in-out]">
-                  <Award className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                  <p className="text-lg text-green-800 font-bold">
-                    Fantastic job! You found the right answer!
-                  </p>
-                </div>
-              )}
-
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button 
+                  onClick={goHome}
+                  className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
+                >
+                  <i className="fa-solid fa-house"></i> Go to Map
+                </button>
+                {currentStoryId < storyData.length && (
+                  <button 
+                    onClick={() => openStory(currentStoryId + 1)}
+                    className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
+                  >
+                    Next Story <i className="fa-solid fa-chevron-right"></i>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <style>{`
-          @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-          }
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-        `}</style>
-      </div>
-    );
-  }
+        );
+      }
 
-  if (view === 'result') {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 flex items-center justify-center p-4 font-sans text-center">
-        <Confetti />
-        <div className="bg-white/95 backdrop-blur-md rounded-[3rem] p-10 md:p-16 max-w-2xl w-full shadow-2xl relative border-8 border-white">
-          <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
-            <div className="bg-gradient-to-b from-yellow-300 to-yellow-500 w-32 h-32 rounded-full border-8 border-white flex items-center justify-center shadow-xl">
-              <Star className="w-16 h-16 text-white fill-current" />
-            </div>
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl font-black text-slate-800 mt-12 mb-4">Story Complete!</h2>
-          <p className="text-2xl text-slate-600 mb-8 font-medium">You are an amazing reader!</p>
-          
-          <div className="bg-slate-100 rounded-3xl p-8 mb-8 inline-block shadow-inner">
-            <span className="block text-sm uppercase tracking-widest font-bold text-slate-400 mb-2">You earned</span>
-            <div className="text-5xl font-black text-green-500 flex items-center justify-center gap-2">
-               +100 XP
-            </div>
-          </div>
+      return null;
+    }
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={goHome}
-              className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
-            >
-              <Home className="w-6 h-6" /> Go to Map
-            </button>
-            {currentStoryId < storyData.length && (
-              <button 
-                onClick={() => openStory(currentStoryId + 1)}
-                className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
-              >
-                Next Story <ChevronRight className="w-6 h-6" />
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
-}
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
 
